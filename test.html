@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Text-Adventure simulation game!</title>
+</head>
+<script src="test.js"></script>
+<script src="codemirror-5.49.0/lib/codemirror.js"></script>
+<script src="codemirror-5.49.0/mode/javascript/javascript.js"></script>
+<link rel="stylesheet" type="text/css" href="test.css">
+<link rel="stylesheet" href="codemirror-5.49.0/lib/codemirror.css">
+<body>
+<h1 id="gameOver">GAME OVER</h1>
+<br/>
+<p class="statistics">Hunger: </p>
+<p id="hunger" class="statistics">20</p>
+<br/>
+<p class="statistics">Security: </p>
+<p id="security" class="statistics">3</p>
+<br/>
+<br/>
+<p class="statistics">Population: </p>
+<p id="population" class="statistics">1000</p>
+<br/>
+<p class="statistics">Military: </p>
+<p id="military" class="statistics">100</p>
+<br/>
+<p class="statistics">Science: </p>
+<p id="science" class="statistics">50</p>
+<br/>
+<br/>
+<p class="statistics">Food remaining: </p>
+<p id="foodLeft" class="statistics">5</p>
+<br/>
+<br/>
+<label for="commandPrompt"></label><textarea id="commandPrompt" onkeypress="startCommand(event)"></textarea>
+</body>
+</html>
