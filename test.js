@@ -1,10 +1,14 @@
 // test.js - sandbox for testing core functionality of text-based simulation
 
 // Timer for decreasing hunger
-var hungerTimer = setInterval('decreaseHunger()', 1000);
+//var hungerTimer = setInterval('decreaseHunger()', 1000);
 
 // Code Mirror - command prompt functionality
 var commandPrompt;
+var HUNGER = 20;
+var FOOD = 5;
+
+var gameTickUpdate;
 
 
 function init(){
@@ -19,10 +23,20 @@ function init(){
        Enter: function(cm){
            var line = commandPrompt.getLine(0);
            startCommand(line);
+           commandPrompt.setValue("");
+           commandPrompt.clearHistory();
        }
     });
+
+    gameTickUpdate = setInterval('update()', 1000);
 }
 
+function update(){
+    decreaseHunger();
+
+}
+
+/*
 // Decrease hunger
 function decreaseHunger() {
     var hungerVal = parseInt(document.getElementById("hunger").innerHTML);
@@ -34,6 +48,18 @@ function decreaseHunger() {
         clearInterval(hungerTimer);
         document.getElementById("gameOver").style.display = "inline";
     }
+}*/
+
+function decreaseHunger(){
+    HUNGER -= 1;
+    console.log(HUNGER);
+    document.getElementById("hunger").innerHTML = HUNGER;
+
+
+    if(HUNGER <= 0){
+        clearInterval(gameTickUpdate);
+        document.getElementById("gameOver").style.display = "inline";
+    }
 }
 
 // Function for doing command
@@ -42,11 +68,9 @@ function startCommand(event) {
 
     // Eat() command
     if(command === "Eat()") {
-        var foodLeft = parseInt(document.getElementById("foodLeft").innerHTML);
-        foodLeft -= 1;
-        document.getElementById("foodLeft").innerHTML = foodLeft.toString();
-        var hungerVal = parseInt(document.getElementById("hunger").innerHTML);
-        hungerVal += 5;
-        document.getElementById("hunger").innerHTML = hungerVal.toString();
+        FOOD -= 1;
+        document.getElementById("foodLeft").innerHTML = FOOD;
+        HUNGER += 5;
+        document.getElementById("hunger").innerHTML = HUNGER;
     }
 }
