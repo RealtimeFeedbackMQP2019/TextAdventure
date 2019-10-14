@@ -4,10 +4,24 @@
 var hungerTimer = setInterval('decreaseHunger()', 1000);
 
 // Code Mirror - command prompt functionality
-var commandPrompt = CodeMirror(document.getElementById("commandPrompt"), {
-    value: "Hello, world!",
-    mode: "javascript"
-});
+var commandPrompt;
+
+
+function init(){
+
+    commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
+        lineNumbers : true
+    });/*CodeMirror(document.getElementById("commandPrompt"), {
+        value: "Hello, world!",
+        mode: "javascript"
+    });*/
+    commandPrompt.setOption("extraKeys",{
+       Enter: function(cm){
+           var line = commandPrompt.getLine(0);
+           startCommand(line);
+       }
+    });
+}
 
 // Decrease hunger
 function decreaseHunger() {
@@ -24,17 +38,15 @@ function decreaseHunger() {
 
 // Function for doing command
 function startCommand(event) {
-    if(event.keyCode === 13) {
-        var command = commandPrompt.getValue();
+    var command = commandPrompt.getValue();
 
-        // Eat() command
-        if(command === "Eat()") {
-            var foodLeft = parseInt(document.getElementById("foodLeft").innerHTML);
-            foodLeft -= 1;
-            document.getElementById("foodLeft").innerHTML = foodLeft.toString();
-            var hungerVal = parseInt(document.getElementById("hunger").innerHTML);
-            hungerVal += 5;
-            document.getElementById("hunger").innerHTML = hungerVal.toString();
-        }
+    // Eat() command
+    if(command === "Eat()") {
+        var foodLeft = parseInt(document.getElementById("foodLeft").innerHTML);
+        foodLeft -= 1;
+        document.getElementById("foodLeft").innerHTML = foodLeft.toString();
+        var hungerVal = parseInt(document.getElementById("hunger").innerHTML);
+        hungerVal += 5;
+        document.getElementById("hunger").innerHTML = hungerVal.toString();
     }
 }
