@@ -5,8 +5,15 @@
 
 // Code Mirror - command prompt functionality
 var commandPrompt;
-var HUNGER = 20;
-var FOOD = 5;
+//var HUNGER = 20;
+//var FOOD = 5;
+
+var Values = {
+    HUNGER: 20,
+    FOOD: 5
+};
+
+var commands = ["eat", "raiseSecurity", "execute"];
 
 var gameTickUpdate;
 
@@ -51,12 +58,11 @@ function decreaseHunger() {
 }*/
 
 function decreaseHunger(){
-    HUNGER -= 1;
-    console.log(HUNGER);
-    document.getElementById("hunger").innerHTML = HUNGER;
+    Values.HUNGER -= 1;
+    document.getElementById("hunger").innerHTML = Values.HUNGER;
 
 
-    if(HUNGER <= 0){
+    if(Values.HUNGER <= 0){
         clearInterval(gameTickUpdate);
         document.getElementById("gameOver").style.display = "inline";
     }
@@ -68,9 +74,26 @@ function startCommand(event) {
 
     // Eat() command
     if(command === "Eat()") {
-        FOOD -= 1;
-        document.getElementById("foodLeft").innerHTML = FOOD;
-        HUNGER += 5;
-        document.getElementById("hunger").innerHTML = HUNGER;
+        //FOOD -= 1;
+        Values.FOOD -= 1;
+        document.getElementById("foodLeft").innerHTML = Values.FOOD;
+        Values.HUNGER += 5;
+        document.getElementById("hunger").innerHTML = Values.HUNGER;
+    }
+}
+
+function matchCommand(command){
+    var actual = command.toLowerCase();
+    var lbpos = command.indexOf("(");
+    var arg = actual.substr(lbpos, actual.length-1);
+    actual = actual.substr(0, lbpos);
+    //Break the command into the command body and argument.
+    console.log(arg);
+    console.log(actual);
+    for(var s of commands){
+        //Do regex, or just direct comparison.
+        if(command === s){
+            //Process command?
+        }
     }
 }
