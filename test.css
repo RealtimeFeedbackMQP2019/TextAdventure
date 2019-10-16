@@ -5,3 +5,7 @@
 .statistics {
     display: inline-block;
 }
+
+#commandPrompt {
+    border: 1px solid black;
+}
