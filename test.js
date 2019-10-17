@@ -114,18 +114,34 @@ function startCommand(event) {
 function matchCommand(command){
     var actual = command.toLowerCase();
     var lbpos = command.indexOf("(");
-    var arg = actual.substr(lbpos, actual.length-1);
+    var argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
     actual = actual.substr(0, lbpos);
 
+    var arguments = argString.split(/\s*,{1}\s*/);
+
+    //arg = arg.substr(1, arg.length - 2)
+
     //Break the command into the command body and argument.
-    console.log(arg);
-    console.log(actual);
-    for(var s of commands){
+    console.log(arguments);
+    switch(actual){
+        case "eat":
+            Values.FOOD -= 1;
+            document.getElementById("foodLeft").innerHTML = Values.FOOD;
+            Values.HUNGER += 5;
+            document.getElementById("hunger").innerHTML = Values.HUNGER;
+            break;
+        case "raisesecurity":
+            if(Values.SECURITY < 5){
+                Values.SECURITY += 1;
+                document.getElementById("security").innerHTML = Values.SECURITY;
+            }
+            break;
+        case "execute":
+            //This one takes in 1 parameter, i think
 
-        //Do regex, or just direct comparison.
-        if(command === s){
+            //var res = reg.test(arg);
+            //console.log(res);
 
-            //Process command?
-        }
+
     }
 }
