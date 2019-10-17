@@ -138,10 +138,7 @@ function matchCommand(command){
             break;
         case "execute":
             //This one takes in 1 parameter, i think
-
-            //var res = reg.test(arg);
-            //console.log(res);
-
-
+            //Something something something....
+            
     }
 }
