@@ -13,9 +13,6 @@ var Values = {
     SCIENCE: 50
 };
 
-// Commands to choose from
-var commands = ["eat", "raiseSecurity", "execute"];
-
 // Timer to update game - called with eack tick
 var gameTickUpdate;
 
@@ -28,7 +25,7 @@ function init(){
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
            var line = commandPrompt.getLine(0);
-           startCommand(line);
+           matchCommand(line);
            commandPrompt.setValue("");
            commandPrompt.clearHistory();
        }
@@ -94,51 +91,62 @@ function decreaseScience(numDecrease){
     document.getElementById("science").innerHTML = Values.SCIENCE;
 }
 
-// Function for doing command
-function startCommand(event) {
+var responded = false;
+
+// Function for executing command
+function matchCommand(){
+
     var command = commandPrompt.getValue();
-
-    // Eat() command
-    if(command === "Eat()" && Values.FOOD > 0) {
-        Values.FOOD -= 1;
-        document.getElementById("foodLeft").innerHTML = Values.FOOD;
-        Values.HUNGER += 5;
-        document.getElementById("hunger").innerHTML = Values.HUNGER;
-    }
-    else if(command === "RaiseSecurity()" && Values.SECURITY < 5)  {
-        Values.SECURITY += 1;
-        document.getElementById("security").innerHTML = Values.SECURITY;
-    }
-}
-
-function matchCommand(command){
     var actual = command.toLowerCase();
     var lbpos = command.indexOf("(");
     var argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
+
+    // Actual command name
     actual = actual.substr(0, lbpos);
 
+    // Arguments of choose() command
     var arguments = argString.split(/\s*,{1}\s*/);
 
-    //arg = arg.substr(1, arg.length - 2)
-
-    //Break the command into the command body and argument.
-    console.log(arguments);
+    // Break the command into the command body and argument.
     switch(actual){
+
+        // Eat() command
         case "eat":
             Values.FOOD -= 1;
             document.getElementById("foodLeft").innerHTML = Values.FOOD;
             Values.HUNGER += 5;
             document.getElementById("hunger").innerHTML = Values.HUNGER;
             break;
+
+        // RaiseSecurity() command
         case "raisesecurity":
             if(Values.SECURITY < 5){
                 Values.SECURITY += 1;
                 document.getElementById("security").innerHTML = Values.SECURITY;
             }
             break;
-        case "execute":
-            //This one takes in 1 parameter, i think
-            //Something something something....
-            
+
+        // Choose() command with parameters
+        case "choose":
+            console.log(arguments);
+            console.log(typeof arguments);
+            if(!responded) {
+                switch (arguments.shift()) {
+                    case "1":
+                        responded = true;
+                        Values.MILITARY -= 5;
+                        document.getElementById("military").innerHTML = Values.MILITARY;
+                        document.getElementById("textPrompt").style.display = "none";
+                        break;
+                    case "2":
+                        responded = true;
+                        Values.POPULATION -= 30;
+                        document.getElementById("population").innerHTML = Values.POPULATION;
+                        Values.SCIENCE += 10;
+                        document.getElementById("science").innerHTML = Values.SCIENCE;
+                        document.getElementById("textPrompt").style.display = "none";
+                        break;
+                }
+            }
     }
 }

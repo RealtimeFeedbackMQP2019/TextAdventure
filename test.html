@@ -12,6 +12,11 @@
 <body onload="init()">
     <h1 id="gameOver">GAME OVER</h1>
     <br/>
+    <div id="textPrompt">
+        <p>Godzilla is attacking the city! Choose:</p>
+        <p>1 - Send out the troops General!</p>
+        <p>2 - He's just a cute little boy, don't hurt him! :(</p>
+    </div>
     <p class="statistics">Hunger: </p>
     <p id="hunger" class="statistics">20</p>
     <br/>
@@ -33,6 +38,6 @@
     <p id="foodLeft" class="statistics">5</p>
     <br/>
     <br/>
-    <label for="commandPrompt"></label><textarea id="commandPrompt" onkeypress="startCommand(event)"></textarea>
+    <label for="commandPrompt"></label><textarea id="commandPrompt" onkeypress="matchCommand()"></textarea>
 </body>
 </html>
