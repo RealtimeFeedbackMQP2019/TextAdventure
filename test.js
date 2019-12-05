@@ -3,28 +3,6 @@
 // Code Mirror - command prompt functionality
 var commandPrompt;
 
-// Stats and other values to keep track of
-var Values = {
-    HUNGER: 20,
-    FOOD: 5,
-    SECURITY: 3,
-    POPULATION: 1000,
-    MILITARY: 100,
-    SCIENCE: 50
-};
-
-const MAX = {
-    HUNGER: 40,
-    FOOD: 20,
-    SECURITY: 5,
-    POPULATION: 1000,
-    MILITARY: 100,
-    SCIENCE: 50
-};
-
-//TODO: PLEASE MAP THIS VALUE TO THE DECREASE VALUE FUNCTIONS INSTEAD
-//TODO: BECASUE VISUALIZING THINGS CAN BE EASIER THIS WAY,
-//TODO: AND WE CAN EASILY ADD IN OR REMOVE VALUES FROM THIS LIST.
 
 var GAMEVALS = new Map();
 var MAXVALS = new Map(); //Used for visualizing things.
@@ -76,17 +54,17 @@ function init(){
 
 // Update the game state - called at each game tick
 function update(){
-    if(Values.POPULATION <= 0) decreaseHunger(2);
-    else if (Values.SCIENCE <= 0 && Values.MILITARY > 0) {
+    if(GAMEVALS.get("Population") <= 0) decreaseHunger(2);
+    else if (GAMEVALS.get("Science") <= 0 && GAMEVALS.get("Military") > 0) {
         decreaseMilitary(10);
         decreasePopulation(75);
         decreaseHunger(1);
     }
-    else if (Values.MILITARY <= 0 && Values.SCIENCE > 0) {
+    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") > 0) {
         decreasePopulation(75);
         decreaseHunger(1);
     }
-    else if (Values.MILITARY <= 0 && Values.SCIENCE <= 0) {
+    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") <= 0) {
         decreasePopulation(100);
         decreaseHunger(1);
     }
@@ -96,11 +74,11 @@ function update(){
         decreaseMilitary(5);
         decreaseScience(5);
     }
-    updateVariables();
+    updateDisplayVariables();
 }
 
 
-function updateVariables(){
+function updateDisplayVariables(){
     for(var x of LIST_OF_VALS){
         document.getElementById(x).innerHTML = GAMEVALS.get(x);
     }
@@ -136,7 +114,13 @@ function decreaseScience(numDecrease){
 }
 
 function addToValue(key, value){
-    GAMEVALS.set(key, GAMEVALS.get(key) + value);
+    if(GAMEVALS.get(key) + value < 0){
+        GAMEVALS.set(key, 0);
+    }
+    else{
+        GAMEVALS.set(key, GAMEVALS.get(key) + value);
+    }
+
 }
 
 
@@ -161,17 +145,14 @@ function matchCommand(){
 
         // Eat() command
         case "eat":
-            Values.FOOD -= 1;
-            document.getElementById("foodLeft").innerHTML = Values.FOOD;
-            Values.HUNGER += 5;
-            document.getElementById("hunger").innerHTML = Values.HUNGER;
+            addToValue("Food", -1);
+            addToValue("Hunger", 5);
             break;
 
         // RaiseSecurity() command
         case "raisesecurity":
-            if(Values.SECURITY < 5){
-                Values.SECURITY += 1;
-                document.getElementById("security").innerHTML = Values.SECURITY;
+            if(GAMEVALS.get("Security") < 5){
+                addToValue("Security", 1);
             }
             break;
 
@@ -183,19 +164,15 @@ function matchCommand(){
                 switch (arguments.shift()) {
                     case "1":
                         responded = true;
-                        Values.MILITARY -= 5;
-                        document.getElementById("military").innerHTML = Values.MILITARY;
-                        document.getElementById("textPrompt").style.display = "none";
+                        addToValue("Military", -5);
                         break;
                     case "2":
                         responded = true;
-                        Values.POPULATION -= 30;
-                        document.getElementById("population").innerHTML = Values.POPULATION;
-                        Values.SCIENCE += 10;
-                        document.getElementById("science").innerHTML = Values.SCIENCE;
-                        document.getElementById("textPrompt").style.display = "none";
+                        addToValue("Population", -30);
+                        addToValue("Science", 10);
                         break;
                 }
             }
     }
+    updateDisplayVariables();
 }
