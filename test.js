@@ -13,6 +13,18 @@ var Values = {
     SCIENCE: 50
 };
 
+const MAX = {
+    HUNGER: 40,
+    FOOD: 20,
+    SECURITY: 5,
+    POPULATION: 1000,
+    MILITARY: 100,
+    SCIENCE: 50
+};
+
+
+
+
 // Timer to update game - called with eack tick
 var gameTickUpdate;
 
@@ -30,8 +42,7 @@ function init(){
            commandPrompt.clearHistory();
        }
     });
-    commandPrompt.
-
+    visInit();
     gameTickUpdate = setInterval('update()', 1000);
 }
 
