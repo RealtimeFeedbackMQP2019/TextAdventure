@@ -29,6 +29,8 @@ const MAX = {
 var GAMEVALS = new Map();
 var MAXVALS = new Map(); //Used for visualizing things.
 
+var LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
+
 function initVariables(){
     GAMEVALS.set("Hunger", 20);
     GAMEVALS.set("Food", 5);
@@ -55,6 +57,7 @@ var gameTickUpdate;
 function init(){
 
     initVariables();
+    visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
@@ -67,7 +70,7 @@ function init(){
            commandPrompt.clearHistory();
        }
     });
-    visInit();
+
     gameTickUpdate = setInterval('update()', 1000);
 }
 
@@ -93,39 +96,49 @@ function update(){
         decreaseMilitary(5);
         decreaseScience(5);
     }
+    updateVariables();
+}
+
+
+function updateVariables(){
+    for(var x of LIST_OF_VALS){
+        document.getElementById(x).innerHTML = GAMEVALS.get(x);
+    }
 }
 
 // Decrease hunger
 function decreaseHunger(numDecrease){
 
     // If Hunger reaches 0, trigger Game Over
-    if(Values.HUNGER <= 0){
+    if(GAMEVALS.get("Hunger") <= 0){
         clearInterval(gameTickUpdate);
         document.getElementById("gameOver").style.display = "inline";
         // Somehow disable commands from being entered
     } else {
-        Values.HUNGER -= numDecrease;
-        document.getElementById("hunger").innerHTML = Values.HUNGER;
+        //Values.HUNGER -= numDecrease;
+        addToValue("Hunger", -numDecrease);
     }
 }
 
 // Decrease population
 function decreasePopulation(numDecrease){
-    Values.POPULATION -= numDecrease;
-    document.getElementById("population").innerHTML = Values.POPULATION;
+    addToValue("Population", -numDecrease);
 }
 
 // Decrease military
 function decreaseMilitary(numDecrease){
-    Values.MILITARY -= numDecrease;
-    document.getElementById("military").innerHTML = Values.MILITARY;
+    addToValue("Military", -numDecrease);
 }
 
 // Decrease science
 function decreaseScience(numDecrease){
-    Values.SCIENCE -= numDecrease;
-    document.getElementById("science").innerHTML = Values.SCIENCE;
+    addToValue("Science", -numDecrease);
 }
+
+function addToValue(key, value){
+    GAMEVALS.set(key, GAMEVALS.get(key) + value);
+}
+
 
 var responded = false;
 
