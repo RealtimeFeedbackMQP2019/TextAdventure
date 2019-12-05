@@ -20,10 +20,19 @@ function renderVIS(){
 
     //Let's draw some of the values:
     //Let's start with hunger.
-    var height = BAR_MAX_HEIGHT * (Values.HUNGER / MAX.HUNGER);
-    ctx.fillStyle = "rgba(255,127,0,1.0)";
-    ctx.strokeStyle = "rgba(1,1,1,0)";
-    ctx.fillRect(BAR_DIST, 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
+
+    var index = 0;
+
+    for(var x of LIST_OF_VALS){
+        var height = BAR_MAX_HEIGHT * (GAMEVALS.get(x) / MAXVALS.get(x));
+        ctx.fillStyle = "rgba(255,127,0,1.0)";
+        ctx.strokeStyle = "rgba(1,1,1,0)";
+        ctx.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
+        index += 1;
+    }
+
+
+
 
 
 
