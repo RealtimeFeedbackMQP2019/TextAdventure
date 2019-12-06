@@ -31,17 +31,22 @@ function visInit(){
 
     //ctx.fillStyle = "#FF0000";
     //ctx.fillRect(0, 0, 80, 80);
-    renderVIS();
+    //renderVIS();
+    render1Vis("Hunger")
 }
 
-function renderVIS(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-
-    //Let's draw some of the values:
-    //Let's start with hunger.
+function interpAllValues(){
     for(var x of INTERPVAL.keys()){
         INTERPVAL.set(x, INTERPVAL.get(x) - (INTERPVAL.get(x) - GAMEVALS.get(x)) * INTERPSPEED);
     }
+}
+
+function renderVIS(){
+    interpAllValues();
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+
+
+
 
 
 
@@ -55,12 +60,26 @@ function renderVIS(){
         index += 1;
     }
 
-
-
-
-
-
-
-    window.requestAnimationFrame(renderVIS)
+    window.requestAnimationFrame(renderVIS);
 }
 
+function render1Vis(visname){
+
+    interpAllValues();
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+
+    var anchorU = (canvas.height - BAR_MAX_HEIGHT/2) / 2;
+    var anchorL = BAR_DIST;
+
+    var MW = canvas.width - BAR_DIST * 2;
+
+    var width = MW * (INTERPVAL.get(visname) / MAXVALS.get(visname));
+    ctx.fillStyle = VISCOL.get(visname);
+    ctx.strokeStyle = "rgba(1,1,1,0)";
+    ctx.fillRect(anchorL, anchorU, width, BAR_MAX_HEIGHT/2);
+
+
+    window.requestAnimationFrame(function(){
+        render1Vis(visname);
+    });
+}
