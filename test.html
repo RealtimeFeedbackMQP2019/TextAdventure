@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <title>Welcome to the Text-Adventure simulation game!</title>
 </head>
-<script src="visualizer.js"></script>
-<script src="test.js"></script>
+<script src="src/gamedata.js"></script>
+<script src="src/visualizer.js"></script>
+<script src="src/test.js"></script>
 
-<script src="codemirror-5.49.0/lib/codemirror.js"></script>
-<script src="codemirror-5.49.0/mode/javascript/javascript.js"></script>
-<!--script src="vega-5.7.3/docs/vega.min.js"></script-->
+<script src="Libraries/codemirror.js"></script>
+<link rel="stylesheet" href="Libraries/codemirror.css">
+
+
 <link rel="stylesheet" type="text/css" href="test.css">
-<link rel="stylesheet" href="codemirror-5.49.0/lib/codemirror.css">
+
 <body onload="init()">
     <canvas id="visCTX" width="350" height="150"></canvas>
     <h1 id="gameOver">GAME OVER</h1>
