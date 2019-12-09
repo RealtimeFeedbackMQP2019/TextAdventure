@@ -1,13 +1,7 @@
-// test.js - sandbox for testing core functionality of text-based simulation
+// game-core.js - sandbox for testing core functionality of text-based simulation
 
 // Code Mirror - command prompt functionality
 var commandPrompt;
-
-
-
-
-
-
 
 // Timer to update game - called with eack tick
 var gameTickUpdate;
@@ -55,35 +49,6 @@ function update(){
         subtractFromValue("Military", 5);
         subtractFromValue("Science", 5);
     }
-}
-
-function checkGameStatus(){
-    if(GAMEVALS.get("Hunger") <= 0){
-        clearInterval(gameTickUpdate);
-        document.getElementById("gameOver").style.display = "inline";
-        // Somehow disable commands from being entered
-    }
-}
-
-function updateDisplayVariables(){
-    for(var x of LIST_OF_VALS){
-        document.getElementById(x).innerHTML = GAMEVALS.get(x);
-    }
-}
-
-function addToValue(key, value){
-    if(GAMEVALS.get(key) + value < 0){
-        GAMEVALS.set(key, 0);
-    }
-    else{
-        GAMEVALS.set(key, GAMEVALS.get(key) + value);
-    }
-    updateDisplayVariables();
-    checkGameStatus();
-}
-
-function subtractFromValue(key, value){
-    addToValue(key, -value);
 }
 
 

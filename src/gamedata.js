@@ -18,3 +18,32 @@ function initVariables(){
     MAXVALS.set("Military", 100);
     MAXVALS.set("Science", 50);
 }
+
+function addToValue(key, value){
+    if(GAMEVALS.get(key) + value < 0){
+        GAMEVALS.set(key, 0);
+    }
+    else{
+        GAMEVALS.set(key, GAMEVALS.get(key) + value);
+    }
+    updateDisplayVariables();
+    checkGameStatus();
+}
+
+function subtractFromValue(key, value){
+    addToValue(key, -value);
+}
+
+function checkGameStatus(){
+    if(GAMEVALS.get("Hunger") <= 0){
+        clearInterval(gameTickUpdate);
+        document.getElementById("gameOver").style.display = "inline";
+        // Somehow disable commands from being entered
+    }
+}
+
+function updateDisplayVariables(){
+    for(var x of LIST_OF_VALS){
+        document.getElementById(x).innerHTML = GAMEVALS.get(x);
+    }
+}
