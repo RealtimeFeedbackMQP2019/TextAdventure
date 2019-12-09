@@ -54,63 +54,40 @@ function init(){
 
 // Update the game state - called at each game tick
 function update(){
-    if(GAMEVALS.get("Population") <= 0) decreaseHunger(2);
+    if(GAMEVALS.get("Population") <= 0) subtractFromValue("Hunger", 2);
     else if (GAMEVALS.get("Science") <= 0 && GAMEVALS.get("Military") > 0) {
-        decreaseMilitary(10);
-        decreasePopulation(75);
-        decreaseHunger(1);
+        subtractFromValue("Military", 10);
+        subtractFromValue("Population", 3);
+        subtractFromValue("Hunger", 1);
     }
     else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") > 0) {
-        decreasePopulation(75);
-        decreaseHunger(1);
+        subtractFromValue("Population", 3);
+        subtractFromValue("Hunger", 1);
     }
     else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") <= 0) {
-        decreasePopulation(100);
-        decreaseHunger(1);
+        subtractFromValue("Population", 4);
+        subtractFromValue("Hunger", 1);
     }
     else {
-        decreaseHunger(1);
-        decreasePopulation(50);
-        decreaseMilitary(5);
-        decreaseScience(5);
+        subtractFromValue("Hunger", 1);
+        subtractFromValue("Population", 2);
+        subtractFromValue("Military", 5);
+        subtractFromValue("Science", 5);
     }
-    updateDisplayVariables();
 }
 
+function checkGameStatus(){
+    if(GAMEVALS.get("Hunger") <= 0){
+        clearInterval(gameTickUpdate);
+        document.getElementById("gameOver").style.display = "inline";
+        // Somehow disable commands from being entered
+    }
+}
 
 function updateDisplayVariables(){
     for(var x of LIST_OF_VALS){
         document.getElementById(x).innerHTML = GAMEVALS.get(x);
     }
-}
-
-// Decrease hunger
-function decreaseHunger(numDecrease){
-
-    // If Hunger reaches 0, trigger Game Over
-    if(GAMEVALS.get("Hunger") <= 0){
-        clearInterval(gameTickUpdate);
-        document.getElementById("gameOver").style.display = "inline";
-        // Somehow disable commands from being entered
-    } else {
-        //Values.HUNGER -= numDecrease;
-        addToValue("Hunger", -numDecrease);
-    }
-}
-
-// Decrease population
-function decreasePopulation(numDecrease){
-    addToValue("Population", -numDecrease);
-}
-
-// Decrease military
-function decreaseMilitary(numDecrease){
-    addToValue("Military", -numDecrease);
-}
-
-// Decrease science
-function decreaseScience(numDecrease){
-    addToValue("Science", -numDecrease);
 }
 
 function addToValue(key, value){
@@ -120,7 +97,12 @@ function addToValue(key, value){
     else{
         GAMEVALS.set(key, GAMEVALS.get(key) + value);
     }
+    updateDisplayVariables();
+    checkGameStatus();
+}
 
+function subtractFromValue(key, value){
+    addToValue(key, -value);
 }
 
 
@@ -145,7 +127,7 @@ function matchCommand(){
 
         // Eat() command
         case "eat":
-            addToValue("Food", -1);
+            subtractFromValue("Food", 1);
             addToValue("Hunger", 5);
             break;
 
@@ -164,15 +146,14 @@ function matchCommand(){
                 switch (arguments.shift()) {
                     case "1":
                         responded = true;
-                        addToValue("Military", -5);
+                        subtractFromValue("Military", 5);
                         break;
                     case "2":
                         responded = true;
-                        addToValue("Population", -30);
+                        subtractFromValue("Population", 30);
                         addToValue("Science", 10);
                         break;
                 }
             }
     }
-    updateDisplayVariables();
 }

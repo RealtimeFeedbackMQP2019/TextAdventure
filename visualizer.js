@@ -9,7 +9,7 @@ const BAR_DIST = 10;
 var VISCOL = new Map();
 var INTERPVAL = new Map();
 
-const INTERPSPEED = 0.2;
+const INTERPSPEED = 0.1;
 
 
 function visInit(){
@@ -31,8 +31,8 @@ function visInit(){
 
     //ctx.fillStyle = "#FF0000";
     //ctx.fillRect(0, 0, 80, 80);
-    //renderVIS();
-    render1Vis("Hunger")
+    renderVIS();
+    //render1Vis("Hunger")
 }
 
 function interpAllValues(){
@@ -58,6 +58,13 @@ function renderVIS(){
         ctx.strokeStyle = "rgba(1,1,1,0)";
         ctx.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
         index += 1;
+    }
+
+    //Draw the tick lines
+
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    for(var i = 0; i < 5; i++){
+        ctx.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
 
     window.requestAnimationFrame(renderVIS);
