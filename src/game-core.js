@@ -1,10 +1,14 @@
 // game-core.js - sandbox for testing core functionality of text-based simulation
 
 // Code Mirror - command prompt functionality
-var commandPrompt;
+let commandPrompt;
 
 // Timer to update game - called with eack tick
-var gameTickUpdate;
+let gameTickUpdate;
+
+// Keep track of current age and prompt
+let currAge;
+let currPrompt;
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -17,7 +21,7 @@ function init(){
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
-           var line = commandPrompt.getLine(0);
+           let line = commandPrompt.getLine(0);
            matchCommand(line);
            commandPrompt.setValue("");
            commandPrompt.clearHistory();
@@ -25,6 +29,13 @@ function init(){
     });
 
     gameTickUpdate = setInterval('update()', 1000);
+
+    // Set current age to Stone Age and prompt to Stone Age 1
+    currAge = prompts.StoneAge;
+    currPrompt = prompts.StoneAge.StoneAge1;
+
+    // Display first prompt
+    document.getElementById("prompt").innerHTML = prompts.StoneAge.StoneAge1.Prompt;
 }
 
 // Update the game state - called at each game tick
@@ -57,16 +68,16 @@ var responded = false;
 // Function for executing command
 function matchCommand(){
 
-    var command = commandPrompt.getValue();
-    var actual = command.toLowerCase();
-    var lbpos = command.indexOf("(");
-    var argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
+    let command = commandPrompt.getValue();
+    let actual = command.toLowerCase();
+    let lbpos = command.indexOf("(");
+    let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
 
     // Actual command name
     actual = actual.substr(0, lbpos);
 
     // Arguments of choose() command
-    var arguments = argString.split(/\s*,{1}\s*/);
+    let arguments = argString.split(/\s*,{1}\s*/);
 
     // Break the command into the command body and argument.
     switch(actual){
@@ -88,18 +99,44 @@ function matchCommand(){
         case "choose":
             console.log(arguments);
             console.log(typeof arguments);
+            let nextPrompt = {};
             if(!responded) {
                 switch (arguments.shift()) {
                     case "1":
                         responded = true;
                         subtractFromValue("Military", 5);
+                        nextPrompt = getNextPrompt();
+                        document.getElementById("prompt").innerHTML = nextPrompt.Prompt;
                         break;
                     case "2":
                         responded = true;
                         subtractFromValue("Population", 30);
                         addToValue("Science", 10);
+                        nextPrompt = getNextPrompt();
+                        document.getElementById("prompt").innerHTML = nextPrompt.Prompt;
                         break;
                 }
             }
     }
+}
+
+// Function for switching to next prompt
+function getNextPrompt() {
+    let nextPrompt = {};
+    let found = false;
+    let prompts = Object.keys(currAge);
+    for(let i = 0; i < prompts.length; i++) {
+        if(found) {
+            nextPrompt = currAge[prompts[i]];
+            found = false;
+            break;
+
+        }
+        if(currAge[prompts[i]] === currPrompt) {
+            found = true;
+        }
+    }
+
+    return nextPrompt;
+
 }

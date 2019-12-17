@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Welcome to the Text-Adventure simulation game!</title>
 </head>
+<script src="src/prompts.js"></script>
 <script src="src/gamedata.js"></script>
 <script src="src/visualizer.js"></script>
 <script src="src/game-core.js"></script>
@@ -18,10 +19,10 @@
     <canvas id="visCTX" width="350" height="150"></canvas>
     <h1 id="gameOver">GAME OVER</h1>
     <br/>
-    <div id="textPrompt">
-        <p>Godzilla is attacking the city! Choose:</p>
-        <p>1 - Send out the troops General!</p>
-        <p>2 - He's just a cute little boy, don't hurt him! :(</p>
+    <div id="textPromptBox">
+        <p id="prompt">prompts.StoneAge.StoneAge1.Prompt</p>
+        <!--<p>1 - Send out the troops General!</p>
+        <p>2 - He's just a cute little boy, don't hurt him! :(</p>-->
     </div>
     <p class="statistics">Hunger: </p>
     <p id="Hunger" class="statistics">20</p>
