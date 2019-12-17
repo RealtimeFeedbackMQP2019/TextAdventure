@@ -41,7 +41,24 @@ const prompts = {
             }
         },
         "StoneAge3": {
-
+            "Prompt": "A group of cave man came to your community to seek shelter. They said that their shelter are" +
+                " stomped down by a T-rex.\n" +
+                "1) Welcome them with food, water and shelter\n" +
+                "2) Cook caveman, yum yum yum.\n",
+            "Choice1": {
+                "Food": 0,
+                "Security": 0,
+                "Population": 100,
+                "Military": 30,
+                "Science": 0
+            },
+            "Choice2": {
+                "Food": 5,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 10
+            }
         },
         "StoneAge4": {
 

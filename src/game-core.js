@@ -63,7 +63,7 @@ function update(){
 }
 
 
-var responded = false;
+//var responded = false;
 
 // Function for executing command
 function matchCommand(){
@@ -99,24 +99,22 @@ function matchCommand(){
         case "choose":
             console.log(arguments);
             console.log(typeof arguments);
-            let nextPrompt = {};
-            if(!responded) {
+            //if(!responded) {
                 switch (arguments.shift()) {
                     case "1":
-                        responded = true;
-                        subtractFromValue("Military", 5);
-                        nextPrompt = getNextPrompt();
-                        document.getElementById("prompt").innerHTML = nextPrompt.Prompt;
+                        //responded = true;
+                        changeStats(currPrompt.Choice1);
+                        currPrompt = getNextPrompt();
+                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         break;
                     case "2":
-                        responded = true;
-                        subtractFromValue("Population", 30);
-                        addToValue("Science", 10);
-                        nextPrompt = getNextPrompt();
-                        document.getElementById("prompt").innerHTML = nextPrompt.Prompt;
+                        //responded = true;
+                        changeStats(currPrompt.Choice2);
+                        currPrompt = getNextPrompt();
+                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         break;
                 }
-            }
+            //}
     }
 }
 
@@ -135,8 +133,18 @@ function getNextPrompt() {
         if(currAge[prompts[i]] === currPrompt) {
             found = true;
         }
+
     }
 
     return nextPrompt;
 
+}
+
+// Function for changing values base on choice
+function changeStats(choice) {
+    addToValue("Food", choice.Food);
+    addToValue("Security", choice.Security);
+    addToValue("Population", choice.Population);
+    addToValue("Military", choice.Military);
+    addToValue("Science", choice.Science);
 }
