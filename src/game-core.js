@@ -6,8 +6,7 @@ let commandPrompt;
 // Timer to update game - called with eack tick
 let gameTickUpdate;
 
-// Keep track of current age and prompt
-let currAge;
+// Keep track of current prompt
 let currPrompt;
 
 // Initialize commandPrompt and game ticks
@@ -30,12 +29,11 @@ function init(){
 
     gameTickUpdate = setInterval('update()', 1000);
 
-    // Set current age to Stone Age and prompt to Stone Age 1
-    currAge = prompts.StoneAge;
-    currPrompt = prompts.StoneAge.StoneAge1;
+    // Set current prompt to Stone Age 1
+    currPrompt = prompts.StoneAge1;
 
     // Display first prompt
-    document.getElementById("prompt").innerHTML = prompts.StoneAge.StoneAge1.Prompt;
+    document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
 }
 
 // Update the game state - called at each game tick
@@ -104,13 +102,13 @@ function matchCommand(){
                     case "1":
                         //responded = true;
                         changeStats(currPrompt.Choice1);
-                        currPrompt = getNextPrompt();
+                        getNextPrompt();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         break;
                     case "2":
                         //responded = true;
                         changeStats(currPrompt.Choice2);
-                        currPrompt = getNextPrompt();
+                        getNextPrompt();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         break;
                 }
@@ -120,23 +118,9 @@ function matchCommand(){
 
 // Function for switching to next prompt
 function getNextPrompt() {
-    let nextPrompt = {};
-    let found = false;
-    let prompts = Object.keys(currAge);
-    for(let i = 0; i < prompts.length; i++) {
-        if(found) {
-            nextPrompt = currAge[prompts[i]];
-            found = false;
-            break;
 
-        }
-        if(currAge[prompts[i]] === currPrompt) {
-            found = true;
-        }
-
-    }
-
-    return nextPrompt;
+    let nextPrompt = currPrompt.NextPrompt;
+    currPrompt = prompts[nextPrompt];
 
 }
 
