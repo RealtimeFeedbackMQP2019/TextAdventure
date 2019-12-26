@@ -103,12 +103,17 @@ function matchCommand(){
                         //responded = true;
                         changeStats(currPrompt.Choice1);
                         getNextPrompt();
+                        checkGameStatus();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+
+
+
                         break;
                     case "2":
                         //responded = true;
                         changeStats(currPrompt.Choice2);
                         getNextPrompt();
+                        checkGameStatus();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         break;
                 }

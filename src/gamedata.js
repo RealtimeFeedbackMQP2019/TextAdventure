@@ -35,10 +35,20 @@ function subtractFromValue(key, value){
 }
 
 function checkGameStatus(){
+
+    // Check for game loss condition
     if(GAMEVALS.get("Hunger") <= 0){
         clearInterval(gameTickUpdate);
+        document.getElementById("gameOver").innerHTML = "GAME OVER";
         document.getElementById("gameOver").style.display = "inline";
         // Somehow disable commands from being entered
+    }
+
+    // Check for game win condition
+    if(currPrompt === "CONGRATS, YOU WON!") {
+        clearInterval(gameTickUpdate);
+        document.getElementById("gameOver").innerHTML = "YOU'RE WINNER";
+        document.getElementById("gameOver").style.display = "inline";
     }
 }
 
