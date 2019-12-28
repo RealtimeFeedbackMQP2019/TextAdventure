@@ -14,3 +14,7 @@
     border: 1px solid  black;
     height: 100px;
 }
+
+#textEditorBox {
+    width: 100%;
+}

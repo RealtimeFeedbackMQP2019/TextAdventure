@@ -4,7 +4,7 @@ const prompts = {
         "StoneAge1": {
             "Prompt": "On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow" +
                 " substance seems to be consuming nearby trees.\n 1) Try to reason with to the orange.\n 2) Sacrifice" +
-                " a rabbit to the orange.\n",
+                " a rabbit to the orange.\n\n",
             "Choice1": {
                 "Food": -3,
                 "Security": 0,

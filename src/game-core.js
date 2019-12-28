@@ -34,6 +34,7 @@ function init(){
 
     // Display first prompt
     document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
+    addPrompt(prompts.StoneAge1.Prompt);
 }
 
 // Update the game state - called at each game tick
@@ -66,7 +67,11 @@ function update(){
 // Function for executing command
 function matchCommand(){
 
-    let command = commandPrompt.getValue();
+    // Get last line of text area
+    let text = document.getElementById("textEditor").value;
+    let command = text.substr(text.lastIndexOf("\n")+1);
+    console.log(command);
+    //let command = commandPrompt.getValue();
     let actual = command.toLowerCase();
     let lbpos = command.indexOf("(");
     let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
@@ -105,9 +110,7 @@ function matchCommand(){
                         getNextPrompt();
                         checkGameStatus();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-
-
-
+                        addPrompt("\n\n" + currPrompt.prompt);
                         break;
                     case "2":
                         //responded = true;
@@ -115,6 +118,7 @@ function matchCommand(){
                         getNextPrompt();
                         checkGameStatus();
                         document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+                        addPrompt("\n\n" + currPrompt.prompt);
                         break;
                 }
             //}
@@ -136,4 +140,10 @@ function changeStats(choice) {
     addToValue("Population", choice.Population);
     addToValue("Military", choice.Military);
     addToValue("Science", choice.Science);
+}
+
+// Function for adding text to prompt
+function addPrompt(prompt) {
+    document.getElementById("textEditorBox").value += prompt;
+    document.getElementById("textEditorBox").style.height = (document.getElementById("textEditorBox").scrollHeight) + "px";
 }
