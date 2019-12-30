@@ -10,14 +10,19 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "As you try to explain the meaning of life to the orange blur, a slight breeze comes in" +
+                    ", and the orange vanishes. You lose 3 pieces of food in the process and are sad boi.\n\n"
             },
             "Choice2": {
                 "Food": 10,
                 "Security": 0,
                 "Population": 50,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "You throw the rabbit at the orange, and you notice the rabbit begins to cook! You decide" +
+                    " to name this orange 'fire,' and you introduce into into your community as a way to cook food. You gain" +
+                    " 10 pieces of food and 50 population.\n\n"
             },
             "NextPrompt": "StoneAge2"
         },

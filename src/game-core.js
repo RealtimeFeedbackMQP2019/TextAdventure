@@ -110,18 +110,20 @@ function matchCommand(event){
                     case "1":
                         //responded = true;
                         changeStats(currPrompt.Choice1);
+                        replaceWithResult(command, currPrompt.Choice1.Result);
                         getNextPrompt();
                         checkGameStatus();
                         //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt("\n\n" + currPrompt.Prompt);
+                        addPrompt(currPrompt.Prompt);
                         break;
                     case "2":
                         //responded = true;
                         changeStats(currPrompt.Choice2);
+                        replaceWithResult(command, currPrompt.Choice2.Result);
                         getNextPrompt();
                         checkGameStatus();
                         //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt("\n\n" + currPrompt.Prompt);
+                        addPrompt(currPrompt.Prompt);
                         break;
                 }
             //}
@@ -148,4 +150,10 @@ function changeStats(choice) {
 function addPrompt(prompt) {
     document.getElementById("textEditorBox").value += prompt;
     document.getElementById("textEditorBox").style.height = (document.getElementById("textEditorBox").scrollHeight) + "px";
+}
+
+// Function for replacing choose command with result text
+function replaceWithResult(command, result) {
+    let text = document.getElementById("textEditorBox").value;
+    document.getElementById("textEditorBox").value = text.replace(command, result);
 }
