@@ -15,7 +15,7 @@ function init(){
     initVariables();
     visInit();
 
-    commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
+    /*commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
     });
     commandPrompt.setOption("extraKeys",{
@@ -25,7 +25,7 @@ function init(){
            commandPrompt.setValue("");
            commandPrompt.clearHistory();
        }
-    });
+    });*/
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -33,7 +33,7 @@ function init(){
     currPrompt = prompts.StoneAge1;
 
     // Display first prompt
-    document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
+    //document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
     addPrompt(prompts.StoneAge1.Prompt);
 }
 
@@ -65,72 +65,74 @@ function update(){
 //var responded = false;
 
 // Function for executing command
-function matchCommand(){
+function matchCommand(event){
 
-    // Get last line of text area
-    let text = document.getElementById("textEditor").value;
-    let command = text.substr(text.lastIndexOf("\n")+1);
-    console.log(command);
-    //let command = commandPrompt.getValue();
-    let actual = command.toLowerCase();
-    let lbpos = command.indexOf("(");
-    let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
+    // For now, only when enter is pressed
+    if(event.keyCode === 13) {
 
-    // Actual command name
-    actual = actual.substr(0, lbpos);
+        // Get last line of text area
+        let text = document.getElementById("textEditorBox").value;
+        let command = text.substr(text.lastIndexOf("\n") + 1);
+        console.log(command);
+        //let command = commandPrompt.getValue();
+        let actual = command.toLowerCase();
+        let lbpos = command.indexOf("(");
+        let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
 
-    // Arguments of choose() command
-    let arguments = argString.split(/\s*,{1}\s*/);
+        // Actual command name
+        actual = actual.substr(0, lbpos);
 
-    // Break the command into the command body and argument.
-    switch(actual){
+        // Arguments of choose() command
+        let arguments = argString.split(/\s*,{1}\s*/);
 
-        // Eat() command
-        case "eat":
-            subtractFromValue("Food", 1);
-            addToValue("Hunger", 5);
-            break;
+        // Break the command into the command body and argument.
+        switch (actual) {
 
-        // RaiseSecurity() command
-        case "raisesecurity":
-            if(GAMEVALS.get("Security") < 5){
-                addToValue("Security", 1);
-            }
-            break;
+            // Eat() command
+            case "eat":
+                subtractFromValue("Food", 1);
+                addToValue("Hunger", 5);
+                break;
 
-        // Choose() command with parameters
-        case "choose":
-            console.log(arguments);
-            console.log(typeof arguments);
-            //if(!responded) {
+            // RaiseSecurity() command
+            case "raisesecurity":
+                if (GAMEVALS.get("Security") < 5) {
+                    addToValue("Security", 1);
+                }
+                break;
+
+            // Choose() command with parameters
+            case "choose":
+                console.log(arguments);
+                console.log(typeof arguments);
+                //if(!responded) {
                 switch (arguments.shift()) {
                     case "1":
                         //responded = true;
                         changeStats(currPrompt.Choice1);
                         getNextPrompt();
                         checkGameStatus();
-                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt("\n\n" + currPrompt.prompt);
+                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+                        addPrompt("\n\n" + currPrompt.Prompt);
                         break;
                     case "2":
                         //responded = true;
                         changeStats(currPrompt.Choice2);
                         getNextPrompt();
                         checkGameStatus();
-                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt("\n\n" + currPrompt.prompt);
+                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+                        addPrompt("\n\n" + currPrompt.Prompt);
                         break;
                 }
             //}
+        }
     }
 }
 
 // Function for switching to next prompt
 function getNextPrompt() {
-
     let nextPrompt = currPrompt.NextPrompt;
     currPrompt = prompts[nextPrompt];
-
 }
 
 // Function for changing values base on choice
