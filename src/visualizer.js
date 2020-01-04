@@ -41,19 +41,23 @@ function interpAllValues(){
     }
 }
 
-function renderVIS(){
+// Renders all visualizations
+function renderVIS(dataPreview={}){
     interpAllValues();
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-
-
-
-
-
-
     var index = 0;
 
     for(var x of LIST_OF_VALS){
-        var height = BAR_MAX_HEIGHT * (INTERPVAL.get(x) / MAXVALS.get(x));
+
+        var baseheight = INTERPVAL.get(x);
+
+        if(dataPreview.hasOwnProperty(x)){
+            //Set the value accordingly....
+            baseheight += dataPreview[x];
+        }
+        var height = BAR_MAX_HEIGHT * (baseheight / MAXVALS.get(x));
+
+
         ctx.fillStyle = VISCOL.get(x);
         ctx.strokeStyle = "rgba(1,1,1,0)";
         ctx.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
@@ -70,6 +74,7 @@ function renderVIS(){
     window.requestAnimationFrame(renderVIS);
 }
 
+//Render only 1 bar
 function render1Vis(visname){
 
     interpAllValues();

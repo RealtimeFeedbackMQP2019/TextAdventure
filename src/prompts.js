@@ -1,4 +1,5 @@
 // Global JSON object to store prompts
+// Dam this is sweet john
 
 const prompts = {
         "StoneAge1": {
