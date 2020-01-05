@@ -1,7 +1,7 @@
 // game-core.js - sandbox for testing core functionality of text-based simulation
 
 // Code Mirror - command prompt functionality
-let commandPrompt;
+//let commandPrompt;
 
 // Timer to update game - called with eack tick
 let gameTickUpdate;
@@ -72,7 +72,8 @@ function matchCommand(event){
 
         // Get last line of text area
         let text = document.getElementById("textEditorBox").value;
-        let command = text.substr(text.lastIndexOf("\n") + 1);
+        let line = text.substr(text.lastIndexOf(">"));
+        let command = line.substr(1);
         console.log(command);
         //let command = commandPrompt.getValue();
         let actual = command.toLowerCase();
@@ -110,7 +111,7 @@ function matchCommand(event){
                     case "1":
                         //responded = true;
                         changeStats(currPrompt.Choice1);
-                        replaceWithResult(command, currPrompt.Choice1.Result);
+                        replaceWithResult(line, currPrompt.Choice1.Result);
                         getNextPrompt();
                         checkGameStatus();
                         //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
@@ -119,7 +120,7 @@ function matchCommand(event){
                     case "2":
                         //responded = true;
                         changeStats(currPrompt.Choice2);
-                        replaceWithResult(command, currPrompt.Choice2.Result);
+                        replaceWithResult(line, currPrompt.Choice2.Result);
                         getNextPrompt();
                         checkGameStatus();
                         //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
