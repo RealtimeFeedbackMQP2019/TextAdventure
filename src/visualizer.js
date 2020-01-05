@@ -11,6 +11,9 @@ var INTERPVAL = new Map();
 
 const INTERPSPEED = 0.1;
 
+var drawFunction = renderPreview;
+var param = null;
+
 
 function visInit(){
     canvas = document.getElementById("visCTX");
@@ -31,7 +34,7 @@ function visInit(){
 
     //ctx.fillStyle = "#FF0000";
     //ctx.fillRect(0, 0, 80, 80);
-    renderVIS();
+    drawFunction(param);
     //render1Vis("Hunger")
 }
 
@@ -41,21 +44,51 @@ function interpAllValues(){
     }
 }
 
+
+function renderPreview(){
+    //This is about the same...
+    ctx.lineWidth = 0;
+    renderVIS();
+    //Now draw the change in stats:
+    var index = 0;
+    for(var x of LIST_OF_VALS){
+
+
+        if(param != null && param.hasOwnProperty(x)){
+            var baseheight = 0;
+            baseheight += param[x];
+            if(baseheight === 0){
+                continue;
+            }
+
+            var height = BAR_MAX_HEIGHT * (-baseheight / MAXVALS.get(x));
+            //var height = 100;
+
+            //Now find the place to draw...
+            var startHeight = BAR_MAX_HEIGHT * (INTERPVAL.get(x) / MAXVALS.get(x));
+            startHeight = 25 + (BAR_MAX_HEIGHT - startHeight);
+
+            ctx.strokeStyle = "rgba(1,1,1,1.0)";//Ugly black box
+            ctx.lineWidth = 1;
+            ctx.strokeRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), startHeight, BAR_MAX_WIDTH, height);
+        }
+
+        index += 1;
+    }
+
+    window.requestAnimationFrame(renderPreview);
+}
+
+
 // Renders all visualizations
-function renderVIS(dataPreview={}){
+function renderVIS(){
     interpAllValues();
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     var index = 0;
 
     for(var x of LIST_OF_VALS){
 
-        var baseheight = INTERPVAL.get(x);
-
-        if(dataPreview.hasOwnProperty(x)){
-            //Set the value accordingly....
-            baseheight += dataPreview[x];
-        }
-        var height = BAR_MAX_HEIGHT * (baseheight / MAXVALS.get(x));
+        var height = BAR_MAX_HEIGHT * (INTERPVAL.get(x) / MAXVALS.get(x));
 
 
         ctx.fillStyle = VISCOL.get(x);
@@ -71,7 +104,7 @@ function renderVIS(dataPreview={}){
         ctx.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
 
-    window.requestAnimationFrame(renderVIS);
+    //window.requestAnimationFrame(renderVIS);
 }
 
 //Render only 1 bar

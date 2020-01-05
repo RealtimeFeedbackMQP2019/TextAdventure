@@ -63,6 +63,51 @@ function update(){
 
 //var responded = false;
 
+const keywords = ["eat", "raiseSecurity", "choose"];
+const functions = {
+    "eat": function(){
+        drawFunction = renderPreview;
+        param = {"Hunger":5};
+    },
+    "raiseSecurity": function () {
+        drawFunction = renderPreview;
+        param = {"Security":1};
+    },
+    "choose": function () {
+        //don't do anything yet..
+    }
+};
+
+function prematchCommand(){
+    var inputString = document.getElementById("instantCommand").value;
+    console.log(inputString);
+    let lbpos = inputString.indexOf("(");
+    if(lbpos !== -1){
+        //We have found less information than given
+        let command = inputString.substring(0, lbpos);
+        for(var keyword of keywords){
+            if(keyword === command){
+                //Found a match for the command, call function..
+                functions[keyword]();
+            }
+
+        }
+    }
+    else{
+
+        for(var keyword of keywords){
+            //Matches the parameters. also gives the index of where it is.
+            if(keyword.startsWith(inputString)){
+                //Found a partial match...
+                //call function...
+                functions[keyword]();
+            }
+        }
+    }
+
+
+}
+
 // Function for executing command
 function matchCommand(){
 
@@ -103,7 +148,7 @@ function matchCommand(){
                 choiceOption = parseInt(arguments.shift());
             }
             catch(e) {
-                console.log("Fuck fuck fuck fuck fuck")
+                
             }
             //responded = true;
             changeStats(currPrompt.Choice[choiceOption - 1]);

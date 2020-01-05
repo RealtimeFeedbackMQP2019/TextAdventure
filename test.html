@@ -43,6 +43,10 @@
     <p id="Food" class="statistics">5</p>
     <br/>
     <br/>
-    <label for="commandPrompt"></label><textarea id="commandPrompt" onkeypress="matchCommand()"></textarea>
+    <!--label for="commandPrompt"></label-->
+    <input style="width:100%" type="text" id="instantCommand" onkeydown="prematchCommand()"/>
+
+
+    <textarea id="commandPrompt" onkeypress="matchCommand()"></textarea>
 </body>
 </html>
