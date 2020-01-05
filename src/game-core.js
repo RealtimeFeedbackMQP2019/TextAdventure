@@ -95,28 +95,22 @@ function matchCommand(){
 
         // Choose() command with parameters
         case "choose":
-            console.log(arguments);
-            console.log(typeof arguments);
+            //console.log(arguments);
+            //console.log(typeof arguments);
             //if(!responded) {
-                switch (arguments.shift()) {
-                    case "1":
-                        //responded = true;
-                        changeStats(currPrompt.Choice1);
-                        getNextPrompt();
-                        checkGameStatus();
-                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-
-
-
-                        break;
-                    case "2":
-                        //responded = true;
-                        changeStats(currPrompt.Choice2);
-                        getNextPrompt();
-                        checkGameStatus();
-                        document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        break;
-                }
+            var choiceOption = 0;
+            try {
+                choiceOption = parseInt(arguments.shift());
+            }
+            catch(e) {
+                console.log("Fuck fuck fuck fuck fuck")
+            }
+            //responded = true;
+            changeStats(currPrompt.Choice[choiceOption - 1]);
+            getNextPrompt();
+            checkGameStatus();
+            document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+            //console.log(choiceOption);
             //}
     }
 }
