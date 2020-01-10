@@ -13,7 +13,7 @@ let currPrompt;
 function init(){
 
     initVariables();
-    visInit();
+    //visInit();
 
     /*commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
@@ -91,8 +91,11 @@ function matchCommand(event){
 
             // Eat() command
             case "eat":
-                subtractFromValue("Food", 1);
-                addToValue("Hunger", 5);
+                if(GAMEVALS.get("Food") > 0) {
+                    subtractFromValue("Food", 1);
+                    addToValue("Hunger", 5);
+                }
+                replaceWithResult(command, "");
                 break;
 
             // RaiseSecurity() command
@@ -100,6 +103,13 @@ function matchCommand(event){
                 if (GAMEVALS.get("Security") < 5) {
                     addToValue("Security", 1);
                 }
+                replaceWithResult(command, "");
+                break;
+
+            // Snapshot() command
+            case "snapshot":
+                createVisualizer();
+                replaceWithResult(command, "");
                 break;
 
             // Choose() command with parameters
@@ -126,7 +136,14 @@ function matchCommand(event){
                         //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
                         addPrompt(currPrompt.Prompt);
                         break;
+                    default:
+                        replaceWithResult(command, "");
+                        break;
                 }
+                break;
+            default:
+                replaceWithResult(command, "");
+                break;
             //}
         }
     }
@@ -157,4 +174,16 @@ function addPrompt(prompt) {
 function replaceWithResult(command, result) {
     let text = document.getElementById("textEditorBox").value;
     document.getElementById("textEditorBox").value = text.replace(command, result);
+}
+
+// Function for making snapshot visualizer
+function createVisualizer() {
+    var visCanvas = document.createElement('canvas');
+    visCanvas.id = "visCTX";
+    visCanvas.width = 350;
+    visCanvas.height = 150;
+
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(visCanvas);
+    visInit();
 }
