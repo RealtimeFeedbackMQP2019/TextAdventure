@@ -10,11 +10,13 @@
     border: 1px solid black;
 }
 
-#textPromptBox {
-    border: 1px solid  black;
-    height: 100px;
-}
+/*#textPromptBox {*/
+/*    border: 5px solid black;*/
+/*    height: 100px;*/
+/*}*/
 
 #textEditorBox {
     width: 100%;
+    border: 1px solid black;
+    white-space: pre;
 }

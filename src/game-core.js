@@ -71,7 +71,7 @@ function matchCommand(event){
     if(event.keyCode === 13) {
 
         // Get last line of text area
-        let text = document.getElementById("textEditorBox").value;
+        let text = document.getElementById("textEditorBox").textContent;
         let line = text.substr(text.lastIndexOf(">"));
         let command = line.substr(1);
         console.log(command);
@@ -166,24 +166,24 @@ function changeStats(choice) {
 
 // Function for adding text to prompt
 function addPrompt(prompt) {
-    document.getElementById("textEditorBox").value += prompt;
-    document.getElementById("textEditorBox").style.height = (document.getElementById("textEditorBox").scrollHeight) + "px";
+    document.getElementById("textEditorBox").textContent += prompt;
+    document.getElementById("textEditorBox").style.minHeight = (document.getElementById("textEditorBox").scrollHeight) + "px";
 }
 
 // Function for replacing choose command with result text
 function replaceWithResult(command, result) {
-    let text = document.getElementById("textEditorBox").value;
-    document.getElementById("textEditorBox").value = text.replace(command, result);
+    let text = document.getElementById("textEditorBox").textContent;
+    document.getElementById("textEditorBox").textContent = text.replace(command, result);
 }
 
 // Function for making snapshot visualizer
 function createVisualizer() {
-    var visCanvas = document.createElement('canvas');
+    let visCanvas = document.createElement('canvas');
     visCanvas.id = "visCTX";
     visCanvas.width = 350;
     visCanvas.height = 150;
 
-    var body = document.getElementsByTagName('body')[0];
+    let body = document.getElementsByTagName("body")[0];
     body.appendChild(visCanvas);
     visInit();
 }
