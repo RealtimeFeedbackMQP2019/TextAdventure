@@ -15,6 +15,7 @@ function init(){
     initVariables();
     visInit();
 
+    /*
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
     });
@@ -25,7 +26,7 @@ function init(){
            commandPrompt.setValue("");
            commandPrompt.clearHistory();
        }
-    });
+    });*/
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -34,6 +35,20 @@ function init(){
 
     // Display first prompt
     document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
+    var element = document.getElementById("instantCommand");
+    element.onkeyup = function(event){
+        switch(event.key){
+            case "Enter":
+                //Match command....
+                //console.log("welp fuck");
+                matchCommand(element.value);
+                element.value = ""; //Resets
+                break;
+            default:
+                prematchCommand(element.value);
+                break;
+        }
+    }
 }
 
 // Update the game state - called at each game tick
@@ -65,6 +80,10 @@ function update(){
 
 const keywords = ["eat", "raiseSecurity", "choose"];
 const functions = {
+    "":function(){
+        drawFunction = renderPreview;
+        param = {};
+    },
     "eat": function(){
         drawFunction = renderPreview;
         param = {"Hunger":5};
@@ -78,9 +97,12 @@ const functions = {
     }
 };
 
-function prematchCommand(){
-    var inputString = document.getElementById("instantCommand").value;
+function prematchCommand(inputString){
     console.log(inputString);
+    if(inputString === ""){
+        return;
+    }
+
     let lbpos = inputString.indexOf("(");
     if(lbpos !== -1){
         //We have found less information than given
@@ -109,9 +131,8 @@ function prematchCommand(){
 }
 
 // Function for executing command
-function matchCommand(){
+function matchCommand(command){
 
-    let command = commandPrompt.getValue();
     let actual = command.toLowerCase();
     let lbpos = command.indexOf("(");
     let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
@@ -148,7 +169,7 @@ function matchCommand(){
                 choiceOption = parseInt(arguments.shift());
             }
             catch(e) {
-                
+
             }
             //responded = true;
             changeStats(currPrompt.Choice[choiceOption - 1]);
