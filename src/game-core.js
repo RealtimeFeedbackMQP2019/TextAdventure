@@ -86,6 +86,7 @@ const functions = {
 function prematchCommand(inputString){
     console.log(inputString);
     if(inputString === ""){
+        functions[""]();
         return;
     }
 
