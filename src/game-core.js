@@ -117,6 +117,23 @@ function matchCommand(event){
                 console.log(arguments);
                 console.log(typeof arguments);
                 //if(!responded) {
+
+                var choiceOption = 0;
+                try {
+                    choiceOption = parseInt(arguments.shift());
+                }
+                catch(e) {
+
+                }
+                changeStats(currPrompt.Choice[choiceOption - 1]);
+                replaceWithResult(line, currPrompt.Choice[choiceOption - 1].Result);
+                getNextPrompt();
+                checkGameStatus();
+
+                addPrompt(currPrompt.Prompt);
+
+                replaceWithResult(command, "");
+                /*
                 switch (arguments.shift()) {
                     case "1":
                         //responded = true;
@@ -144,7 +161,7 @@ function matchCommand(event){
             default:
                 replaceWithResult(command, "");
                 break;
-            //}
+            //}*/
         }
     }
 }
