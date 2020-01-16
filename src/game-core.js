@@ -1,7 +1,7 @@
 // game-core.js - sandbox for testing core functionality of text-based simulation
 
 // Code Mirror - command prompt functionality
-let commandPrompt;
+//let commandPrompt;
 
 // Timer to update game - called with eack tick
 let gameTickUpdate;
@@ -13,10 +13,9 @@ let currPrompt;
 function init(){
 
     initVariables();
-    visInit();
+    //visInit();
 
-    /*
-    commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
+    /*commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
     });
     commandPrompt.setOption("extraKeys",{
@@ -34,21 +33,8 @@ function init(){
     currPrompt = prompts.StoneAge1;
 
     // Display first prompt
-    document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
-    var element = document.getElementById("instantCommand");
-    element.onkeyup = function(event){
-        switch(event.key){
-            case "Enter":
-                //Match command....
-                //console.log("welp fuck");
-                matchCommand(element.value);
-                element.value = ""; //Resets
-                break;
-            default:
-                prematchCommand(element.value);
-                break;
-        }
-    }
+    //document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
+    addPrompt(prompts.StoneAge1.Prompt);
 }
 
 // Update the game state - called at each game tick
@@ -131,62 +117,111 @@ function prematchCommand(inputString){
 }
 
 // Function for executing command
-function matchCommand(command){
+function matchCommand(event){
 
-    let actual = command.toLowerCase();
-    let lbpos = command.indexOf("(");
-    let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
+    // For now, only when enter is pressed
+    if(event.keyCode === 13) {
 
-    // Actual command name
-    actual = actual.substr(0, lbpos);
+        // Get last line of text area
+        let text = document.getElementById("textEditorBox").textContent;
+        let line = text.substr(text.lastIndexOf(">"));
+        let command = line.substr(1);
+        console.log(command);
+        //let command = commandPrompt.getValue();
+        let actual = command.toLowerCase();
+        let lbpos = command.indexOf("(");
+        let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
 
-    // Arguments of choose() command
-    let arguments = argString.split(/\s*,{1}\s*/);
+        // Actual command name
+        actual = actual.substr(0, lbpos);
 
-    // Break the command into the command body and argument.
-    switch(actual){
+        // Arguments of choose() command
+        let arguments = argString.split(/\s*,{1}\s*/);
 
-        // Eat() command
-        case "eat":
-            subtractFromValue("Food", 1);
-            addToValue("Hunger", 5);
-            break;
+        // Break the command into the command body and argument.
+        switch (actual) {
 
-        // RaiseSecurity() command
-        case "raisesecurity":
-            if(GAMEVALS.get("Security") < 5){
-                addToValue("Security", 1);
-            }
-            break;
+            // Eat() command
+            case "eat":
+                if(GAMEVALS.get("Food") > 0) {
+                    subtractFromValue("Food", 1);
+                    addToValue("Hunger", 5);
+                }
+                replaceWithResult(command, "");
+                break;
 
-        // Choose() command with parameters
-        case "choose":
-            //console.log(arguments);
-            //console.log(typeof arguments);
-            //if(!responded) {
-            var choiceOption = 0;
-            try {
-                choiceOption = parseInt(arguments.shift());
-            }
-            catch(e) {
+            // RaiseSecurity() command
+            case "raisesecurity":
+                if (GAMEVALS.get("Security") < 5) {
+                    addToValue("Security", 1);
+                }
+                replaceWithResult(command, "");
+                break;
 
-            }
-            //responded = true;
-            changeStats(currPrompt.Choice[choiceOption - 1]);
-            getNextPrompt();
-            checkGameStatus();
-            document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-            //console.log(choiceOption);
-            //}
+            // Snapshot() command
+            case "snapshot":
+                createVisualizer();
+                replaceWithResult(command, "");
+                break;
+
+            // Choose() command with parameters
+            case "choose":
+                console.log(arguments);
+                console.log(typeof arguments);
+                //if(!responded) {
+
+                var choiceOption = 0;
+                try {
+                    choiceOption = parseInt(arguments.shift());
+                }
+                catch(e) {
+
+                }
+                changeStats(currPrompt.Choice[choiceOption - 1]);
+                replaceWithResult(line, currPrompt.Choice[choiceOption - 1].Result);
+                getNextPrompt();
+                checkGameStatus();
+
+                addPrompt(currPrompt.Prompt);
+
+                replaceWithResult(command, "");
+                /*
+                switch (arguments.shift()) {
+                    case "1":
+                        //responded = true;
+                        changeStats(currPrompt.Choice1);
+                        replaceWithResult(line, currPrompt.Choice1.Result);
+                        getNextPrompt();
+                        checkGameStatus();
+                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+                        addPrompt(currPrompt.Prompt);
+                        break;
+                    case "2":
+                        //responded = true;
+                        changeStats(currPrompt.Choice2);
+                        replaceWithResult(line, currPrompt.Choice2.Result);
+                        getNextPrompt();
+                        checkGameStatus();
+                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
+                        addPrompt(currPrompt.Prompt);
+                        break;
+                    default:
+                        replaceWithResult(command, "");
+                        break;
+                }
+                break;
+            default:
+                replaceWithResult(command, "");
+                break;
+            //}*/
+        }
     }
 }
 
 // Function for switching to next prompt
 function getNextPrompt() {
-
     let nextPrompt = currPrompt.NextPrompt;
     currPrompt = prompts[nextPrompt];
-
 }
 
 // Function for changing values base on choice
@@ -196,4 +231,28 @@ function changeStats(choice) {
     addToValue("Population", choice.Population);
     addToValue("Military", choice.Military);
     addToValue("Science", choice.Science);
+}
+
+// Function for adding text to prompt
+function addPrompt(prompt) {
+    document.getElementById("textEditorBox").textContent += prompt;
+    document.getElementById("textEditorBox").style.minHeight = (document.getElementById("textEditorBox").scrollHeight) + "px";
+}
+
+// Function for replacing choose command with result text
+function replaceWithResult(command, result) {
+    let text = document.getElementById("textEditorBox").textContent;
+    document.getElementById("textEditorBox").textContent = text.replace(command, result);
+}
+
+// Function for making snapshot visualizer
+function createVisualizer() {
+    let visCanvas = document.createElement('canvas');
+    visCanvas.id = "visCTX";
+    visCanvas.width = 350;
+    visCanvas.height = 150;
+
+    let body = document.getElementsByTagName("body")[0];
+    body.appendChild(visCanvas);
+    visInit();
 }

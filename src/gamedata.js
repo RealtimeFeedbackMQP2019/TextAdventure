@@ -42,6 +42,7 @@ function checkGameStatus(){
         document.getElementById("gameOver").innerHTML = "GAME OVER";
         document.getElementById("gameOver").style.display = "inline";
         // Somehow disable commands from being entered
+        document.getElementById("textEditorBox").style.pointerEvents = "none";
     }
 
     // Check for game win condition
