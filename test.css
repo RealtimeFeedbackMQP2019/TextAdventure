@@ -15,8 +15,18 @@
 /*    height: 100px;*/
 /*}*/
 
-#textEditorBox {
+#promptAndHistoryBox {
     width: 100%;
     border: 1px solid black;
     white-space: pre;
+}
+
+.userInputArea {
+    float:left;
+}
+#authenticCommandLine {
+    width: 25px;
+}
+#textEditorBox {
+    width:500px;
 }

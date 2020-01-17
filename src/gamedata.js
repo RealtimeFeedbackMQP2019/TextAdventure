@@ -4,7 +4,7 @@ var MAXVALS = new Map(); //Used for visualizing things.
 var LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
 
 function initVariables(){
-    GAMEVALS.set("Hunger", 20);
+    GAMEVALS.set("Hunger", 999);
     GAMEVALS.set("Food", 5);
     GAMEVALS.set("Security", 3);
     GAMEVALS.set("Population", 1000);

@@ -3,7 +3,7 @@
 // Code Mirror - command prompt functionality
 //let commandPrompt;
 
-// Timer to update game - called with eack tick
+// Timer to update game - called with each tick
 let gameTickUpdate;
 
 // Keep track of current prompt
@@ -135,6 +135,7 @@ function matchCommand(inputString){
 
     // For now, only when enter is pressed
     if(event.keyCode === 13) {
+        //let promptAndHistory = document.getElementById("promptBox").textContent;
         let text = document.getElementById("textEditorBox").textContent;
         let line = text.substr(text.lastIndexOf(">"));
         let command = line.substr(1);
@@ -161,7 +162,7 @@ function matchCommand(inputString){
                     subtractFromValue("Food", 1);
                     addToValue("Hunger", 5);
                 }
-                replaceWithResult(command, "");
+                emptyCommand(command)
                 break;
 
             // RaiseSecurity() command
@@ -169,13 +170,13 @@ function matchCommand(inputString){
                 if (GAMEVALS.get("Security") < 5) {
                     addToValue("Security", 1);
                 }
-                replaceWithResult(command, "");
+                emptyCommand(command)
                 break;
 
             // Snapshot() command
             case "snapshot":
                 createVisualizer();
-                replaceWithResult(command, "");
+                emptyCommand(command)
                 break;
 
             // Choose() command with parameters
@@ -192,13 +193,13 @@ function matchCommand(inputString){
 
                 }
                 changeStats(currPrompt.Choice[choiceOption - 1]);
-                replaceWithResult(line, currPrompt.Choice[choiceOption - 1].Result);
+                addResult(currPrompt.Choice[choiceOption - 1].Result);
                 getNextPrompt();
                 checkGameStatus();
 
                 addPrompt(currPrompt.Prompt);
 
-                replaceWithResult(command, "");
+                emptyCommand(command)
         }
     }
 }
@@ -220,14 +221,19 @@ function changeStats(choice) {
 
 // Function for adding text to prompt
 function addPrompt(prompt) {
-    document.getElementById("textEditorBox").textContent += prompt;
-    document.getElementById("textEditorBox").style.minHeight = (document.getElementById("textEditorBox").scrollHeight) + "px";
+
+    document.getElementById("promptBox").textContent += prompt;
+    document.getElementById("promptBox").style.minHeight = (document.getElementById("promptBox").scrollHeight) + "px";
 }
 
-// Function for replacing choose command with result text
-function replaceWithResult(command, result) {
+// Function for adding prompt result text
+function addResult(choice) {
+    document.getElementById("promptBox").textContent += choice;
+}
+// Function for replacing choose command with empty text
+function emptyCommand(command) {
     let text = document.getElementById("textEditorBox").textContent;
-    document.getElementById("textEditorBox").textContent = text.replace(command, result);
+    document.getElementById("textEditorBox").textContent = text.replace(command,"");
 }
 
 // Function for making snapshot visualizer
