@@ -13,7 +13,7 @@ let currPrompt;
 function init(){
 
     initVariables();
-    //visInit();
+    visInit();
 
     /*commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : false
@@ -233,11 +233,13 @@ function replaceWithResult(command, result) {
 // Function for making snapshot visualizer
 function createVisualizer() {
     let visCanvas = document.createElement('canvas');
-    visCanvas.id = "visCTX";
+    visCanvas.id = "snapshotCTX";
     visCanvas.width = 350;
     visCanvas.height = 150;
 
     let body = document.getElementsByTagName("body")[0];
     body.appendChild(visCanvas);
-    visInit();
+    //This is fine..
+
+    drawSnapshot();
 }

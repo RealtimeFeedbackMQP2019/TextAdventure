@@ -14,9 +14,11 @@ const INTERPSPEED = 0.1;
 var drawFunction = renderPreview;
 var param = null;
 
+var snapshotIndex = 0;
+
 
 function visInit(){
-    canvas = document.getElementById("visCTX");
+    canvas = document.getElementById("previewCTX");
     ctx = canvas.getContext("2d");
 
     //Set colors.
@@ -34,8 +36,31 @@ function visInit(){
 
     //ctx.fillStyle = "#FF0000";
     //ctx.fillRect(0, 0, 80, 80);
-    drawFunction(param);
+    visUpdate();
+
+
+    //drawFunction(param);
     //render1Vis("Hunger")
+}
+
+
+function visUpdate(){
+    interpAllValues();
+    renderPreview();
+
+
+    window.requestAnimationFrame(visUpdate);
+}
+
+function drawSnapshot(){
+    var snapshotCanvas = document.getElementById("snapshotCTX");
+    var snapshotCTX = snapshotCanvas.getContext("2d");
+
+    renderFrame(snapshotCTX, GAMEVALS);
+    snapshotCanvas.id = "old-preview" + snapshotIndex;
+
+
+    snapshotIndex += 1;
 }
 
 function interpAllValues(){
@@ -45,10 +70,12 @@ function interpAllValues(){
 }
 
 
+
+
 function renderPreview(){
     //This is about the same...
     ctx.lineWidth = 0;
-    renderVIS();
+    renderFrame(ctx, INTERPVAL);
     //Now draw the change in stats:
     var index = 0;
     for(var x of LIST_OF_VALS){
@@ -76,35 +103,27 @@ function renderPreview(){
         index += 1;
     }
 
-    window.requestAnimationFrame(renderPreview);
+    //window.requestAnimationFrame(renderPreview);
 }
 
-
-// Renders all visualizations
-function renderVIS(){
-    interpAllValues();
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+function renderFrame(context, value){
+    context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     var index = 0;
 
     for(var x of LIST_OF_VALS){
 
-        var height = BAR_MAX_HEIGHT * (INTERPVAL.get(x) / MAXVALS.get(x));
+        var height = BAR_MAX_HEIGHT * (value.get(x) / MAXVALS.get(x));
 
 
-        ctx.fillStyle = VISCOL.get(x);
-        ctx.strokeStyle = "rgba(1,1,1,0)";
-        ctx.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
+        context.fillStyle = VISCOL.get(x);
+        context.strokeStyle = "rgba(1,1,1,0)";
+        context.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
         index += 1;
     }
-
-    //Draw the tick lines
-
-    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    context.fillStyle = "rgba(255,255,255,0.5)";
     for(var i = 0; i < 5; i++){
-        ctx.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
+        context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
-
-    //window.requestAnimationFrame(renderVIS);
 }
 
 //Render only 1 bar
