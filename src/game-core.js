@@ -113,20 +113,33 @@ function prematchCommand(inputString){
             }
         }
     }
-
-
 }
 
-// Function for executing command
-function matchCommand(event){
+function matchKeyPress(event){
 
-    // For now, only when enter is pressed
     if(event.keyCode === 13) {
-
-        // Get last line of text area
+        //Fire this event to match command
+        matchCommand();
+    }
+    else{
+        //Fire this event to prematch
         let text = document.getElementById("textEditorBox").textContent;
         let line = text.substr(text.lastIndexOf(">"));
         let command = line.substr(1);
+        prematchCommand(command);
+    }
+}
+
+// Function for executing command
+function matchCommand(inputString){
+
+    // For now, only when enter is pressed
+    if(event.keyCode === 13) {
+        let text = document.getElementById("textEditorBox").textContent;
+        let line = text.substr(text.lastIndexOf(">"));
+        let command = line.substr(1);
+        // Get last line of text area
+
         console.log(command);
         //let command = commandPrompt.getValue();
         let actual = command.toLowerCase();
@@ -186,35 +199,6 @@ function matchCommand(event){
                 addPrompt(currPrompt.Prompt);
 
                 replaceWithResult(command, "");
-                /*
-                switch (arguments.shift()) {
-                    case "1":
-                        //responded = true;
-                        changeStats(currPrompt.Choice1);
-                        replaceWithResult(line, currPrompt.Choice1.Result);
-                        getNextPrompt();
-                        checkGameStatus();
-                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt(currPrompt.Prompt);
-                        break;
-                    case "2":
-                        //responded = true;
-                        changeStats(currPrompt.Choice2);
-                        replaceWithResult(line, currPrompt.Choice2.Result);
-                        getNextPrompt();
-                        checkGameStatus();
-                        //document.getElementById("prompt").innerHTML = currPrompt.Prompt;
-                        addPrompt(currPrompt.Prompt);
-                        break;
-                    default:
-                        replaceWithResult(command, "");
-                        break;
-                }
-                break;
-            default:
-                replaceWithResult(command, "");
-                break;
-            //}*/
         }
     }
 }
