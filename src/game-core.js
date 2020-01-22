@@ -9,7 +9,7 @@ let gameTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
-let previousCommands;
+let previousCommands = "";
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -25,7 +25,7 @@ function init(){
            let line = commandPrompt.getLine(commandPrompt.lastLine());
            matchCommand(line);
            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
-           emptyCommand();
+           drawInput();
        }
     });
 
@@ -165,7 +165,6 @@ function matchCommand(inputString){
                     subtractFromValue("Food", 1);
                     addToValue("Hunger", 5);
                 }
-                emptyCommand(command)
                 break;
 
             // RaiseSecurity() command
@@ -173,13 +172,11 @@ function matchCommand(inputString){
                 if (GAMEVALS.get("Security") < 5) {
                     addToValue("Security", 1);
                 }
-                emptyCommand(command)
                 break;
 
             // Snapshot() command
             case "snapshot":
                 createVisualizer();
-                emptyCommand(command)
                 break;
 
             // Choose() command with parameters
@@ -201,9 +198,8 @@ function matchCommand(inputString){
                 checkGameStatus();
 
                 addPrompt(currPrompt.Prompt);
-
-                emptyCommand(command)
         }
+        drawInput();
     }
 }
 
@@ -241,13 +237,6 @@ function addResult(choice) {
 function drawInput(){
     commandPrompt.setValue(previousCommands + "\n>");
     commandPrompt.setCursor(commandPrompt.lastLine(), 1);
-}
-
-// Function for replacing choose command with empty text
-function emptyCommand(command) {
-    //let text = document.getElementById("textEditorBox").textContent;
-    //document.getElementById("textEditorBox").textContent = text.replace(command,"");
-    drawInput();
 }
 
 // Function for making snapshot visualizer
