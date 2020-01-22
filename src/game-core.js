@@ -8,6 +8,8 @@ let gameTickUpdate;
 
 // Keep track of current prompt
 let currPrompt;
+let commandPrompt;
+let previousCommands;
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -15,17 +17,17 @@ function init(){
     initVariables();
     visInit();
 
-    /*commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
-        lineNumbers : false
+    commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
+        lineNumbers : true
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
-           let line = commandPrompt.getLine(0);
+           let line = commandPrompt.getLine(commandPrompt.lastLine());
            matchCommand(line);
-           commandPrompt.setValue("");
-           commandPrompt.clearHistory();
+           //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+           emptyCommand();
        }
-    });*/
+    });
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -116,7 +118,6 @@ function prematchCommand(inputString){
 }
 
 function matchKeyPress(event){
-
     if(event.keyCode === 13) {
         //Fire this event to match command
         matchCommand();
@@ -136,8 +137,10 @@ function matchCommand(inputString){
     // For now, only when enter is pressed
     if(event.keyCode === 13) {
         //let promptAndHistory = document.getElementById("promptBox").textContent;
-        let text = document.getElementById("textEditorBox").textContent;
-        let line = text.substr(text.lastIndexOf(">"));
+        //let text = document.getElementById("textEditorBox").textContent;
+
+        let line = inputString.substr(inputString.lastIndexOf(">"));
+        // line = inputString;
         let command = line.substr(1);
         // Get last line of text area
 
@@ -216,24 +219,35 @@ function changeStats(choice) {
     addToValue("Security", choice.Security);
     addToValue("Population", choice.Population);
     addToValue("Military", choice.Military);
-    addToValue("Science", choice.Science);
+    addToValue("Science",choice.Science);
 }
 
 // Function for adding text to prompt
 function addPrompt(prompt) {
+    previousCommands = previousCommands + prompt;
+    drawInput();
 
-    document.getElementById("promptBox").textContent += prompt;
-    document.getElementById("promptBox").style.minHeight = (document.getElementById("promptBox").scrollHeight) + "px";
+    //commandPrompt.setValue(prompt + commandPrompt.getValue());
+    //document.getElementById("promptBox").textContent += prompt;
+    //document.getElementById("promptBox").style.minHeight = (document.getElementById("promptBox").scrollHeight) + "px";
 }
 
 // Function for adding prompt result text
 function addResult(choice) {
-    document.getElementById("promptBox").textContent += choice;
+    previousCommands += "\n" + choice;
+    //document.getElementById("promptBox").textContent += choice;
 }
+
+function drawInput(){
+    commandPrompt.setValue(previousCommands + "\n>");
+    commandPrompt.setCursor(commandPrompt.lastLine(), 1);
+}
+
 // Function for replacing choose command with empty text
 function emptyCommand(command) {
-    let text = document.getElementById("textEditorBox").textContent;
-    document.getElementById("textEditorBox").textContent = text.replace(command,"");
+    //let text = document.getElementById("textEditorBox").textContent;
+    //document.getElementById("textEditorBox").textContent = text.replace(command,"");
+    drawInput();
 }
 
 // Function for making snapshot visualizer
