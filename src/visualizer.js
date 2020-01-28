@@ -1,7 +1,7 @@
 var canvas;
 var ctx;
 
-const BAR_MAX_HEIGHT = 100;
+let BAR_MAX_HEIGHT = 100;
 const BAR_MAX_WIDTH = 30;
 
 const BAR_DIST = 10;
@@ -52,11 +52,11 @@ function visUpdate(){
     window.requestAnimationFrame(visUpdate);
 }
 
-function drawSnapshot(){
+function drawSnapshot( height ){
     let visCanvas = document.createElement('canvas');
     visCanvas.id = "snapshotCTX";
     visCanvas.width = 350;
-    visCanvas.height = 150;
+    visCanvas.height = height;
 
     var snapshotCanvas = visCanvas//document.getElementById("snapshotCTX");
     var snapshotCTX = snapshotCanvas.getContext("2d");
@@ -115,6 +115,9 @@ function renderPreview(){
 function renderFrame(context, value){
     context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     var index = 0;
+
+    // XXX is this bad?
+    BAR_MAX_HEIGHT = canvas.height
 
     for(var x of LIST_OF_VALS){
 

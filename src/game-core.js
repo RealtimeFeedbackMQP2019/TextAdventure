@@ -235,15 +235,27 @@ function addResult(choice) {
 }
 
 function drawInput(){
-    commandPrompt.setValue(previousCommands + "\n>");
-    commandPrompt.setCursor(commandPrompt.lastLine(), 1);
+    //commandPrompt.setValue(previousCommands + "\n>");
+    //commandPrompt.setCursor(commandPrompt.lastLine(), 1);
 }
 
 // Function for making snapshot visualizer
 function createVisualizer( cm ) {
-    const canvas = drawSnapshot()
-    const lineNumber = cm.lineCount();
-
-    debugger 
-    cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
+    const canvas = drawSnapshot( cm.defaultTextHeight() )
+    const lineNumber = cm.lineCount() - 1;
+    const lineStr = cm.getLine( lineNumber )
+    let charPos = lineStr.length;
+    //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
+    cm.replaceRange( 
+      lineStr + ' ',
+      { line:lineNumber, ch:0 },
+      { line:lineNumber, ch: charPos }
+    )
+    charPos++
+    cm.markText(
+      { line:lineNumber, ch:charPos - 1},
+      { line:lineNumber, ch:charPos },
+      { replacedWith: canvas }
+    )
+    //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
 }
