@@ -53,14 +53,20 @@ function visUpdate(){
 }
 
 function drawSnapshot(){
-    var snapshotCanvas = document.getElementById("snapshotCTX");
+    let visCanvas = document.createElement('canvas');
+    visCanvas.id = "snapshotCTX";
+    visCanvas.width = 350;
+    visCanvas.height = 150;
+
+    var snapshotCanvas = visCanvas//document.getElementById("snapshotCTX");
     var snapshotCTX = snapshotCanvas.getContext("2d");
 
     renderFrame(snapshotCTX, GAMEVALS);
     snapshotCanvas.id = "old-preview" + snapshotIndex;
 
-
     snapshotIndex += 1;
+
+    return snapshotCanvas
 }
 
 function interpAllValues(){

@@ -23,7 +23,7 @@ function init(){
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
            let line = commandPrompt.getLine(commandPrompt.lastLine());
-           matchCommand(line);
+           matchCommand(line, cm);
            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
            drawInput();
        }
@@ -132,7 +132,7 @@ function matchKeyPress(event){
 }
 
 // Function for executing command
-function matchCommand(inputString){
+function matchCommand(inputString, cm){
 
     // For now, only when enter is pressed
     if(event.keyCode === 13) {
@@ -176,7 +176,7 @@ function matchCommand(inputString){
 
             // Snapshot() command
             case "snapshot":
-                createVisualizer();
+                createVisualizer( cm );
                 break;
 
             // Choose() command with parameters
@@ -240,15 +240,10 @@ function drawInput(){
 }
 
 // Function for making snapshot visualizer
-function createVisualizer() {
-    let visCanvas = document.createElement('canvas');
-    visCanvas.id = "snapshotCTX";
-    visCanvas.width = 350;
-    visCanvas.height = 150;
+function createVisualizer( cm ) {
+    const canvas = drawSnapshot()
+    const lineNumber = cm.lineCount();
 
-    let body = document.getElementsByTagName("body")[0];
-    body.appendChild(visCanvas);
-    //This is fine..
-
-    drawSnapshot();
+    debugger 
+    cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
 }
