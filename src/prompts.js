@@ -76,7 +76,7 @@ const prompts = {
             "NextPrompt": "StoneAge4"
         },
         "StoneAge4": {
-            "Prompt": "A large T-rex stomped into your community and destroyed many dwellings.\n" +
+            "Prompt": "A large Tyrannosaurus stomped into your community and destroyed many dwellings.\n" +
                 "1) Fight the T-Rex and try to kill it.\n" +
                 "2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
             "Choice": [{
@@ -84,13 +84,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -100,
                 "Military": -10,
-                "Science": 50
+                "Science": 50,
+                "Result" : "Many of your community members fall in the legendary fight with the T-Rex. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -200,
                 "Military": 20,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Well, you've tamed the beast but at great cost to your community. On the bright side, now you have a giant puppy-rex \n\n"
             }],
             "NextPrompt": "StoneAge5"
         },
@@ -103,13 +105,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 100,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Everyone survives, but your food and resources take a heavy hit. \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
-                "Science": 20
+                "Science": 20,
+                "Result" : "The move goes poorly, many people were caught in the cold. You learn how to treat frostbite. \n\n"
             }],
             "NextPrompt": "StoneAge6"
         },
@@ -122,13 +126,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -50,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something happens...?? \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 15
+                "Science": 15,
+                "Result" : "something happens..?? \n\n"
             }],
             "NextPrompt": "MetalAge1"
         },
@@ -141,13 +147,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 30,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Sharp edge = superior weapon. \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 20
+                "Science": 20,
+                "Result" : "Stick + iron = superior shovel. \n\n"
             }],
             "NextPrompt": "MetalAge2"
         },
@@ -160,13 +168,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
-                "Science": 20
+                "Science": 20,
+                "Result" : "Some alchemists have discovered the recipe for liquid gold! Unfortunately it's rather poisonous. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Alchemists are rather discouraged, but have created a secret society. \n\n"
             }],
             "NextPrompt": "MetalAge3"
         },
@@ -179,13 +189,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 35,
-                "Science": 15
+                "Science": 15,
+                "Result" : "Strength in military will lead our kingdom to greatness! \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Long live the humble king! \n\n"
             }],
             "NextPrompt": "MetalAge4"
         },
@@ -198,13 +210,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 20,
-                "Science": 0
+                "Science": 0,
+                "Result" : "What a spoilsport, the knights grudgingly agree. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 100,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "Jousting has become wildly popular, an arena for it is being built. \n\n"
             }],
             "NextPrompt": "MetalAge5"
         },
@@ -217,13 +231,15 @@ const prompts = {
                 "Security": -1,
                 "Population": 0,
                 "Military": 0,
-                "Science": -15
+                "Science": -15,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -50,
                 "Military": 0,
-                "Science": 25
+                "Science": 25,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "MetalAge6"
         },
@@ -236,13 +252,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": -15,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
-                "Science": 40
+                "Science": 40,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "ConqueringAge1"
         },
@@ -255,13 +273,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 20,
-                "Science": 15
+                "Science": 15,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
-                "Science": 10
+                "Science": 10,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "ConqueringAge2"
         },
@@ -274,13 +294,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 200,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             },{
                 "Food": -5,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "ConqueringAge3"
         },
@@ -293,13 +315,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 30
+                "Science": 30,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": -10,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "ConqueringAge4"
         },
@@ -312,13 +336,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -200,
                 "Military": -15,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "ConqueringAge5"
         },
@@ -331,13 +357,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 100,
                 "Military": 0,
-                "Science": 25
+                "Science": 25,
+                "Result" : "something... \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "IndustrialAge1"
         },
@@ -350,13 +378,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 150,
                 "Military": 20,
-                "Science": 40
+                "Science": 40,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -250,
                 "Military": 40,
-                "Science": 30
+                "Science": 30,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "IndustrialAge2"
         },
@@ -369,13 +399,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
-                "Science": -20
+                "Science": -20,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": -35
+                "Science": -35,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "IndustrialAge3"
         },
@@ -388,13 +420,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -100,
                 "Military": 20,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": -10,
-                "Science": 40
+                "Science": 40,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge1"
         },
@@ -407,13 +441,15 @@ const prompts = {
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
-                "Science": 35
+                "Science": 35,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": -1,
                 "Population": 0,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge2"
         },
@@ -426,13 +462,15 @@ const prompts = {
                 "Security": -1,
                 "Population": -100,
                 "Military": -10,
-                "Science": 50
+                "Science": 50,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge3"
         },
@@ -445,13 +483,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": -30
+                "Science": -30,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge4"
         },
@@ -464,13 +504,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": -15,
-                "Science": 40
+                "Science": 40,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": -20
+                "Science": -20,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge5"
         },
@@ -483,13 +525,15 @@ const prompts = {
                 "Security": -1,
                 "Population": 0,
                 "Military": 0,
-                "Science": 30
+                "Science": 30,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "SpaceAge6"
         },
@@ -502,13 +546,15 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 35
+                "Science": 35,
+                "Result" : "something... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -1000,
                 "Military": -50,
-                "Science": 0
+                "Science": 0,
+                "Result" : "something... \n\n"
             }],
             "NextPrompt": "CONGRATS, YOU WON!"
         }
