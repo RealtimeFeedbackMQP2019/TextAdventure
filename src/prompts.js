@@ -253,14 +253,14 @@ const prompts = {
                 "Population": 0,
                 "Military": -15,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "The battle was legendary, your army took many losses, but prevailed in the end. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
                 "Science": 40,
-                "Result" : "something... \n\n"
+                "Result" : "Turns out dragons think of us humans as snacks, and boy did we learn a lot at great cost. \n\n"
             }],
             "NextPrompt": "ConqueringAge1"
         },
@@ -316,14 +316,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 30,
-                "Result" : "something... \n\n"
+                "Result" : "You wait months for any word on this wacky scientist, when suddenly his ship reappears! He speaks of a land beyond the vast ocean! Wow! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": -10,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "He is so distraught at your refusal that he takes out a few of your guards in a fit of anger. \n\n"
             }],
             "NextPrompt": "ConqueringAge4"
         },
