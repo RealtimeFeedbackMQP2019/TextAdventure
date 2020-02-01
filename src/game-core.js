@@ -64,8 +64,6 @@ function update(){
 }
 
 
-//var responded = false;
-
 const keywords = ["eat", "raiseSecurity", "choose"];
 const functions = {
     "":function(){
@@ -117,44 +115,17 @@ function prematchCommand(inputString){
     }
 }
 
-function matchKeyPress(event){
-    if(event.keyCode === 13) {
-        //Fire this event to match command
-        matchCommand();
-    }
-    else{
-        //Fire this event to prematch
-        let text = document.getElementById("textEditorBox").textContent;
-        let line = text.substr(text.lastIndexOf(">"));
-        let command = line.substr(1);
-        prematchCommand(command);
-    }
-}
 
 // Function for executing command
 function matchCommand(inputString){
 
     // For now, only when enter is pressed
-    if(event.keyCode === 13) {
-        //let promptAndHistory = document.getElementById("promptBox").textContent;
-        //let text = document.getElementById("textEditorBox").textContent;
+    if(event.key === "Enter") {
 
-        let line = inputString.substr(inputString.lastIndexOf(">"));
-        // line = inputString;
-        let command = line.substr(1);
-        // Get last line of text area
+        let commandObject = parseCommandString(inputString);
+        let actual = commandObject.act;
+        let arguments = commandObject.arg;
 
-        console.log(command);
-        //let command = commandPrompt.getValue();
-        let actual = command.toLowerCase();
-        let lbpos = command.indexOf("(");
-        let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
-
-        // Actual command name
-        actual = actual.substr(0, lbpos);
-
-        // Arguments of choose() command
-        let arguments = argString.split(/\s*,{1}\s*/);
 
         // Break the command into the command body and argument.
         switch (actual) {
@@ -183,9 +154,8 @@ function matchCommand(inputString){
             case "choose":
                 console.log(arguments);
                 console.log(typeof arguments);
-                //if(!responded) {
 
-                var choiceOption = 0;
+                let choiceOption = 0;
                 try {
                     choiceOption = parseInt(arguments.shift());
                 }
@@ -222,16 +192,11 @@ function changeStats(choice) {
 function addPrompt(prompt) {
     previousCommands = previousCommands + prompt;
     drawInput();
-
-    //commandPrompt.setValue(prompt + commandPrompt.getValue());
-    //document.getElementById("promptBox").textContent += prompt;
-    //document.getElementById("promptBox").style.minHeight = (document.getElementById("promptBox").scrollHeight) + "px";
 }
 
 // Function for adding prompt result text
 function addResult(choice) {
     previousCommands += "\n" + choice;
-    //document.getElementById("promptBox").textContent += choice;
 }
 
 function drawInput(){
@@ -251,4 +216,24 @@ function createVisualizer() {
     //This is fine..
 
     drawSnapshot();
+}
+
+function parseCommandString(inputString){
+    let line = inputString.substr(inputString.lastIndexOf(">"));
+    // line = inputString;
+    let command = line.substr(1);
+    // Get last line of text area
+
+    console.log(command);
+    //let command = commandPrompt.getValue();
+    let actual = command.toLowerCase();
+    let lbpos = command.indexOf("(");
+    let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
+
+    // Actual command name
+    actual = actual.substr(0, lbpos);
+
+    // Arguments of choose() command
+    let arguments = argString.split(/\s*,{1}\s*/);
+    return {"act":actual, "arg":arguments};
 }

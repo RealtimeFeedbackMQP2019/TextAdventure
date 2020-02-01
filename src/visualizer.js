@@ -47,8 +47,6 @@ function visInit(){
 function visUpdate(){
     interpAllValues();
     renderPreview();
-
-
     window.requestAnimationFrame(visUpdate);
 }
 
@@ -124,26 +122,4 @@ function renderFrame(context, value){
     for(var i = 0; i < 5; i++){
         context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
-}
-
-//Render only 1 bar
-function render1Vis(visname){
-
-    interpAllValues();
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-
-    var anchorU = (canvas.height - BAR_MAX_HEIGHT/2) / 2;
-    var anchorL = BAR_DIST;
-
-    var MW = canvas.width - BAR_DIST * 2;
-
-    var width = MW * (INTERPVAL.get(visname) / MAXVALS.get(visname));
-    ctx.fillStyle = VISCOL.get(visname);
-    ctx.strokeStyle = "rgba(1,1,1,0)";
-    ctx.fillRect(anchorL, anchorU, width, BAR_MAX_HEIGHT/2);
-
-
-    window.requestAnimationFrame(function(){
-        render1Vis(visname);
-    });
 }
