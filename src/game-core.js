@@ -25,7 +25,7 @@ function init(){
            let line = commandPrompt.getLine(commandPrompt.lastLine());
            matchCommand(line);
            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
-           drawInput();
+           
        }
     });
 
@@ -168,7 +168,7 @@ function matchCommand(inputString){
 
                 addPrompt(currPrompt.Prompt);
         }
-        drawInput();
+        
     }
 }
 
@@ -189,18 +189,27 @@ function changeStats(choice) {
 
 // Function for adding text to prompt
 function addPrompt(prompt) {
-    previousCommands = previousCommands + prompt;
-    drawInput();
+    appendText(commandPrompt,prompt);
+    
+}
+
+function appendText(cm, text){
+    const lineNumber = cm.lineCount() - 1;
+    const lineStr = cm.getLine( lineNumber );
+    let charPos = lineStr.length;
+
+    cm.replaceRange(
+        lineStr + text,
+        { line:lineNumber, ch:0 },
+        { line:lineNumber, ch: charPos }
+    )
+
+    cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
 }
 
 // Function for adding prompt result text
 function addResult(choice) {
-    previousCommands += "\n" + choice;
-}
-
-function drawInput(){
-    commandPrompt.setValue(previousCommands + "\n>");
-    commandPrompt.setCursor(commandPrompt.lastLine(), 1);
+    appendText(commandPrompt,"\n" + choice);
 }
 
 // Function for making snapshot visualizer
