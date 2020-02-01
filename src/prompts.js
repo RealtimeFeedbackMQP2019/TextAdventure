@@ -76,9 +76,9 @@ const prompts = {
             "NextPrompt": "StoneAge4"
         },
         "StoneAge4": {
-            "Prompt": "A large Tyrannosaurus stomped into your community and destroyed many dwellings.\n" +
-                "1) Fight the T-Rex and try to kill it.\n" +
-                "2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
+            "Prompt": "//A large Tyrannosaurus stomped into your community and destroyed many dwellings.\n" +
+                "//1) Fight the T-Rex and try to kill it.\n" +
+                "//2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
@@ -181,9 +181,9 @@ const prompts = {
             "NextPrompt": "MetalAge3"
         },
         "MetalAge3": {
-            "Prompt": "A new king needs to be given control of the throne, but two different people have equal claim to the throne.\n" +
-                "1) Choose the king who will focus on building the strongest nation.\n" +
-                "2) Choose the king who will focus on protecting his own people.\n\n",
+            "Prompt": "//A new king needs to be given control of the throne, but two different people have equal claim to the throne.\n" +
+                "//1) Choose the king who will focus on building the strongest nation.\n" +
+                "//2) Choose the king who will focus on protecting his own people.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
@@ -223,9 +223,9 @@ const prompts = {
             "NextPrompt": "MetalAge5"
         },
         "MetalAge5": {
-            "Prompt": "A supposed “witch” has revealed herself to your civilization and claims to have the power to cure any disease.\n" +
-                "1) She’s telling the truth - let her cure the sick.\n" +
-                "2) She’s full of shit - magic doesn’t exist.\n\n",
+            "Prompt": "//A supposed “witch” has revealed herself to your civilization and claims to have the power to cure any disease.\n" +
+                "//1) She’s telling the truth - let her cure the sick.\n" +
+                "//2) She’s full of shit - magic doesn’t exist.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": -1,
@@ -265,9 +265,9 @@ const prompts = {
             "NextPrompt": "ConqueringAge1"
         },
         "ConqueringAge1": {
-            "Prompt": "A carpenter in our town claims he has the ability to make massive wood structures.\n" +
-                "1) Build a ship!\n" +
-                "2) Build a wooden statue to praise the goddess of wisdom!\n\n",
+            "//Prompt": "A carpenter in our town claims he has the ability to make massive wood structures.\n" +
+                "//1) Build a ship!\n" +
+                "//2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
@@ -307,9 +307,9 @@ const prompts = {
             "NextPrompt": "ConqueringAge3"
         },
         "ConqueringAge3": {
-            "Prompt": "A wacky scientist believes the world is round, how crazy is that?\n" +
-                "1) Endorse him just for the heck of it.\n" +
-                "2) Kick him out and let another nation deal with him. \n\n",
+            "//Prompt": "A wacky scientist believes the world is round, how crazy is that?\n" +
+                "//1) Endorse him just for the heck of it.\n" +
+                "//2) Kick him out and let another nation deal with him. \n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
@@ -475,9 +475,9 @@ const prompts = {
             "NextPrompt": "SpaceAge3"
         },
         "SpaceAge3": {
-            "Prompt": "A group of brave scientists want to go down to the Earth’s core and use it as an energy source.\n" +
-                "1) They’re crazy with power and not acting very smart - don’t let them go.\n" +
-                "2) Support the expedition, I HAVE THE POWERRRRR!\n\n",
+            "Prompt": "//A group of brave scientists want to go down to the Earth’s core and use it as an energy source.\n" +
+                "//1) They’re crazy with power and not acting very smart - don’t let them go.\n" +
+                "//2) Support the expedition, I HAVE THE POWERRRRR!\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
@@ -538,9 +538,9 @@ const prompts = {
             "NextPrompt": "SpaceAge6"
         },
         "SpaceAge6": {
-            "Prompt": "Alien UFOs have appeared in the sky! The aliens communicate and offer to help your people.\n" +
-                "1) Trust the aliens and accept their peace.\n" +
-                "2) Immediately destroy the alien saucers; they pose a major threat.\n\n",
+            "Prompt": "//Alien UFOs have appeared in the sky! The aliens communicate and offer to help your people.\n" +
+                "//1) Trust the aliens and accept their peace.\n" +
+                "//2) Immediately destroy the alien saucers; they pose a major threat.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,

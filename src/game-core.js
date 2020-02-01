@@ -189,7 +189,7 @@ function changeStats(choice) {
 
 // Function for adding text to prompt
 function addPrompt(prompt) {
-    appendText(commandPrompt,prompt);
+    appendText(commandPrompt,prompt + ">");
     
 }
 
