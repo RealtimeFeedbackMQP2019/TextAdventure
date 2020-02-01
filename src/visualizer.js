@@ -45,6 +45,7 @@ function visUpdate(visualizer){
 }
 
 function drawSnapshot(height){
+    console.log(height);
     let snapshotCanvas = document.createElement("canvas");
     snapshotCanvas.id = "old-preview" + snapshotIndex;
     snapshotCanvas.height = height;
