@@ -129,7 +129,6 @@ function matchCommand(inputString){
 
         // Break the command into the command body and argument.
         switch (actual) {
-
             // Eat() command
             case "eat":
                 if(GAMEVALS.get("Food") > 0) {

@@ -1,5 +1,4 @@
-var canvas;
-var ctx;
+
 
 const BAR_MAX_HEIGHT = 100;
 const BAR_MAX_WIDTH = 30;
@@ -18,8 +17,7 @@ var snapshotIndex = 0;
 
 
 function visInit(){
-    canvas = document.getElementById("previewCTX");
-    ctx = canvas.getContext("2d");
+    let canvas = document.getElementById("previewCTX");
 
     //Set colors.
     VISCOL.set("Hunger", "rgba(255,127,0,1.0)");
@@ -30,24 +28,20 @@ function visInit(){
     VISCOL.set("Science", "rgba(127,0,255,1.0)");
 
 
-    for(var x of GAMEVALS.keys()){
+    for(let x of GAMEVALS.keys()){
         INTERPVAL.set(x, GAMEVALS.get(x));
     }
 
-    //ctx.fillStyle = "#FF0000";
-    //ctx.fillRect(0, 0, 80, 80);
-    visUpdate();
-
-
-    //drawFunction(param);
-    //render1Vis("Hunger")
+    let barVisualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    visUpdate(barVisualizer);
 }
 
 
-function visUpdate(){
+function visUpdate(visualizer){
+
     interpAllValues();
-    renderPreview();
-    window.requestAnimationFrame(visUpdate);
+    visualizer.drawVisuals(INTERPVAL);
+    window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
 
 function drawSnapshot(){
@@ -67,6 +61,26 @@ function interpAllValues(){
     }
 }
 
+
+
+function renderFrame(context, value){
+    context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+    var index = 0;
+
+    for(var x of LIST_OF_VALS){
+
+        var height = BAR_MAX_HEIGHT * (value.get(x) / MAXVALS.get(x));
+
+        context.fillStyle = VISCOL.get(x);
+        context.strokeStyle = "rgba(1,1,1,0)";
+        context.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
+        index += 1;
+    }
+    context.fillStyle = "rgba(255,255,255,0.5)";
+    for(var i = 0; i < 5; i++){
+        context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
+    }
+}
 
 
 
@@ -102,24 +116,4 @@ function renderPreview(){
     }
 
     //window.requestAnimationFrame(renderPreview);
-}
-
-function renderFrame(context, value){
-    context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-    var index = 0;
-
-    for(var x of LIST_OF_VALS){
-
-        var height = BAR_MAX_HEIGHT * (value.get(x) / MAXVALS.get(x));
-
-
-        context.fillStyle = VISCOL.get(x);
-        context.strokeStyle = "rgba(1,1,1,0)";
-        context.fillRect(index * BAR_MAX_WIDTH + BAR_DIST * (index + 1), 25 + (BAR_MAX_HEIGHT - height), BAR_MAX_WIDTH, height);
-        index += 1;
-    }
-    context.fillStyle = "rgba(255,255,255,0.5)";
-    for(var i = 0; i < 5; i++){
-        context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
-    }
 }
