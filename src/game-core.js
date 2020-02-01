@@ -9,7 +9,6 @@ let gameTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
-let previousCommands = "";
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -146,7 +145,7 @@ function matchCommand(inputString){
 
             // Snapshot() command
             case "snapshot":
-                createVisualizer();
+                createVisualizer(commandPrompt);
                 break;
 
             // Choose() command with parameters
@@ -212,20 +211,6 @@ function addResult(choice) {
     appendText(commandPrompt,"\n" + choice);
 }
 
-// Function for making snapshot visualizer
-function createVisualizer() {
-    let visCanvas = document.createElement('canvas');
-    visCanvas.id = "snapshotCTX";
-    visCanvas.width = 350;
-    visCanvas.height = 150;
-
-    let body = document.getElementsByTagName("body")[0];
-    body.appendChild(visCanvas);
-    //This is fine..
-
-    drawSnapshot();
-}
-
 function parseCommandString(inputString){
     let line = inputString.substr(inputString.lastIndexOf(">"));
     // line = inputString;
@@ -244,4 +229,27 @@ function parseCommandString(inputString){
     // Arguments of choose() command
     let arguments = argString.split(/\s*,{1}\s*/);
     return {"act":actual, "arg":arguments};
+}
+
+function createVisualizer(cm) {
+    const canvas = drawSnapshot(cm.defaultTextHeight())
+    let lineNumber = cm.lineCount() - 1;
+    const lineStr = cm.getLine( lineNumber )
+    let charPos = lineStr.length;
+    //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
+    cm.replaceRange(
+        lineStr + ' \n\n>',
+        { line:lineNumber, ch:0 },
+        { line:lineNumber, ch: charPos }
+    );
+    charPos++;
+
+    lineNumber = cm.lineCount() - 1;
+
+    cm.markText(
+        { line:lineNumber - 2, ch:charPos - 1},
+        { line:lineNumber - 2, ch:charPos },
+        { replacedWith: canvas }
+    );
+    //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
 }

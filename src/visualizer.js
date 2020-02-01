@@ -44,15 +44,17 @@ function visUpdate(visualizer){
     window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
 
-function drawSnapshot(){
-    var snapshotCanvas = document.getElementById("snapshotCTX");
-    var snapshotCTX = snapshotCanvas.getContext("2d");
-
-    renderFrame(snapshotCTX, GAMEVALS);
+function drawSnapshot(height){
+    let snapshotCanvas = document.createElement("canvas");
     snapshotCanvas.id = "old-preview" + snapshotIndex;
+    snapshotCanvas.height = height;
 
+    let barVisualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    barVisualizer.drawVisuals(GAMEVALS);
 
     snapshotIndex += 1;
+
+    return snapshotCanvas;
 }
 
 function interpAllValues(){
