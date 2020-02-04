@@ -17,7 +17,8 @@ function init(){
     visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
-        lineNumbers : true
+        lineNumbers : true,
+        lineWrapping: true
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
