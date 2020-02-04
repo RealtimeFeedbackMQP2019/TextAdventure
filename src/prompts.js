@@ -295,14 +295,14 @@ const prompts = {
                 "Population": 200,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Wow that went well! We gained new friends and new allies! \n\n"
             },{
                 "Food": -5,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "We receive staggering losses! They even pillaged us! \n\n"
             }],
             "NextPrompt": "ConqueringAge3"
         },
@@ -329,7 +329,7 @@ const prompts = {
         },
         "ConqueringAge4": {
             "Prompt": "Our ship is being attacked by a huge toad in the ocean!\n" +
-                "1) Finally, a worthy opponent...\n" +
+                "1) Finally, a  worthy opponent...\n" +
                 "2) Prepare for evacuation!\n\n",
             "Choice": [{
                 "Food": 0,
@@ -349,7 +349,7 @@ const prompts = {
             "NextPrompt": "ConqueringAge5"
         },
         "ConqueringAge5": {
-            "Prompt": "During one of the experiments, we found that whale oil is an extremely valuable resource.\n" +
+            "Prompt": "During an experiment, we found that whale oil is an extremely valuable resource.\n" +
                 "1) Start catching more whales, and use whale oil to power the whole city.\n" +
                 "2) Nope, we don’t want whale oil punks here. Eat whales, but throw away the oil.\n\n",
             "Choice": [{
@@ -372,21 +372,21 @@ const prompts = {
         "IndustrialAge1": {
             "Prompt": "Nuclear fission has been discovered. \n" +
                 "1) Endorse nuclear technology development.\n" +
-                "2) Let governments go wild with nuclear power!\n\n",
+                "2) Seems a little risky, keep on using coal and electricity. \n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
                 "Population": 150,
                 "Military": 20,
                 "Science": 40,
-                "Result" : "something... \n\n"
+                "Result" : "Wow! So efficient, so clean! We learned a lot, including weaponized uses! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -250,
-                "Military": 40,
+                "Military": 0,
                 "Science": 30,
-                "Result" : "something... \n\n"
+                "Result" : "Breathing in coal all day kinda sucks, but we've made so many cool things! \n\n"
             }],
             "NextPrompt": "IndustrialAge2"
         },
@@ -400,14 +400,14 @@ const prompts = {
                 "Population": -150,
                 "Military": 0,
                 "Science": -20,
-                "Result" : "something... \n\n"
+                "Result" : "Wow, people these days can cause such a ruckus. They'll believe anything! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": -35,
-                "Result" : "something... \n\n"
+                "Result" : "Wow, people these days will believe anything. \n\n"
             }],
             "NextPrompt": "IndustrialAge3"
         },
@@ -428,7 +428,7 @@ const prompts = {
                 "Population": 0,
                 "Military": -10,
                 "Science": 40,
-                "Result" : "something... \n\n"
+                "Result" : "People came in flocks  \n\n"
             }],
             "NextPrompt": "SpaceAge1"
         },
