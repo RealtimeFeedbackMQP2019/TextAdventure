@@ -18,7 +18,8 @@ function init(){
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
-        lineWrapping: true
+        lineWrapping: true,
+        theme: "darcula"
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){

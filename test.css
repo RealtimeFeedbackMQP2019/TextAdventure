@@ -21,6 +21,13 @@
     white-space: pre;
 }
 
+body{
+    background-color: black;
+}
+p{
+    color: #008855;
+}
+
 .userInputArea {
     float:left;
 }
