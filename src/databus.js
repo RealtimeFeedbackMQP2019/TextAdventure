@@ -14,7 +14,7 @@ let DataManager = (function () {
 
         return{
             addToValue(key, value){
-                if(DataList[key] !== null && DataList[key] + value < 0){
+                if(DataList[key] !== null && DataList[key].getValue() + value < 0){
                     DataList[key].setValue(0);
                 }
                 else{
@@ -30,7 +30,7 @@ let DataManager = (function () {
 
             checkGameStatus(){
                 // Check for game loss condition
-                if(DataList["Hunger"] <= 0){
+                if(DataList["Hunger"].getValue() <= 0){
                     clearInterval(gameTickUpdate);
                     document.getElementById("gameOver").innerHTML = "GAME OVER";
                     document.getElementById("gameOver").style.display = "inline";

@@ -127,12 +127,14 @@ function matchCommand(inputString){
         let actual = commandObject.act;
         let arguments = commandObject.arg;
 
+        let DataStr = DataManager.getInstance().getDataList();
+
 
         // Break the command into the command body and argument.
         switch (actual) {
             // Eat() command
             case "eat":
-                if(GAMEVALS.get("Food") > 0) {
+                if(DataStr["Food"].getValue() > 0) {
                     subtractFromValue("Food", 1);
                     addToValue("Hunger", 5);
                 }
@@ -140,7 +142,7 @@ function matchCommand(inputString){
 
             // RaiseSecurity() command
             case "raisesecurity":
-                if (GAMEVALS.get("Security") < 5) {
+                if (DataStr["Security"].getValue() < 5) {
                     addToValue("Security", 1);
                 }
                 break;
