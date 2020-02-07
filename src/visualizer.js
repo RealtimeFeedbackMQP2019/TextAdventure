@@ -5,11 +5,6 @@ const BAR_MAX_WIDTH = 30;
 
 const BAR_DIST = 10;
 
-var VISCOL = new Map();
-var INTERPVAL = new Map();
-
-const INTERPSPEED = 0.1;
-
 var drawFunction = renderPreview;
 var param = null;
 
@@ -19,11 +14,6 @@ var snapshotIndex = 0;
 function visInit(){
     let canvas = document.getElementById("previewCTX");
 
-
-    for(let x of GAMEVALS.keys()){
-        INTERPVAL.set(x, GAMEVALS.get(x));
-    }
-
     let barVisualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
     visUpdate(barVisualizer);
 }
@@ -32,7 +22,7 @@ function visInit(){
 function visUpdate(visualizer){
 
     //interpAllValues();
-    visualizer.drawVisuals(INTERPVAL);
+    visualizer.drawVisuals();
     window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
 
