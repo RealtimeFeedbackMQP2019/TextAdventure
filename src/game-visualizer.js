@@ -7,7 +7,7 @@ class BarVisualizer{
         this._barSeperation = barSeparation;
     }
 
-    drawVisuals(){
+    drawVisuals(value){
         let index = 0;
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
 
