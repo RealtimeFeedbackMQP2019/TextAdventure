@@ -165,7 +165,7 @@ function matchCommand(inputString){
                 changeStats(currPrompt.Choice[choiceOption - 1]);
                 addResult(currPrompt.Choice[choiceOption - 1].Result);
                 getNextPrompt();
-                checkGameStatus();
+                DataManager.getInstance().checkGameStatus();
 
                 addPrompt(currPrompt.Prompt);
         }
@@ -203,7 +203,7 @@ function appendText(cm, text){
         lineStr + text,
         { line:lineNumber, ch:0 },
         { line:lineNumber, ch: charPos }
-    )
+    );
 
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
 }

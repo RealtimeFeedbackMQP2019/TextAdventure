@@ -20,18 +20,11 @@ function initVariables(){
 }
 
 function addToValue(key, value){
-    if(GAMEVALS.get(key) + value < 0){
-        GAMEVALS.set(key, 0);
-    }
-    else{
-        GAMEVALS.set(key, GAMEVALS.get(key) + value);
-    }
-    updateDisplayVariables();
-    checkGameStatus();
+    DataManager.getInstance().addToValue(key, value);
 }
 
 function subtractFromValue(key, value){
-    addToValue(key, -value);
+    DataManager.getInstance().addToValue(key, -value);
 }
 
 function checkGameStatus(){

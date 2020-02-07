@@ -19,14 +19,6 @@ var snapshotIndex = 0;
 function visInit(){
     let canvas = document.getElementById("previewCTX");
 
-    //Set colors.
-    VISCOL.set("Hunger", "rgba(255,127,0,1.0)");
-    VISCOL.set("Food", "rgba(255,64,0,1.0)");
-    VISCOL.set("Security", "rgba(0,127,255,1.0)");
-    VISCOL.set("Population", "rgba(0,255,64,1.0)");
-    VISCOL.set("Military", "rgba(255,0,127,1.0)");
-    VISCOL.set("Science", "rgba(127,0,255,1.0)");
-
 
     for(let x of GAMEVALS.keys()){
         INTERPVAL.set(x, GAMEVALS.get(x));
