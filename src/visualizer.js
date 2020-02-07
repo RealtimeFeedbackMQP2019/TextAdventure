@@ -31,7 +31,7 @@ function visInit(){
 
 function visUpdate(visualizer){
 
-    interpAllValues();
+    //interpAllValues();
     visualizer.drawVisuals(INTERPVAL);
     window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
@@ -49,14 +49,6 @@ function drawSnapshot(height){
 
     return snapshotCanvas;
 }
-
-function interpAllValues(){
-    for(var x of INTERPVAL.keys()){
-        INTERPVAL.set(x, INTERPVAL.get(x) - (INTERPVAL.get(x) - GAMEVALS.get(x)) * INTERPSPEED);
-    }
-}
-
-
 
 function renderFrame(context, value){
     context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas

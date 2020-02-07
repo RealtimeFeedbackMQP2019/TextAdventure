@@ -1,9 +1,8 @@
 class BarVisualizer{
 
-    constructor(canvas, barWidth, barSeparation, colorScheme=VISCOL){
+    constructor(canvas, barWidth, barSeparation){
         this._canvas = canvas;
         this._ctx = canvas.getContext("2d");
-        this._colorScheme = colorScheme;
         this._barWidth = barWidth;
         this._barSeperation = barSeparation;
     }
@@ -13,9 +12,10 @@ class BarVisualizer{
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
 
         for(let x of LIST_OF_VALS){
-            let height = this._canvas.height * (value.get(x) / MAXVALS.get(x));
+            let dataval = DataManager.getInstance().getDataList()[x];
+            let height = this._canvas.height * (dataval.getDisplayValue() / dataval.getMax());
 
-            this._ctx.fillStyle = this._colorScheme.get(x);
+            this._ctx.fillStyle = dataval.getColor();
             this._ctx.strokeStyle = "rgba(1,1,1,0)";
             this._ctx.fillRect(index * this._barWidth + this._barSeperation * (index + 1), (this._canvas.height - height), this._barWidth, height);
 
@@ -30,11 +30,4 @@ class BarVisualizer{
         }
 
     }
-}
-
-class Bar{
-    constructor(dataname){
-        this._dataname = dataname;
-    }
-    
 }

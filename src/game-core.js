@@ -13,7 +13,7 @@ let commandPrompt;
 // Initialize commandPrompt and game ticks
 function init(){
 
-    initVariables();
+    //initVariables();
     visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{

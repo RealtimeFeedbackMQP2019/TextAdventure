@@ -50,6 +50,10 @@ let DataManager = (function () {
                 for(let key in DataList){
                     document.getElementById(key).innerHTML = DataList[key].getValue();
                 }
+            },
+
+            getDataList(){
+                return DataList;
             }
 
 
@@ -93,7 +97,13 @@ class ValueData{
     }
 
     getDisplayValue(){
+        this.updateDisplayValue();
         return this._displayValue;
+
+    }
+
+    updateDisplayValue(){
+        this._displayValue = this._displayValue - (this._displayValue - this._value) * 0.2;
     }
 
     addValue(value){
