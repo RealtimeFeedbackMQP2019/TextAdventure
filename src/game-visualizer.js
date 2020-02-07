@@ -31,3 +31,10 @@ class BarVisualizer{
 
     }
 }
+
+class Bar{
+    constructor(dataname){
+        this._dataname = dataname;
+    }
+    
+}

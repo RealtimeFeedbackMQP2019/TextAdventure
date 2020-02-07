@@ -234,7 +234,7 @@ function parseCommandString(inputString){
 }
 
 function createVisualizer(cm) {
-    const canvas = drawSnapshot(cm.defaultTextHeight())
+    const canvas = drawSnapshot(cm.defaultTextHeight());
     let lineNumber = cm.lineCount() - 1;
     const lineStr = cm.getLine( lineNumber )
     let charPos = lineStr.length;
