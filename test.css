@@ -6,19 +6,24 @@
     display: inline-block;
 }
 
-#commandPrompt {
-    border: 1px solid black;
-}
+/*#commandPrompt {*/
+/*    border: 1px solid black;*/
+/*}*/
 
 /*#textPromptBox {*/
 /*    border: 5px solid black;*/
 /*    height: 100px;*/
 /*}*/
 
-#promptAndHistoryBox {
+/*#promptAndHistoryBox {*/
+/*    width: 100%;*/
+/*    border: 1px solid black;*/
+/*    white-space: pre;*/
+/*}*/
+
+#automation {
+    display: inline;
     width: 100%;
-    border: 1px solid black;
-    white-space: pre;
 }
 
 body{
@@ -27,6 +32,10 @@ body{
 }
 p{
     color: #008855;
+}
+
+h1, h2{
+    color: white;
 }
 
 .userInputArea {

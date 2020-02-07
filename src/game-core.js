@@ -9,6 +9,8 @@ let gameTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
+let automation1;
+let automation2;
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -29,6 +31,18 @@ function init(){
            
        }
     });
+
+    // Initialize automation for now, change later
+    automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"), {
+        lineNumbers: true,
+        theme: "darcula"
+    });
+    automation1.setSize('50%', '10%');
+    automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"), {
+        lineNumbers: true,
+        theme: "darcula"
+    });
+    automation2.setSize('50%', '10%');
 
     gameTickUpdate = setInterval('update()', 1000);
 
