@@ -10,7 +10,6 @@ var INTERPVAL = new Map();
 
 const INTERPSPEED = 0.1;
 
-var drawFunction = renderPreview;
 var param = null;
 
 var snapshotIndex = 0;
@@ -24,8 +23,8 @@ function visInit(){
         INTERPVAL.set(x, GAMEVALS.get(x));
     }
 
-    let barVisualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
-    visUpdate(barVisualizer);
+    let visualizer = new CircularVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    visUpdate(visualizer);
 }
 
 
@@ -42,14 +41,15 @@ function drawSnapshot(height){
     snapshotCanvas.id = "old-preview" + snapshotIndex;
     snapshotCanvas.height = height;
 
-    let barVisualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
-    barVisualizer.drawVisuals(GAMEVALS);
+    let visualizer = new CircularVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    visualizer.drawVisuals(GAMEVALS);
 
     snapshotIndex += 1;
 
     return snapshotCanvas;
 }
 
+/*
 function renderFrame(context, value){
     context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     var index = 0;
@@ -67,10 +67,10 @@ function renderFrame(context, value){
     for(var i = 0; i < 5; i++){
         context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
-}
+}*/
 
 
-
+/*
 function renderPreview(){
     //This is about the same...
     ctx.lineWidth = 0;
@@ -103,4 +103,4 @@ function renderPreview(){
     }
 
     //window.requestAnimationFrame(renderPreview);
-}
+}*/
