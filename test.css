@@ -22,7 +22,8 @@
 /*}*/
 
 #automation {
-    display: inline;
+    float: left;
+    display: inline-block;
     width: 100%;
 }
 
