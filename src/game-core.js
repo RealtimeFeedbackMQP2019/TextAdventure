@@ -19,7 +19,7 @@ let numAutomation = 0;
 function init(){
 
     //initVariables();
-    visInit();
+    //visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
@@ -34,6 +34,7 @@ function init(){
            
        }
     });
+    commandPrompt.setSize('100%', '100%');
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -68,38 +69,38 @@ function update(){
         subtractFromValue("Science", 5);
     }
 
-    // Add automation if applicable
-    if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
-        addAutomation(1);
-        numAutomation += 1;
-        automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"), {
-            lineNumbers: true,
-            theme: "darcula"
-        });
-        automation1.setSize('50%', '10%');
-        automation1.setOption("extraKeys", {
-            Enter: function(){
-                let code = automation1.getValue().split('\n');
-                console.log(code);
-                parseAutomation(code);
-            }
-        });
-    } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
-        addAutomation(2);
-        numAutomation += 1;
-        automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"), {
-            lineNumbers: true,
-            theme: "darcula"
-        });
-        automation2.setSize('50%', '10%');
-        automation2.setOption("extraKeys", {
-            Enter: function(){
-                let code = automation2.getValue().split('\n');
-                console.log(code);
-                parseAutomation(code);
-            }
-        });
-    }
+    // // Add automation if applicable
+    // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
+    //     addAutomation(1);
+    //     numAutomation += 1;
+    //     automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"), {
+    //         lineNumbers: true,
+    //         theme: "darcula"
+    //     });
+    //     automation1.setSize('50%', '10%');
+    //     automation1.setOption("extraKeys", {
+    //         Enter: function(){
+    //             let code = automation1.getValue().split('\n');
+    //             console.log(code);
+    //             parseAutomation(code);
+    //         }
+    //     });
+    // } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
+    //     addAutomation(2);
+    //     numAutomation += 1;
+    //     automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"), {
+    //         lineNumbers: true,
+    //         theme: "darcula"
+    //     });
+    //     automation2.setSize('50%', '10%');
+    //     automation2.setOption("extraKeys", {
+    //         Enter: function(){
+    //             let code = automation2.getValue().split('\n');
+    //             console.log(code);
+    //             parseAutomation(code);
+    //         }
+    //     });
+    // }
 }
 
 

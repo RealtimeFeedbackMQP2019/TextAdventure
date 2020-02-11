@@ -47,9 +47,9 @@ let DataManager = (function () {
             },
 
             updateDisplayVariables(){
-                for(let key in DataList){
-                    document.getElementById(key).innerHTML = DataList[key].getValue();
-                }
+                // for(let key in DataList){
+                //     document.getElementById(key).innerHTML = DataList[key].getValue();
+                // }
             },
 
             getDataList(){

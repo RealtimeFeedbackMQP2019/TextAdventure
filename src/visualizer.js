@@ -23,7 +23,7 @@ function visInit(){
         INTERPVAL.set(x, GAMEVALS.get(x));
     }
 
-    let visualizer = new CircularVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    let visualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
     visUpdate(visualizer);
 }
 
@@ -41,7 +41,7 @@ function drawSnapshot(height){
     snapshotCanvas.id = "old-preview" + snapshotIndex;
     snapshotCanvas.height = height;
 
-    let visualizer = new CircularVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    let visualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
     visualizer.drawVisuals(GAMEVALS);
 
     snapshotIndex += 1;
