@@ -36,6 +36,41 @@ function init(){
     });
     commandPrompt.setSize('100%', '100%');
 
+    automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
+        lineNumbers : true,
+        lineWrapping: true,
+        theme: "darcula"
+    });
+    automation1.setOption("extraKeys",{
+        Enter: function(cm){
+            let line = automation1.getLine(automation1.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+
+        }
+    });
+    automation1.setSize('100%', '100%');
+
+    automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"),{
+        lineNumbers : true,
+        lineWrapping: true,
+        theme: "darcula"
+    });
+    automation2.setOption("extraKeys",{
+        Enter: function(cm){
+            let line = automation2.getLine(automation2.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+
+        }
+    });
+    automation2.setSize('100%', '100%');
+
+    // Only set main console visible
+    commandPrompt.getWrapperElement().style.display = "block";
+    automation1.getWrapperElement().style.display = "none";
+    automation2.getWrapperElement().style.display = "none";
+
     gameTickUpdate = setInterval('update()', 1000);
 
     // Set current prompt to Stone Age 1
@@ -341,4 +376,31 @@ function addAutomation(index) {
 
     document.getElementById("automation").insertAdjacentElement('afterbegin', automation);
 
+}
+
+// Function for opening a tab to display CodeMirror widget
+function openTab(event, tabName) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    if(tabName === 'commandPrompt') {
+        commandPrompt.getWrapperElement().style.display = "block";
+        automation1.getWrapperElement().style.display = "none";
+        automation2.getWrapperElement().style.display = "none";
+    }
+    else if(tabName === 'automation1') {
+        commandPrompt.getWrapperElement().style.display = "none";
+        automation1.getWrapperElement().style.display = "block";
+        automation2.getWrapperElement().style.display = "none";
+    }
+    else if (tabName === 'automation2') {
+        commandPrompt.getWrapperElement().style.display = "none";
+        automation1.getWrapperElement().style.display = "none";
+        automation2.getWrapperElement().style.display = "block";
+    }
+    // tablinks = document.getElementsByClassName("tablinks");
+    // for (i = 0; i < tablinks.length; i++) {
+    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+    // }
+    // document.getElementById(tabName).style.display = "block";
+    // event.currentTarget.className += " active";
 }
