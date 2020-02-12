@@ -31,7 +31,7 @@ function visInit(){
 function visUpdate(visualizer){
 
     //interpAllValues();
-    visualizer.drawVisuals(INTERPVAL);
+    visualizer.drawVisuals();
     window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
 
@@ -42,7 +42,7 @@ function drawSnapshot(height){
     snapshotCanvas.height = height;
 
     let visualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
-    visualizer.drawVisuals(GAMEVALS);
+    visualizer.drawVisuals();
 
     snapshotIndex += 1;
 

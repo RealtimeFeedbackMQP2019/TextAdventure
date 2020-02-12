@@ -83,19 +83,23 @@ function init(){
 
 // Update the game state - called at each game tick
 function update(){
-    if(GAMEVALS.get("Population") <= 0) subtractFromValue("Hunger", 2);
-    else if (GAMEVALS.get("Science") <= 0 && GAMEVALS.get("Military") > 0) {
-        subtractFromValue("Military", 10);
-        subtractFromValue("Population", 3);
-        subtractFromValue("Hunger", 1);
+    let datalist = DataManager.getInstance().getDataList();
+    let dm = DataManager.getInstance();
+    if(datalist.Population.getValue() <= 0){
+        dm.subtractFromValue("Hunger", 2);
     }
-    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") > 0) {
-        subtractFromValue("Population", 3);
-        subtractFromValue("Hunger", 1);
+    else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
+        dm.subtractFromValue("Military", 10);
+        dm.subtractFromValue("Population", 3);
+        dm.subtractFromValue("Hunger", 1);
     }
-    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") <= 0) {
-        subtractFromValue("Population", 4);
-        subtractFromValue("Hunger", 1);
+    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
+        dm.subtractFromValue("Population", 3);
+        dm.subtractFromValue("Hunger", 1);
+    }
+    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
+        dm.subtractFromValue("Population", 4);
+        dm.subtractFromValue("Hunger", 1);
     }
     else {
         subtractFromValue("Hunger", 1);

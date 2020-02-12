@@ -7,13 +7,13 @@ class BarVisualizer{
         this._barSeperation = barSeparation;
     }
 
-    drawVisuals(value){
+    drawVisuals(){
         let index = 0;
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
 
         for(let x of LIST_OF_VALS){
             let dataval = DataManager.getInstance().getDataList()[x];
-            let height = this._canvas.height * (dataval.getDisplayValue() / dataval.getMax());
+            let height = this._canvas.height * (dataval.getValue() / dataval.getMax());
 
             this._ctx.fillStyle = dataval.getColor();
             this._ctx.strokeStyle = "rgba(1,1,1,0)";
@@ -68,5 +68,12 @@ class CircularVisualizer{
 
     clamp(min,val,max){
         return Math.min(Math.max(min, val), max)
+    }
+}
+
+
+class StockMarketVisualizer{
+    constructor(canvas, fontSize){
+
     }
 }
