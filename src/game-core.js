@@ -9,15 +9,22 @@ let gameTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
+let automation1;
+let automation2;
+
+// Keep track of adding automation
+let numAutomation = 0;
 
 // Initialize commandPrompt and game ticks
 function init(){
 
-    initVariables();
-    visInit();
+    //initVariables();
+    //visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
-        lineNumbers : true
+        lineNumbers : true,
+        lineWrapping: true,
+        theme: "darcula"
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
@@ -27,6 +34,42 @@ function init(){
            
        }
     });
+    commandPrompt.setSize('100%', '100%');
+
+    automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
+        lineNumbers : true,
+        lineWrapping: true,
+        theme: "darcula"
+    });
+    automation1.setOption("extraKeys",{
+        Enter: function(cm){
+            let line = automation1.getLine(automation1.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+
+        }
+    });
+    automation1.setSize('100%', '100%');
+
+    automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"),{
+        lineNumbers : true,
+        lineWrapping: true,
+        theme: "darcula"
+    });
+    automation2.setOption("extraKeys",{
+        Enter: function(cm){
+            let line = automation2.getLine(automation2.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+
+        }
+    });
+    automation2.setSize('100%', '100%');
+
+    // Only set main console visible
+    commandPrompt.getWrapperElement().style.display = "block";
+    automation1.getWrapperElement().style.display = "none";
+    automation2.getWrapperElement().style.display = "none";
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -40,19 +83,23 @@ function init(){
 
 // Update the game state - called at each game tick
 function update(){
-    if(GAMEVALS.get("Population") <= 0) subtractFromValue("Hunger", 2);
-    else if (GAMEVALS.get("Science") <= 0 && GAMEVALS.get("Military") > 0) {
-        subtractFromValue("Military", 10);
-        subtractFromValue("Population", 3);
-        subtractFromValue("Hunger", 1);
+    let datalist = DataManager.getInstance().getDataList();
+    let dm = DataManager.getInstance();
+    if(datalist.Population.getValue() <= 0){
+        dm.subtractFromValue("Hunger", 2);
     }
-    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") > 0) {
-        subtractFromValue("Population", 3);
-        subtractFromValue("Hunger", 1);
+    else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
+        dm.subtractFromValue("Military", 10);
+        dm.subtractFromValue("Population", 3);
+        dm.subtractFromValue("Hunger", 1);
     }
-    else if (GAMEVALS.get("Military") <= 0 && GAMEVALS.get("Science") <= 0) {
-        subtractFromValue("Population", 4);
-        subtractFromValue("Hunger", 1);
+    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
+        dm.subtractFromValue("Population", 3);
+        dm.subtractFromValue("Hunger", 1);
+    }
+    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
+        dm.subtractFromValue("Population", 4);
+        dm.subtractFromValue("Hunger", 1);
     }
     else {
         subtractFromValue("Hunger", 1);
@@ -60,6 +107,39 @@ function update(){
         subtractFromValue("Military", 5);
         subtractFromValue("Science", 5);
     }
+
+    // // Add automation if applicable
+    // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
+    //     addAutomation(1);
+    //     numAutomation += 1;
+    //     automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"), {
+    //         lineNumbers: true,
+    //         theme: "darcula"
+    //     });
+    //     automation1.setSize('50%', '10%');
+    //     automation1.setOption("extraKeys", {
+    //         Enter: function(){
+    //             let code = automation1.getValue().split('\n');
+    //             console.log(code);
+    //             parseAutomation(code);
+    //         }
+    //     });
+    // } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
+    //     addAutomation(2);
+    //     numAutomation += 1;
+    //     automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"), {
+    //         lineNumbers: true,
+    //         theme: "darcula"
+    //     });
+    //     automation2.setSize('50%', '10%');
+    //     automation2.setOption("extraKeys", {
+    //         Enter: function(){
+    //             let code = automation2.getValue().split('\n');
+    //             console.log(code);
+    //             parseAutomation(code);
+    //         }
+    //     });
+    // }
 }
 
 
@@ -125,12 +205,14 @@ function matchCommand(inputString){
         let actual = commandObject.act;
         let arguments = commandObject.arg;
 
+        let DataStr = DataManager.getInstance().getDataList();
+
 
         // Break the command into the command body and argument.
         switch (actual) {
             // Eat() command
             case "eat":
-                if(GAMEVALS.get("Food") > 0) {
+                if(DataStr["Food"].getValue() > 0) {
                     subtractFromValue("Food", 1);
                     addToValue("Hunger", 5);
                 }
@@ -138,7 +220,7 @@ function matchCommand(inputString){
 
             // RaiseSecurity() command
             case "raisesecurity":
-                if (GAMEVALS.get("Security") < 5) {
+                if (DataStr["Security"].getValue() < 5) {
                     addToValue("Security", 1);
                 }
                 break;
@@ -163,7 +245,7 @@ function matchCommand(inputString){
                 changeStats(currPrompt.Choice[choiceOption - 1]);
                 addResult(currPrompt.Choice[choiceOption - 1].Result);
                 getNextPrompt();
-                checkGameStatus();
+                DataManager.getInstance().checkGameStatus();
 
                 addPrompt(currPrompt.Prompt);
         }
@@ -201,7 +283,7 @@ function appendText(cm, text){
         lineStr + text,
         { line:lineNumber, ch:0 },
         { line:lineNumber, ch: charPos }
-    )
+    );
 
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
 }
@@ -232,9 +314,9 @@ function parseCommandString(inputString){
 }
 
 function createVisualizer(cm) {
-    const canvas = drawSnapshot(cm.defaultTextHeight())
+    const canvas = drawSnapshot(cm.defaultTextHeight());
     let lineNumber = cm.lineCount() - 1;
-    const lineStr = cm.getLine( lineNumber )
+    const lineStr = cm.getLine( lineNumber );
     let charPos = lineStr.length;
     //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
     cm.replaceRange(
@@ -252,4 +334,77 @@ function createVisualizer(cm) {
         { replacedWith: canvas }
     );
     //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
+}
+
+// Parsing the automation blocks
+function parseAutomation(code) {
+
+    // Counters for curly braces
+    let beginningBraceCount = 0;
+    let endingBraceCount = 0;
+
+    // String to store code as
+    let codeString = "";
+
+    // Iterate through lines
+    for(let i = 0; i < code.length; i++) {
+
+        // If curly braces, add to count
+        if(code[i].includes('{')) {
+            beginningBraceCount += 1;
+        }
+        if(code[i].includes('}')) {
+            endingBraceCount += 1;
+        }
+
+        // Add to string
+        codeString += code[i];
+    }
+
+    // If valid automation, execute
+    if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount) {
+        console.log(codeString);
+        eval(codeString);
+    } else {
+        automation1.replaceSelection("\n", "end");
+    }
+
+}
+
+// Add automation block
+function addAutomation(index) {
+
+    let automation = document.createElement("TEXTAREA");
+    automation.id = "automation" + index.toString();
+    automation.style.display = "inline-block";
+
+    document.getElementById("automation").insertAdjacentElement('afterbegin', automation);
+
+}
+
+// Function for opening a tab to display CodeMirror widget
+function openTab(event, tabName) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    if(tabName === 'commandPrompt') {
+        commandPrompt.getWrapperElement().style.display = "block";
+        automation1.getWrapperElement().style.display = "none";
+        automation2.getWrapperElement().style.display = "none";
+    }
+    else if(tabName === 'automation1') {
+        commandPrompt.getWrapperElement().style.display = "none";
+        automation1.getWrapperElement().style.display = "block";
+        automation2.getWrapperElement().style.display = "none";
+    }
+    else if (tabName === 'automation2') {
+        commandPrompt.getWrapperElement().style.display = "none";
+        automation1.getWrapperElement().style.display = "none";
+        automation2.getWrapperElement().style.display = "block";
+    }
+    // tablinks = document.getElementsByClassName("tablinks");
+    // for (i = 0; i < tablinks.length; i++) {
+    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
+    // }
+    // document.getElementById(tabName).style.display = "block";
+    // event.currentTarget.className += " active";
 }

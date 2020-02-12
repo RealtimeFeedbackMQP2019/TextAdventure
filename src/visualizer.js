@@ -10,7 +10,6 @@ var INTERPVAL = new Map();
 
 const INTERPSPEED = 0.1;
 
-var drawFunction = renderPreview;
 var param = null;
 
 var snapshotIndex = 0;
@@ -19,28 +18,20 @@ var snapshotIndex = 0;
 function visInit(){
     let canvas = document.getElementById("previewCTX");
 
-    //Set colors.
-    VISCOL.set("Hunger", "rgba(255,127,0,1.0)");
-    VISCOL.set("Food", "rgba(255,64,0,1.0)");
-    VISCOL.set("Security", "rgba(0,127,255,1.0)");
-    VISCOL.set("Population", "rgba(0,255,64,1.0)");
-    VISCOL.set("Military", "rgba(255,0,127,1.0)");
-    VISCOL.set("Science", "rgba(127,0,255,1.0)");
-
 
     for(let x of GAMEVALS.keys()){
         INTERPVAL.set(x, GAMEVALS.get(x));
     }
 
-    let barVisualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
-    visUpdate(barVisualizer);
+    let visualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    visUpdate(visualizer);
 }
 
 
 function visUpdate(visualizer){
 
-    interpAllValues();
-    visualizer.drawVisuals(INTERPVAL);
+    //interpAllValues();
+    visualizer.drawVisuals();
     window.requestAnimationFrame(function(){visUpdate(visualizer)});
 }
 
@@ -50,22 +41,15 @@ function drawSnapshot(height){
     snapshotCanvas.id = "old-preview" + snapshotIndex;
     snapshotCanvas.height = height;
 
-    let barVisualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
-    barVisualizer.drawVisuals(GAMEVALS);
+    let visualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+    visualizer.drawVisuals();
 
     snapshotIndex += 1;
 
     return snapshotCanvas;
 }
 
-function interpAllValues(){
-    for(var x of INTERPVAL.keys()){
-        INTERPVAL.set(x, INTERPVAL.get(x) - (INTERPVAL.get(x) - GAMEVALS.get(x)) * INTERPSPEED);
-    }
-}
-
-
-
+/*
 function renderFrame(context, value){
     context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
     var index = 0;
@@ -83,10 +67,10 @@ function renderFrame(context, value){
     for(var i = 0; i < 5; i++){
         context.fillRect(0, 25 + (i / 5) * (canvas.height - 50), canvas.width, 1);
     }
-}
+}*/
 
 
-
+/*
 function renderPreview(){
     //This is about the same...
     ctx.lineWidth = 0;
@@ -119,4 +103,4 @@ function renderPreview(){
     }
 
     //window.requestAnimationFrame(renderPreview);
-}
+}*/
