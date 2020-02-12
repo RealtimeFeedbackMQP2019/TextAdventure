@@ -15,6 +15,8 @@ let automation2;
 // Keep track of adding automation
 let numAutomation = 0;
 
+let previewCanvas;
+
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -24,17 +26,23 @@ function init(){
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
         lineWrapping: true,
-        theme: "darcula"
+        theme: "darcula",
     });
     commandPrompt.setOption("extraKeys",{
        Enter: function(cm){
            let line = commandPrompt.getLine(commandPrompt.lastLine());
            matchCommand(line);
            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
-           
-       }
+           updatePreviewVisualizer(cm);
+       },
+
     });
     commandPrompt.setSize('100%', '100%');
+    commandPrompt.on("keydown", function (cm, event) {
+        updatePreviewVisualizer(cm);
+    });
+
+
 
     automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
         lineNumbers : true,
@@ -295,28 +303,8 @@ function parseCommandString(inputString){
     return {"act":actual, "arg":arguments};
 }
 
-function createVisualizer(cm) {
-    const canvas = drawSnapshot(cm.defaultTextHeight());
-    let lineNumber = cm.lineCount() - 1;
-    const lineStr = cm.getLine( lineNumber );
-    let charPos = lineStr.length;
-    //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
-    cm.replaceRange(
-        lineStr + ' \n\n>',
-        { line:lineNumber, ch:0 },
-        { line:lineNumber, ch: charPos }
-    );
-    charPos++;
 
-    lineNumber = cm.lineCount() - 1;
 
-    cm.markText(
-        { line:lineNumber - 2, ch:charPos - 1},
-        { line:lineNumber - 2, ch:charPos },
-        { replacedWith: canvas }
-    );
-    //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
-}
 
 // Parsing the automation blocks
 function parseAutomation(code) {
