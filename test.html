@@ -60,10 +60,9 @@
 
 <!-- firebase setup -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src = "https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
 
     <script>
@@ -81,6 +80,10 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
+
+        var ref = firebase.database().ref('players');
+
+        console.log(ref);
     </script>
 
 
