@@ -70,6 +70,11 @@ function init(){
     commandPrompt.getWrapperElement().style.display = "block";
     automation1.getWrapperElement().style.display = "none";
     automation2.getWrapperElement().style.display = "none";
+    document.getElementById('references').style.display = "none";
+
+    // Hide automation tabs as well
+    document.getElementById("automation1Tab").style.display = "none";
+    document.getElementById("automation2Tab").style.display = "none";
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -109,37 +114,14 @@ function update(){
     }
 
     // // Add automation if applicable
-    // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
-    //     addAutomation(1);
-    //     numAutomation += 1;
-    //     automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"), {
-    //         lineNumbers: true,
-    //         theme: "darcula"
-    //     });
-    //     automation1.setSize('50%', '10%');
-    //     automation1.setOption("extraKeys", {
-    //         Enter: function(){
-    //             let code = automation1.getValue().split('\n');
-    //             console.log(code);
-    //             parseAutomation(code);
-    //         }
-    //     });
-    // } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
-    //     addAutomation(2);
-    //     numAutomation += 1;
-    //     automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"), {
-    //         lineNumbers: true,
-    //         theme: "darcula"
-    //     });
-    //     automation2.setSize('50%', '10%');
-    //     automation2.setOption("extraKeys", {
-    //         Enter: function(){
-    //             let code = automation2.getValue().split('\n');
-    //             console.log(code);
-    //             parseAutomation(code);
-    //         }
-    //     });
-    // }
+    if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
+        addAutomationTab(1);
+        numAutomation += 1;
+
+    } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
+        addAutomationTab(2);
+        numAutomation += 1;
+    }
 }
 
 
@@ -219,7 +201,7 @@ function matchCommand(inputString){
                 break;
 
             // RaiseSecurity() command
-            case "raisesecurity":
+            case "secure":
                 if (DataStr["Security"].getValue() < 5) {
                     addToValue("Security", 1);
                 }
@@ -372,13 +354,22 @@ function parseAutomation(code) {
 }
 
 // Add automation block
-function addAutomation(index) {
+function addAutomationTab(index) {
 
-    let automation = document.createElement("TEXTAREA");
-    automation.id = "automation" + index.toString();
-    automation.style.display = "inline-block";
+    switch(index) {
+        case 1:
+            document.getElementById('automation1Tab').style.display = 'inline-block';
+            break;
+        case 2:
+            document.getElementById('automation2Tab').style.display = 'inline-block';
+            break;
+    }
 
-    document.getElementById("automation").insertAdjacentElement('afterbegin', automation);
+    // let automation = document.createElement("TEXTAREA");
+    // automation.id = "automation" + index.toString();
+    // automation.style.display = "inline-block";
+    //
+    // document.getElementById("automation").insertAdjacentElement('afterbegin', automation);
 
 }
 
@@ -386,25 +377,30 @@ function addAutomation(index) {
 function openTab(event, tabName) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
-    if(tabName === 'commandPrompt') {
-        commandPrompt.getWrapperElement().style.display = "block";
-        automation1.getWrapperElement().style.display = "none";
-        automation2.getWrapperElement().style.display = "none";
+
+    switch(tabName) {
+        case 'commandPrompt':
+            commandPrompt.getWrapperElement().style.display = "block";
+            automation1.getWrapperElement().style.display = "none";
+            automation2.getWrapperElement().style.display = "none";
+            document.getElementById('references').style.display = "none";
+            break;
+        case 'automation1':
+            commandPrompt.getWrapperElement().style.display = "none";
+            automation1.getWrapperElement().style.display = "block";
+            automation2.getWrapperElement().style.display = "none";
+            document.getElementById('references').style.display = "none";
+            break;
+        case 'automation2':
+            commandPrompt.getWrapperElement().style.display = "none";
+            automation1.getWrapperElement().style.display = "none";
+            automation2.getWrapperElement().style.display = "block";
+            document.getElementById('references').style.display = "none";
+            break;
+        case 'references':
+            commandPrompt.getWrapperElement().style.display = "none";
+            automation1.getWrapperElement().style.display = "none";
+            automation2.getWrapperElement().style.display = "none";
+            document.getElementById('references').style.display = "block";
     }
-    else if(tabName === 'automation1') {
-        commandPrompt.getWrapperElement().style.display = "none";
-        automation1.getWrapperElement().style.display = "block";
-        automation2.getWrapperElement().style.display = "none";
-    }
-    else if (tabName === 'automation2') {
-        commandPrompt.getWrapperElement().style.display = "none";
-        automation1.getWrapperElement().style.display = "none";
-        automation2.getWrapperElement().style.display = "block";
-    }
-    // tablinks = document.getElementsByClassName("tablinks");
-    // for (i = 0; i < tablinks.length; i++) {
-    //     tablinks[i].className = tablinks[i].className.replace(" active", "");
-    // }
-    // document.getElementById(tabName).style.display = "block";
-    // event.currentTarget.className += " active";
 }
