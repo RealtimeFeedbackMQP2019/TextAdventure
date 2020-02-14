@@ -403,6 +403,7 @@ function firebaseDoSomething(){
     console.log(ref);
 
     //something is wrong here??
+    //firebase permission denied
     var playersRef = ref.child("player-stats");
     playersRef.push ({
         food: 10,
