@@ -79,6 +79,9 @@ function init(){
     // Display first prompt
     //document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
     addPrompt(prompts.StoneAge1.Prompt);
+
+    //FIREBASE
+    firebaseDoSomething()
 }
 
 // Update the game state - called at each game tick
@@ -407,4 +410,23 @@ function openTab(event, tabName) {
     // }
     // document.getElementById(tabName).style.display = "block";
     // event.currentTarget.className += " active";
+}
+
+function firebaseDoSomething(){
+    //actual player shit here
+    var ref = firebase.database().ref('players');
+
+    console.log(ref);
+
+    //something is wrong here??
+    var playersRef = ref.child("player-stats");
+    playersRef.push ({
+        food: 10,
+        military: 1,
+        population: 30,
+        science: 10,
+        security: 5
+    });
+    var playersKey = playersRef.key();
+    console.log(playersKey);
 }
