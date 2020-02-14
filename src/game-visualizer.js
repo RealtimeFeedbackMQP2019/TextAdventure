@@ -13,7 +13,7 @@ class BarVisualizer{
 
         for(let x of LIST_OF_VALS){
             let dataval = DataManager.getInstance().getDataList()[x];
-            let height = this._canvas.height * (dataval.getValue() / dataval.getMax());
+            let height = this._canvas.height * (dataval.getDisplayValue() / dataval.getMax());
 
             this._ctx.fillStyle = dataval.getColor();
             this._ctx.strokeStyle = "rgba(1,1,1,0)";

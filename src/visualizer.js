@@ -14,7 +14,7 @@ var param = null;
 
 var snapshotIndex = 0;
 
-
+/*
 function visInit(){
     let canvas = document.getElementById("previewCTX");
 
@@ -25,7 +25,7 @@ function visInit(){
 
     let visualizer = new BarVisualizer(canvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
     visUpdate(visualizer);
-}
+}*/
 
 
 function visUpdate(visualizer){
@@ -48,6 +48,52 @@ function drawSnapshot(height){
 
     return snapshotCanvas;
 }
+
+function createVisualizer(cm) {
+    const canvas = drawSnapshot(cm.defaultTextHeight());
+    let lineNumber = cm.lineCount() - 1;
+    const lineStr = cm.getLine( lineNumber );
+    let charPos = lineStr.length;
+    //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
+    cm.replaceRange(
+        lineStr + ' \n\n>',
+        { line:lineNumber, ch:0 },
+        { line:lineNumber, ch: charPos }
+    );
+    charPos++;
+
+    lineNumber = cm.lineCount() - 1;
+
+    cm.markText(
+        { line:lineNumber - 2, ch:charPos - 1},
+        { line:lineNumber - 2, ch:charPos },
+        { replacedWith: canvas }
+    );
+    //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
+}
+
+function updatePreviewVisualizer(cm){
+    if(previewCanvas == null){
+        //create canvas
+        previewCanvas = drawSnapshot(cm.defaultTextHeight());
+        //previewCanvas.stype = "position:fixed";
+        previewCanvas.id = "previewCanvas";
+        let visualizer = new BarVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+        visUpdate(visualizer);
+    }
+    else{
+        //Get current line
+        let lineNumber = cm.lineCount() - 1;
+        let charPos = cm.getLine(lineNumber).length;
+        //document.getElementById("previewCanvas").remove();
+
+        cm.addWidget({line:lineNumber - 2, ch:charPos +  2}, previewCanvas, false);
+        //Get current line number
+        //Remove the element
+        //Re insert the element to new position
+    }
+}
+
 
 /*
 function renderFrame(context, value){

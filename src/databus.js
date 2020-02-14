@@ -28,6 +28,10 @@ let DataManager = (function () {
                 addToValue(key, -value);
             },
 
+            getValue(key){
+                return DataList[key];
+            },
+
             checkGameStatus(){
                 // Check for game loss condition
                 if(DataList["Hunger"].getValue() <= 0){
