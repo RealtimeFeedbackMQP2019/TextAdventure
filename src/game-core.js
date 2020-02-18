@@ -51,9 +51,9 @@ function init(){
     });
     automation1.setOption("extraKeys",{
         Enter: function(cm){
-            let line = automation1.getLine(automation1.lastLine());
-            matchCommand(line);
-            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+            let code = automation1.getValue().split('\n');
+            console.log(code);
+            parseAutomation(code);
 
         }
     });
@@ -66,9 +66,9 @@ function init(){
     });
     automation2.setOption("extraKeys",{
         Enter: function(cm){
-            let line = automation2.getLine(automation2.lastLine());
-            matchCommand(line);
-            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+            let code = automation2.getValue().split('\n');
+            console.log(code);
+            parseAutomation(code);
 
         }
     });
@@ -303,9 +303,6 @@ function parseCommandString(inputString){
     return {"act":actual, "arg":arguments};
 }
 
-
-
-
 // Parsing the automation blocks
 function parseAutomation(code) {
 
@@ -352,13 +349,6 @@ function addAutomationTab(index) {
             document.getElementById('automation2Tab').style.display = 'inline-block';
             break;
     }
-
-    // let automation = document.createElement("TEXTAREA");
-    // automation.id = "automation" + index.toString();
-    // automation.style.display = "inline-block";
-    //
-    // document.getElementById("automation").insertAdjacentElement('afterbegin', automation);
-
 }
 
 // Function for opening a tab to display CodeMirror widget
