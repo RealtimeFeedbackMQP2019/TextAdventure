@@ -10,11 +10,18 @@
 <script src="src/visualizer.js"></script>
 <script src="src/game-core.js"></script>
 <script src="src/game-visualizer.js"></script>
+<script src="src/DBWriteData.js"></script>
 
 <script src="Libraries/codemirror.js"></script>
 <script src="Libraries/mode/javascript/javascript.js"></script>
 <link rel="stylesheet" href="Libraries/codemirror.css">
 <link rel="stylesheet" href="Libraries/darcula.css">
+
+<!-- firebase setup -->
+<script src = "https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
 
 <link rel="stylesheet" type="text/css" href="test.css">
 
@@ -57,34 +64,9 @@
 
 
 
-<!-- firebase setup -->
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src = "https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
-
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyA3Uy2QL4_4UB6tecOyWiVLs90U6c_md_w",
-            authDomain: "rficc-mqp.firebaseapp.com",
-            databaseURL: "https://rficc-mqp.firebaseio.com",
-            projectId: "rficc-mqp",
-            storageBucket: "rficc-mqp.appspot.com",
-            messagingSenderId: "545693842156",
-            appId: "1:545693842156:web:63ee85a180b3a8d45a83c9",
-            measurementId: "G-N0MDBXX2Z5"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
 
 
 
-
-
-    </script>
 
 
 </body>
