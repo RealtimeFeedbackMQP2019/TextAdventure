@@ -25,7 +25,7 @@ let DataManager = (function () {
             },
 
             subtractFromValue(key, value){
-                addToValue(key, -value);
+                this.addToValue(key, -value);
             },
 
             getValue(key){

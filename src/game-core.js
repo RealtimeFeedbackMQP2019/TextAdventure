@@ -17,6 +17,8 @@ let numAutomation = 0;
 
 let previewCanvas;
 
+let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
+
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -115,10 +117,10 @@ function update(){
         dm.subtractFromValue("Hunger", 1);
     }
     else {
-        subtractFromValue("Hunger", 1);
-        subtractFromValue("Population", 2);
-        subtractFromValue("Military", 5);
-        subtractFromValue("Science", 5);
+        dm.subtractFromValue("Hunger", 1);
+        dm.subtractFromValue("Population", 2);
+        dm.subtractFromValue("Military", 5);
+        dm.subtractFromValue("Science", 5);
     }
 
     // // Add automation if applicable
@@ -196,22 +198,22 @@ function matchCommand(inputString){
         let arguments = commandObject.arg;
 
         let DataStr = DataManager.getInstance().getDataList();
-
+        let dm = DataManager.getInstance();
 
         // Break the command into the command body and argument.
         switch (actual) {
             // Eat() command
             case "eat":
                 if(DataStr["Food"].getValue() > 0) {
-                    subtractFromValue("Food", 1);
-                    addToValue("Hunger", 5);
+                    dm.subtractFromValue("Food", 1);
+                    dm.addToValue("Hunger", 5);
                 }
                 break;
 
             // RaiseSecurity() command
             case "secure":
                 if (DataStr["Security"].getValue() < 5) {
-                    addToValue("Security", 1);
+                    dm.addToValue("Security", 1);
                 }
                 break;
 
@@ -251,11 +253,12 @@ function getNextPrompt() {
 
 // Function for changing values base on choice
 function changeStats(choice) {
-    addToValue("Food", choice.Food);
-    addToValue("Security", choice.Security);
-    addToValue("Population", choice.Population);
-    addToValue("Military", choice.Military);
-    addToValue("Science",choice.Science);
+    let dm = DataManager.getInstance();
+    dm.addToValue("Food", choice.Food);
+    dm.addToValue("Security", choice.Security);
+    dm.addToValue("Population", choice.Population);
+    dm.addToValue("Military", choice.Military);
+    dm.addToValue("Science",choice.Science);
 }
 
 // Function for adding text to prompt
