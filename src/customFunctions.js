@@ -5,10 +5,11 @@ let FunctionManager = (function () {
         let dm = DataManager.getInstance();
 
         let manual = {
-            "secure": "//Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
-            "eat": "//Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
-            "choose": "Usage: choose(id), make a choice from the list of choice given.",
-            "man": "Usage: man(command). check the command's usage and description."
+            "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
+            "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
+            "choose": "// Usage: choose(id), Make a choice from the list of choice given.",
+            "man": "// Usage: man(command). Check the command's usage and description.",
+            "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic."
         };
 
         let _secure = function(){
@@ -29,7 +30,7 @@ let FunctionManager = (function () {
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
             dm.checkGameStatus();
-            addPrompt(currPrompt.Prompt);
+            setTimeout(function() {addPrompt(currPrompt.Prompt)}, 2000);
         };
         return{
             getValue(key){
@@ -46,7 +47,11 @@ let FunctionManager = (function () {
                 _choose(val);
             },
             man(funName){
-                return manual[funName];
+                if(!funName) {
+                    appendText(commandPrompt, "\n\n" + JSON.stringify(manual) + "\n\n>");
+                } else {
+                    appendText(commandPrompt, "\n\n" + manual[funName] + "\n\n>");
+                }
             },
             legend(){
 

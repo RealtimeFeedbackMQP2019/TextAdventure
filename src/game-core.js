@@ -316,7 +316,7 @@ function appendText(cm, text){
 
 // Function for adding prompt result text
 function addResult(choice) {
-    appendText(commandPrompt,"\n" + choice);
+    appendText(commandPrompt,"\n\n" + choice);
 }
 
 function parseCommandString(inputString){
