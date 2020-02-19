@@ -204,10 +204,15 @@ function matchCommand(inputString){
     // For now, only when enter is pressed
     //if(event.key === "Enter") {
 
-        let commandObject = parseCommandString(inputString);
+        //let commandObject = parseCommandString(inputString);
 
         with(FunctionManager.getInstance()){
-            eval(inputString.substring(1));
+            try{
+                eval(inputString.substring(1));
+            }
+            catch(err) {
+                appendText(commandPrompt, "\n" + err + "\n\n>");
+            }
         }
 
         /*
