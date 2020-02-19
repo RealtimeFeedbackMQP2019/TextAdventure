@@ -1,5 +1,51 @@
 class dbWriter{
 
+    writePerSession(){
+        //the entry
+        var data = {
+            //input vars here
+        }
+
+        //key for new post
+        var newKey = firebase.database().ref().child("playSession").push().key;
+        var updates = {};
+        updates["playSession"] = data;
+
+        return firebase.database().ref().update(updates);
+    }
+    writePerAge(){
+        //the entry
+        var data = {
+            //input vars here
+            //agetime and list? of choice
+        }
+
+        //key for new post
+        var newKey = firebase.database().ref().child("ageStats").push().key;
+        var updates = {};
+        updates["ageSession"] = data;
+
+        return firebase.database().ref().update(updates);
+    }
+
+    writePerChoice(){
+        //the entry
+        var data = {
+            //input vars here
+            //all the stats after each promptupdate
+        }
+
+        //key for new post
+        var newKey = firebase.database().ref().child("choiceStats").push().key;
+        var updates = {};
+        updates["choiceStats"] = data;
+
+        return firebase.database().ref().update(updates);
+    }
+
+    makeTheData(){
+        //set things here ???
+    }
 
     constructor() {
         // Your web app's Firebase configuration
@@ -17,12 +63,6 @@ class dbWriter{
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
     }
-
-
-
-
-
-
 
 }
 
