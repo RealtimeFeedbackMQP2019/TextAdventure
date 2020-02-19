@@ -17,6 +17,17 @@ let numAutomation = 0;
 
 let previewCanvas;
 
+// Manual for to tell user what functions can access
+let manual = "\n\n// You have access to the following functions:\n\n" +
+    "// choose(choice); - make a choice in response to the given prompt, with the choice parameter being the number of the decision to make\n" +
+    "// eat() - eat 1 piece of food, decreases food remaining by 1 and increases Hunger by 5\n" +
+    "// secure() - raise the Security statistic by 1, when permitted to\n" +
+    "// automate(code) - automatically executes the code specified as a code block and continues to execute until the automate() call is removed\n" +
+    "// legend() - brings up the legend for the bar chart visualization to match each bar to a statistics\n" +
+    "// man() - display this manual again\n\n";
+
+let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
+
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -90,8 +101,10 @@ function init(){
     currPrompt = prompts.StoneAge1;
 
     // Display first prompt
-    //document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
     addPrompt(prompts.StoneAge1.Prompt);
+
+    // Initialize legend to be hidden
+    document.getElementById("legend").style.display = "none";
 }
 
 // Update the game state - called at each game tick
@@ -115,10 +128,10 @@ function update(){
         dm.subtractFromValue("Hunger", 1);
     }
     else {
-        subtractFromValue("Hunger", 1);
-        subtractFromValue("Population", 2);
-        subtractFromValue("Military", 5);
-        subtractFromValue("Science", 5);
+        dm.subtractFromValue("Hunger", 1);
+        dm.subtractFromValue("Population", 2);
+        dm.subtractFromValue("Military", 5);
+        dm.subtractFromValue("Science", 5);
     }
 
     // // Add automation if applicable
@@ -196,22 +209,22 @@ function matchCommand(inputString){
         let arguments = commandObject.arg;
 
         let DataStr = DataManager.getInstance().getDataList();
-
+        let dm = DataManager.getInstance();
 
         // Break the command into the command body and argument.
         switch (actual) {
             // Eat() command
             case "eat":
                 if(DataStr["Food"].getValue() > 0) {
-                    subtractFromValue("Food", 1);
-                    addToValue("Hunger", 5);
+                    dm.subtractFromValue("Food", 1);
+                    dm.addToValue("Hunger", 5);
                 }
                 break;
 
             // RaiseSecurity() command
             case "secure":
                 if (DataStr["Security"].getValue() < 5) {
-                    addToValue("Security", 1);
+                    dm.addToValue("Security", 1);
                 }
                 break;
 
@@ -238,6 +251,22 @@ function matchCommand(inputString){
                 DataManager.getInstance().checkGameStatus();
 
                 addPrompt(currPrompt.Prompt);
+                break;
+
+            // Automate() command with parameters
+            case "automate":
+                // Do something for automation woo
+                break;
+
+            // Manual for references
+            case "man":
+                appendText(commandPrompt, manual + ">");
+                break;
+
+            // Legend for bars
+            case "legend":
+                displayLegend();
+                break;
         }
         
     }
@@ -251,11 +280,12 @@ function getNextPrompt() {
 
 // Function for changing values base on choice
 function changeStats(choice) {
-    addToValue("Food", choice.Food);
-    addToValue("Security", choice.Security);
-    addToValue("Population", choice.Population);
-    addToValue("Military", choice.Military);
-    addToValue("Science",choice.Science);
+    let dm = DataManager.getInstance();
+    dm.addToValue("Food", choice.Food);
+    dm.addToValue("Security", choice.Security);
+    dm.addToValue("Population", choice.Population);
+    dm.addToValue("Military", choice.Military);
+    dm.addToValue("Science",choice.Science);
 }
 
 // Function for adding text to prompt
@@ -381,4 +411,15 @@ function openTab(event, tabName) {
             automation2.getWrapperElement().style.display = "none";
             document.getElementById('references').style.display = "block";
     }
+}
+
+// Function for displaying legend
+function displayLegend() {
+    appendText(commandPrompt, "\n\n" + "wooo legend" + "\n\n>");
+    // appendText(commandPrompt, "\n\n" + document.getElementById("hungerLegend").innerText + "\n");
+    //     // appendText(commandPrompt, document.getElementById("foodLegend").innerHTML + "\n");
+    //     // appendText(commandPrompt, document.getElementById("securityLegend").innerHTML + "\n");
+    //     // appendText(commandPrompt, document.getElementById("populationLegend").innerHTML + "\n");
+    //     // appendText(commandPrompt, document.getElementById("militaryLegend").innerHTML + "\n");
+    //     // appendText(commandPrompt, document.getElementById("scienceLegend").innerHTML + "\n\n>");
 }

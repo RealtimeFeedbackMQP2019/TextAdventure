@@ -14,18 +14,19 @@ let DataManager = (function () {
 
         return{
             addToValue(key, value){
-                if(DataList[key] !== null && DataList[key].getValue() + value < 0){
-                    DataList[key].setValue(0);
+                let dEntry = DataList[key];
+                if(dEntry !== null && dEntry.getValue() + value < 0){
+                    dEntry.setValue(0);
                 }
                 else{
-                    DataList[key].addValue(value);
+                    dEntry.addValue(value);
                 }
                 this.updateDisplayVariables();
                 this.checkGameStatus();
             },
 
             subtractFromValue(key, value){
-                addToValue(key, -value);
+                    this.addToValue(key, -value);
             },
 
             getValue(key){
