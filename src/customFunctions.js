@@ -50,7 +50,8 @@ let FunctionManager = (function () {
                 if(!funName) {
                     appendText(commandPrompt, "\n\n" + JSON.stringify(manual) + "\n\n>");
                 } else {
-                    appendText(commandPrompt, "\n\n" + manual[funName] + "\n\n>");
+                    let str = funName.name;
+                    appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
                 }
             },
             legend(){
