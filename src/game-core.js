@@ -205,6 +205,12 @@ function matchCommand(inputString){
     if(event.key === "Enter") {
 
         let commandObject = parseCommandString(inputString);
+
+        with(FunctionManager.getInstance()){
+            eval(inputString.substring(1));
+        }
+
+        /*
         let actual = commandObject.act;
         let arguments = commandObject.arg;
 
@@ -267,7 +273,7 @@ function matchCommand(inputString){
             case "legend":
                 displayLegend();
                 break;
-        }
+        }*/
         
     }
 }
