@@ -311,6 +311,11 @@ function appendText(cm, text){
         { line:lineNumber, ch: charPos }
     );
 
+    const newLineNumber = cm.lineCount() - 1;
+    let newCharPos = cm.getLine(newLineNumber).length;
+
+    cm.markText({line: lineNumber, ch: charPos+1}, {line: newLineNumber, ch:newCharPos}, {readOnly:true});
+
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
 }
 
