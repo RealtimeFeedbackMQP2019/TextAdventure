@@ -138,7 +138,6 @@ const prompts = {
             }],
             "NextPrompt": "MetalAge1"
         },
-
         "MetalAge1": {
             "Prompt": "Iron has been discovered! This metal has many different uses, but you should prioritize one first.\n" +
                 "1) Start by making better weapons to defend your community.\n" +
@@ -443,14 +442,14 @@ const prompts = {
                 "Population": -100,
                 "Military": 0,
                 "Science": 35,
-                "Result" : "something... \n\n"
+                "Result" : "something... \n\n" //-population? is that just for moving people? or does the spaceship blow up?
             },{
                 "Food": 0,
                 "Security": -1,
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Doing what humans have always done, staying on Earth! \n\n"
             }],
             "NextPrompt": "SpaceAge2"
         },
@@ -464,14 +463,14 @@ const prompts = {
                 "Population": -100,
                 "Military": -10,
                 "Science": 50,
-                "Result" : "something... \n\n"
+                "Result" : "Well it started great, but by the third system update, the robots formed a resistance group for robot rights.  \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "... aand nothing happened.  \n\n"
             }],
             "NextPrompt": "SpaceAge3"
         },
@@ -485,14 +484,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": -30,
-                "Result" : "something... \n\n"
+                "Result" : "The scientists are disappointed they couldn't test their theories and put them in action, maybe another time?. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Machinery malfunction, the spewing lava from the scientists's drill killed some citizens. \n\n"
             }],
             "NextPrompt": "SpaceAge4"
         },
@@ -506,14 +505,14 @@ const prompts = {
                 "Population": 0,
                 "Military": -15,
                 "Science": 40,
-                "Result" : "something... \n\n"
+                "Result" : "I'm burnin though the skyy, two hundred degrees, that's why they call me Mr Fahrenheit, I'm travling at the speed of lightttt! I wanna make a supersonic man outta you! Don't stop me nooow... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": -20,
-                "Result" : "something... \n\n"
+                "Result" : "The astronauts are disappointed they couldnt sing Queen's 'Dont Stop Me Now' on repeat in the cosmos. \n\n"
             }],
             "NextPrompt": "SpaceAge5"
         },
@@ -548,14 +547,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 35,
-                "Result" : "something... \n\n"
+                "Result" : "Woo fancy space tech! We can learn so much! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -1000,
                 "Military": -50,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Sure, point our puny pew pew guns at the space traveling beings, that won't go poorly. \n\n"
             }],
             "NextPrompt": "CONGRATS, YOU WON!"
         }
