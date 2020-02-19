@@ -32,6 +32,10 @@ let FunctionManager = (function () {
             addPrompt(currPrompt.Prompt);
         };
         return{
+            getValue(key){
+                console.log(DataManager.getInstance().getValue(key).getValue());
+
+            },
             secure(){
                 _secure();
             },

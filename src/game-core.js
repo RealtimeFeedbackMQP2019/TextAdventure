@@ -202,7 +202,7 @@ function prematchCommand(inputString){
 function matchCommand(inputString){
 
     // For now, only when enter is pressed
-    if(event.key === "Enter") {
+    //if(event.key === "Enter") {
 
         let commandObject = parseCommandString(inputString);
 
@@ -275,7 +275,7 @@ function matchCommand(inputString){
                 break;
         }*/
         
-    }
+    //}
 }
 
 // Function for switching to next prompt
