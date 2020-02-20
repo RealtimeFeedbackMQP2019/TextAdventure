@@ -1,10 +1,12 @@
 class dbWriter{
 
-    writePerSession(){
+    writePerSession(ageData){
         //the entry
         var data = {
             //input vars here
-        }
+            //the is the list of age stats
+            ageData : ageData
+        };
 
         //key for new post
         var newKey = firebase.database().ref().child("playSession").push().key;
@@ -13,12 +15,14 @@ class dbWriter{
 
         return firebase.database().ref().update(updates);
     }
-    writePerAge(){
+    writePerAge(ageTime,choiceStats){
         //the entry
         var data = {
             //input vars here
             //agetime and list? of choice
-        }
+            ageTime:ageTime,
+            choiceStats:choiceStats
+        };
 
         //key for new post
         var newKey = firebase.database().ref().child("ageStats").push().key;
@@ -28,12 +32,18 @@ class dbWriter{
         return firebase.database().ref().update(updates);
     }
 
-    writePerChoice(){
+    writePerChoice(hunger,secure, population, science, military){
         //the entry
         var data = {
             //input vars here
             //all the stats after each promptupdate
-        }
+            hunger:hunger,
+            secure:secure,
+            population:population,
+            science:science,
+            military:military
+
+        };
 
         //key for new post
         var newKey = firebase.database().ref().child("choiceStats").push().key;
@@ -47,6 +57,7 @@ class dbWriter{
         //set things here ???
     }
 
+    //firebase config
     constructor() {
         // Your web app's Firebase configuration
         var firebaseConfig = {

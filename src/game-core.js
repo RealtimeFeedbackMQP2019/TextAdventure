@@ -93,8 +93,8 @@ function init(){
     //document.getElementById("prompt").innerHTML = prompts.StoneAge1.Prompt;
     addPrompt(prompts.StoneAge1.Prompt);
 
-    //FIREBASE
-    firebaseDoSomething()
+
+
 }
 
 // Update the game state - called at each game tick
@@ -133,6 +133,7 @@ function update(){
         addAutomationTab(2);
         numAutomation += 1;
     }
+
 }
 
 
@@ -246,10 +247,32 @@ function matchCommand(inputString){
     }
 }
 
+
+
+//list of choices in an age
+let ageChoices = [];
+let ageList = [];
+
 // Function for switching to next prompt
 function getNextPrompt() {
+    //change prompt regular stuff
     let nextPrompt = currPrompt.NextPrompt;
     currPrompt = prompts[nextPrompt];
+
+
+    //getting info for firebase
+    if(currPrompt == prompts.MetalAge1 || prompts.ConqueringAge1  || prompts.IndustrialAge1 || prompts.SpaceAge1 || prompts.finish){
+        //if start of new age, push age choices and empty list
+        //TODO: need to gather the data for at the end of the game
+        ageList.push(getStatsPerAge(ageChoices));
+        ageChoices = [];
+    }
+    if(currPrompt == prompts.finish){
+        writeResults();
+    }
+    else{
+        ageChoices.push(getStatsPerChocie());
+    }
 }
 
 // Function for changing values base on choice
@@ -396,22 +419,29 @@ function openTab(event, tabName) {
     }
 }
 
-function firebaseDoSomething(){
-    //actual player shit here
-    var ref = firebase.database().ref('players');
 
-    console.log(ref);
 
-    //something is wrong here??
-    //firebase permission denied
-    var playersRef = ref.child("player-stats");
-    playersRef.push ({
-        food: 10,
-        military: 1,
-        population: 30,
-        science: 10,
-        security: 5
-    });
-    var playersKey = playersRef.key();
-    console.log(playersKey);
+//firebase things to store
+function getStatsPerChocie(){
+    let currentStats = [];
+    let DataStr = DataManager.getInstance().getDataList();
+    let currHunger = Datastr["Hunger"].getValue();
+    let currSecure = DataStr["Security"].getValue();
+    let currPop = DataStr["Population"].getValue();
+    let currMil = DataStr["Military"].getValue();
+    let currSci = DataStr["Science"].getValue();
+    currentStats.push(currHunger,currSecure,currPop,currMil,currSci);
+    return currentStats;
+}
+function getStatsPerAge(listOfChoiceStats){
+    let currentAgeStats = [];
+    //TODO:// get a timer thang
+    let currAgeTime = 120; //in seconds
+    currentAgeStats.push(currAgeTime,listOfChoiceStats);
+    return currentAgeStats;
+}
+
+function writeResults(){
+    thingToWrite = new dbWriter();
+    thingToWrite.writePerSession(ageList);
 }
