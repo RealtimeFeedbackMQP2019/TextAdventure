@@ -1,5 +1,12 @@
 class dbWriter{
 
+    //make a new UUID for a user.
+    generateUUID(){
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
     writePerSession(ageData){
         //the entry
         var data = {
@@ -9,9 +16,9 @@ class dbWriter{
         };
 
         //key for new post
-        var newKey = firebase.database().ref().child("rficc-mqp").push().key;
+        var newKey = firebase.database().ref().child("playSession").push().key;
         var updates = {};
-        updates["rficc-mqp"] = data;
+        updates["/playSession/"+this.generateUUID()] = data;
 
         return firebase.database().ref().update(updates);
     }
