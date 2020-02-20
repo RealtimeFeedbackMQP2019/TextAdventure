@@ -118,7 +118,7 @@ const prompts = {
         "NextPrompt": "StoneAge6"
     },
         "StoneAge6": {
-            "Prompt": "T//he temperature drops quickly and the world turns to winter in one night.\n" +
+            "Prompt": "//The temperature drops quickly and the world turns to winter in one night.\n" +
                 "//1) Stay in the current community for the winter with abundant resources.\n" +
                 "//2) Abandon the community and move somewhere else warmer.\n\n",
             "Choice": [{
@@ -265,7 +265,7 @@ const prompts = {
             "NextPrompt": "ConqueringAge1"
         },
         "ConqueringAge1": {
-            "//Prompt": "//A carpenter in our town claims he has the ability to make massive wood structures.\n" +
+            "Prompt": "//A carpenter in our town claims he has the ability to make massive wood structures.\n" +
                 "//1) Build a ship!\n" +
                 "//2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
