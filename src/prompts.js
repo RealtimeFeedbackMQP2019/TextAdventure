@@ -533,7 +533,7 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// something... \n\n"
+                "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad for you, they\'re on the way. \n\n"
             }],
             "NextPrompt": "SpaceAge6"
         },
