@@ -97,6 +97,27 @@ const prompts = {
             "NextPrompt": "StoneAge5"
         },
         "StoneAge5": {
+        "Prompt": "You’ve spotted a curious creature prowling around, but it seems kinda big.\n" +
+            "1) Run up to it and whack it with your club!\n" +
+            "2) Maybe best to leave this one alone...\n\n",
+        "Choice": [{
+            "Food": 0,
+            "Security": 0,
+            "Population": -50,
+            "Military": 0,
+            "Science": 0,
+            "Result" : "The bear did not take kindly to your whack. In return, it rampages onto your village. \n\n"
+        },{
+            "Food": 0,
+            "Security": 0,
+            "Population": 0,
+            "Military": 0,
+            "Science": 15,
+            "Result" : "Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n"
+        }],
+        "NextPrompt": "StoneAge6"
+    },
+        "StoneAge6": {
             "Prompt": "The temperature drops quickly and the world turns to winter in one night.\n" +
                 "1) Stay in the current community for the winter with abundant resources.\n" +
                 "2) Abandon the community and move somewhere else warmer.\n\n",
@@ -114,27 +135,6 @@ const prompts = {
                 "Military": 0,
                 "Science": 20,
                 "Result" : "The move goes poorly, many people were caught in the cold. You learn how to treat frostbite. \n\n"
-            }],
-            "NextPrompt": "StoneAge6"
-        },
-        "StoneAge6": {
-            "Prompt": "You’ve spotted a curious creature prowling around, but it seems kinda big.\n" +
-                "1) Run up to it and whack it with your club!\n" +
-                "2) Maybe best to leave this one alone...\n\n",
-            "Choice": [{
-                "Food": 0,
-                "Security": 0,
-                "Population": -50,
-                "Military": 0,
-                "Science": 0,
-                "Result" : "something happens...?? \n\n"
-            },{
-                "Food": 0,
-                "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 15,
-                "Result" : "something happens..?? \n\n"
             }],
             "NextPrompt": "MetalAge1"
         },
@@ -232,14 +232,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": -15,
-                "Result" : "something... \n\n"
+                "Result" : "The public start distrusting your scientists as this miracle worker does her magic. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -50,
                 "Military": 0,
                 "Science": 25,
-                "Result" : "something... \n\n"
+                "Result" : "Threatening the witch worked great! It's not magic at all! You've convinced her to provide the formula to a natural remedy to the common sicknesses, as well as a wonderful pain reliever. Unfortunately many people died during the wait. \n\n"
             }],
             "NextPrompt": "MetalAge6"
         },
@@ -274,14 +274,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 20,
                 "Science": 15,
-                "Result" : "something... \n\n"
+                "Result" : "Bigger ships => more people on those ships => cross large rivers => exploration! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
                 "Science": 10,
-                "Result" : "something... \n\n"
+                "Result" : "A celebration is in order to honor our dieties! The citizens go wild with joy as a more potent alcohol is created for the celebrations. \n\n"
             }],
             "NextPrompt": "ConqueringAge2"
         },
@@ -332,19 +332,19 @@ const prompts = {
                 "1) Finally, a  worthy opponent...\n" +
                 "2) Prepare for evacuation!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 15,
                 "Security": 0,
                 "Population": -200,
                 "Military": -15,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "The ocean toad smashed a chunk of your city in this legendary battle. Now you have toad meat.  \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "The ocean toad takes one look at fleeing citizens and uses its lengthy tounge to scoop up many of them. Both the toad and the people are never heard from again. \n\n"
             }],
             "NextPrompt": "ConqueringAge5"
         },
@@ -358,14 +358,14 @@ const prompts = {
                 "Population": 100,
                 "Military": 0,
                 "Science": 25,
-                "Result" : "something... \n\n"
+                "Result" : "Whale oil catches on quickly and many people enjoy the improvement! \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an added bonus of long shelf life. \n\n"
             }],
             "NextPrompt": "IndustrialAge1"
         },
@@ -407,7 +407,7 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": -35,
-                "Result" : "Wow, people these days will believe anything. \n\n"
+                "Result" : "Wow, people these days will believe anything, even proven science. \n\n"
             }],
             "NextPrompt": "IndustrialAge3"
         },
@@ -417,18 +417,18 @@ const prompts = {
                 "2) This is a democracy! What the people want is what the people get! Encourage the raider\'s influence and get more to join the cause.\n\n",
             "Choice": [{
                 "Food": 0,
-                "Security": 0,
+                "Security": 1,
                 "Population": -100,
                 "Military": 20,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "That went well, September 20th goes down in history as a massacre. \n\n"
             },{
                 "Food": 0,
-                "Security": 0,
+                "Security": -1,
                 "Population": 0,
                 "Military": -10,
                 "Science": 40,
-                "Result" : "People came in flocks  \n\n"
+                "Result" : "People came in flocks to discover tucked away secrets. No military can stop this many people. The secured RAYGUN becomes public property. \n\n"
             }],
             "NextPrompt": "SpaceAge1"
         },
@@ -442,14 +442,14 @@ const prompts = {
                 "Population": -100,
                 "Military": 0,
                 "Science": 35,
-                "Result" : "something... \n\n"
+                "Result" : "something... \n\n" //-population? is that just for moving people? or does the spaceship blow up?
             },{
                 "Food": 0,
                 "Security": -1,
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Doing what humans have always done, staying on Earth! \n\n"
             }],
             "NextPrompt": "SpaceAge2"
         },
@@ -463,14 +463,14 @@ const prompts = {
                 "Population": -100,
                 "Military": -10,
                 "Science": 50,
-                "Result" : "something... \n\n"
+                "Result" : "Well it started great, but by the third system update, the robots formed a resistance group for robot rights.  \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "... aand nothing happened.  \n\n"
             }],
             "NextPrompt": "SpaceAge3"
         },
@@ -484,14 +484,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": -30,
-                "Result" : "something... \n\n"
+                "Result" : "The scientists are disappointed they couldn't test their theories and put them in action, maybe another time?. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -150,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Machinery malfunction, the spewing lava from the scientists's drill killed some citizens. \n\n"
             }],
             "NextPrompt": "SpaceAge4"
         },
@@ -505,14 +505,14 @@ const prompts = {
                 "Population": 0,
                 "Military": -15,
                 "Science": 40,
-                "Result" : "something... \n\n"
+                "Result" : "I'm burnin though the skyy, two hundred degrees, that's why they call me Mr Fahrenheit, I'm travling at the speed of lightttt! I wanna make a supersonic man outta you! Don't stop me nooow... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": -20,
-                "Result" : "something... \n\n"
+                "Result" : "The astronauts are disappointed they couldnt sing Queen's 'Dont Stop Me Now' on repeat in the cosmos. \n\n"
             }],
             "NextPrompt": "SpaceAge5"
         },
@@ -547,14 +547,14 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 35,
-                "Result" : "something... \n\n"
+                "Result" : "Woo fancy space tech! We can learn so much! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": -1000,
                 "Military": -50,
                 "Science": 0,
-                "Result" : "something... \n\n"
+                "Result" : "Sure, point our puny pew pew guns at the space traveling beings, that won't go poorly. \n\n"
             }],
             "NextPrompt": "finish"
         },

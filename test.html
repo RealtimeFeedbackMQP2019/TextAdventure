@@ -6,7 +6,7 @@
 </head>
 <script src="src/prompts.js"></script>
 <script src="src/databus.js"></script>
-<script src="src/gamedata.js"></script>
+<script src="src/customFunctions.js"></script>
 <script src="src/visualizer.js"></script>
 <script src="src/game-core.js"></script>
 <script src="src/game-visualizer.js"></script>
@@ -26,20 +26,22 @@
 <link rel="stylesheet" type="text/css" href="test.css">
 
 <body onload="init()">
-    <!--<canvas id="previewCTX" width="350" height="150"></canvas>
-    <h1>GAME TITLE WELCOME TO OUR FANTABULOUS GAME</h1>
-    <h2 id="gameOver"></h2>-->
-    <!--<br/>-->
-    <div class="tab">
-        <button id="commandPromptTab" onclick="openTab(event, 'commandPrompt')">Main Console</button>
-        <button id="automation1Tab" onclick="openTab(event, 'automation1')">Automation 1</button>
-        <button id="automation2Tab" onclick="openTab(event, 'automation2')">Automation 2</button>
-        <button id="referencesTab" onclick="openTab(event, 'references')">References</button>
-    </div>
+<!--<canvas id="previewCTX" width="350" height="150"></canvas>
+<h1>GAME TITLE WELCOME TO OUR FANTABULOUS GAME</h1>
+<h2 id="gameOver"></h2>-->
+<!--<br/>-->
+<div class="tab">
+    <button id="commandPromptTab" onclick="openTab(event, 'commandPrompt')">Main Console</button>
+    <button id="automation1Tab" onclick="openTab(event, 'automation1')">Automation 1</button>
+    <button id="automation2Tab" onclick="openTab(event, 'automation2')">Automation 2</button>
+    <button id="referencesTab" onclick="openTab(event, 'references')">References</button>
+</div>
+<div class="main">
     <label for="commandPrompt"></label><textarea id="commandPrompt"></textarea>
     <label for="automation1"></label><textarea id="automation1"></textarea>
     <label for="automation2"></label><textarea id="automation2"></textarea>
     <label for="references"></label><textarea id="references"></textarea>
+</div>
 <!--    <p class="statistics">Hunger: </p>-->
 <!--    <p id="Hunger" class="statistics">20</p>-->
 <!--    <br/>-->

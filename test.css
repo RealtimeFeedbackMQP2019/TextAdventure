@@ -33,9 +33,10 @@ h1, h2{
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
-    z-index: 10;
     position: fixed;
-    margin-bottom: 2em;
+    top: 0;
+    width: 100%;
+    z-index: 99;
 }
 
 /* Style the buttons inside the tab */
@@ -53,4 +54,8 @@ h1, h2{
 /* Change background color of buttons on hover */
 .tab button:hover {
     background-color: #ddd;
+}
+
+.main {
+    margin-top: 3%;
 }
