@@ -425,7 +425,7 @@ function openTab(event, tabName) {
 function getStatsPerChocie(){
     let currentStats = [];
     let DataStr = DataManager.getInstance().getDataList();
-    let currHunger = Datastr["Hunger"].getValue();
+    let currHunger = DataStr["Hunger"].getValue();
     let currSecure = DataStr["Security"].getValue();
     let currPop = DataStr["Population"].getValue();
     let currMil = DataStr["Military"].getValue();
