@@ -9,9 +9,9 @@ class dbWriter{
         };
 
         //key for new post
-        var newKey = firebase.database().ref().child("playSession").push().key;
+        var newKey = firebase.database().ref().child("rficc-mqp").push().key;
         var updates = {};
-        updates["playSession"] = data;
+        updates["rficc-mqp"] = data;
 
         return firebase.database().ref().update(updates);
     }
