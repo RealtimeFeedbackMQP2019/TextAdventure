@@ -517,7 +517,7 @@ const prompts = {
             "NextPrompt": "SpaceAge5"
         },
         "SpaceAge5": {
-            "Prompt": "// You receive a strange alien transmission, and you can\'t understand it.\n" +
+            "Prompt": "// You receive a strange alien transmission, and you can\'t understand it. \n" +
                 "// 1) Recruit your top scientists to decode the message.\n" +
                 "// 2) Ignore the message, it\'s nothing important.\n\n",
             "Choice": [{
