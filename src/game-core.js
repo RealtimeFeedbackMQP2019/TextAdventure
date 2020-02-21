@@ -334,8 +334,8 @@ function appendText(cm, text){
     let charPos = lineStr.length;
 
     cm.replaceRange(
-        lineStr + text,
-        { line:lineNumber, ch:0 },
+        text,
+        { line:lineNumber, ch:charPos },
         { line:lineNumber, ch: charPos }
     );
 
