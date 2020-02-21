@@ -304,6 +304,7 @@ function getNextPrompt() {
         ageChoices = [];
     }
     if(currPrompt == prompts.finish){
+        console.log("data pushed to database");
         writeResults();
     }
     else{
