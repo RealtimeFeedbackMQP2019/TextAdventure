@@ -3,8 +3,8 @@
 
 const prompts = {
         "StoneAge1": {
-            "Prompt": "// On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow" +
-                " substance seems to be consuming nearby trees. It\'s unlike anything you\'ve ever seen\n" +
+            "Prompt": "// On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow \n" +
+                "substance seems to be consuming nearby trees. It\'s unlike anything you\'ve ever seen\n" +
                 "// 1) Try to reason with to the orange.\n" +
                 "// 2) Sacrifice a rabbit to the orange.\n\n",
             "Choice": [{
@@ -13,23 +13,23 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// As you try to explain the meaning of life to the orange blur, a slight breeze comes in" +
-                    ", and the orange vanishes. You lose 3 pieces of food in the process and are sad boi.\n\n"
+                "Result" : "// As you try to explain the meaning of life to the orange blur, a slight breeze comes in, \n" +
+                    "and the orange vanishes. You lose 3 pieces of food in the process and are sad boi.\n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 50,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// You throw the rabbit at the orange, and you notice the rabbit begins to cook! You decide" +
-                    " to name this orange \'fire,\' and you introduce into into your community as a way to cook food. You gain" +
-                    " 10 pieces of food and 50 population.\n\n"
+                "Result" : "// You throw the rabbit at the orange, and you notice the rabbit begins to cook! You decide \n" +
+                    "to name this orange \'fire,\' and you introduce into into your community as a way to cook food.\n" +
+                    "You gain 10 pieces of food and 50 population.\n\n"
             }],
             "NextPrompt": "StoneAge2"
         },
         "StoneAge2": {
-            "Prompt": "// While being bored skipping stones one day, someone discovered that a hard hit to a fish might" +
-                " stun them long enough to grab and take to the community.\n" +
+            "Prompt": "// While being bored skipping stones one day, someone discovered that a hard hit to a fish might\n" +
+                "stun them long enough to grab and take to the community.\n" +
                 "// 1) Encourage friends to hunt more fish.\n" +
                 "// 2) use this knowledge to hunt other small mammals.\n\n",
             "Choice": [{
@@ -38,22 +38,23 @@ const prompts = {
                 "Population": 100,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// You introduce \'fishing\' to your community, and it becomes a sort of sport as well as a way to" +
-                    " get more food. You gain 5 pieces of food and 100 population, yum!\n\n"
+                "Result" : "// You introduce \'fishing\' to your community, and it becomes a sort of sport as well as a \n" +
+                    "way to get more food. You gain 5 pieces of food and 100 population, yum!\n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 100,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// You find that it\'s much easier to hunt rabbits and beavers than fish with these stones, and" +
-                    " your community thrives from the abundance of food and resources. You gain 10 pieces of food and 100 population.\n\n"
+                "Result" : "// You find that it\'s much easier to hunt rabbits and beavers than fish with these stones,\n" +
+                    "and your community thrives from the abundance of food and resources. You gain 10 pieces of food \n" +
+                    "and 100 population.\n\n"
             }],
             "NextPrompt": "StoneAge3"
         },
         "StoneAge3": {
-            "Prompt": "// A group of cavemen came to your community to seek shelter. They said that their shelter was" +
-                " stomped down by a T-rex.\n" +
+            "Prompt": "// A group of cavemen came to your community to seek shelter. They said that their shelter was\n" +
+                "stomped down by a T-rex.\n" +
                 "// 1) Welcome them with food, water and shelter.\n" +
                 "// 2) Cook caveman, yum yum yum.\n\n",
             "Choice": [{
@@ -62,16 +63,17 @@ const prompts = {
                 "Population": 100,
                 "Military": 30,
                 "Science": 0,
-                "Result" : "// You welcome the strangers into your community, and some of them volunteer to protect the community" +
-                    " at all costs! You gain the Military statistic with 30 people to start, and Population goes up by 100.\n\n"
+                "Result" : "// You welcome the strangers into your community, and some of them volunteer to protect the \n" +
+                    "community at all costs! You gain the Military statistic with 30 people to start, and Population \n" +
+                    "goes up by 100.\n\n"
             },{
                 "Food": 5,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": 10,
-                "Result" : "// Yum cannibalism, and you also gain some useful knowledge about cave people from the \'experiment\'!" +
-                    " The Science statistic is introduced at 10, and you earn 5 pieces of food.\n\n"
+                "Result" : "// Yum cannibalism, and you also gain some useful knowledge about cave people from the \n" +
+                    "\'experiment\'! The Science statistic is introduced at 10, and you earn 5 pieces of food.\n\n"
             }],
             "NextPrompt": "StoneAge4"
         },
@@ -92,7 +94,8 @@ const prompts = {
                 "Population": -200,
                 "Military": 20,
                 "Science": 0,
-                "Result" : "// Well, you\'ve tamed the beast but at great cost to your community. On the bright side, now you have a giant puppy-rex \n\n"
+                "Result" : "// Well, you\'ve tamed the beast but at great cost to your community. On the bright side, \n" +
+                    "now you have a giant puppy-rex \n\n"
             }],
             "NextPrompt": "StoneAge5"
         },
@@ -134,12 +137,14 @@ const prompts = {
                 "Population": -100,
                 "Military": 0,
                 "Science": 20,
-                "Result" : "// The move goes poorly, many people were caught in the cold. You learn how to treat frostbite. \n\n"
+                "Result" : "// The move goes poorly, many people were caught in the cold. You learn how to treat \n" +
+                    "frostbite. \n\n"
             }],
             "NextPrompt": "MetalAge1"
         },
         "MetalAge1": {
-            "Prompt": "// Iron has been discovered! This metal has many different uses, but you should prioritize one first.\n" +
+            "Prompt": "// Iron has been discovered! This metal has many different uses, but you should prioritize \n" +
+                "one first.\n" +
                 "// 1) Start by making better weapons to defend your community.\n" +
                 "// 2) Start by making farming tools to harvest crops.\n\n",
             "Choice": [{
@@ -160,7 +165,8 @@ const prompts = {
             "NextPrompt": "MetalAge2"
         },
         "MetalAge2": {
-            "Prompt": "// Some civilization members have discovered the effects of alchemy! Unfortunately, their experiments are introducing poisonous chemicals into the nearby river.\n" +
+            "Prompt": "// Some civilization members have discovered the effects of alchemy! Unfortunately, their \n" +
+                "experiments are introducing poisonous chemicals into the nearby river.\n" +
                 "//1) Support their studies and let them continue their experiments.\n" +
                 "//2) Put and end to the studies and keep the drinking water clean.\n\n",
             "Choice": [{
@@ -169,7 +175,8 @@ const prompts = {
                 "Population": -100,
                 "Military": 0,
                 "Science": 20,
-                "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's rather poisonous. \n\n"
+                "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's \n" +
+                    "rather poisonous. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
@@ -181,7 +188,8 @@ const prompts = {
             "NextPrompt": "MetalAge3"
         },
         "MetalAge3": {
-            "Prompt": "// A new king needs to be given control of the throne, but two different people have equal claim to the throne.\n" +
+            "Prompt": "// A new king needs to be given control of the throne, but two different people have equal \n" +
+                "claim to the throne.\n" +
                 "// 1) Choose the king who will focus on building the strongest nation.\n" +
                 "// 2) Choose the king who will focus on protecting his own people.\n\n",
             "Choice": [{
@@ -202,7 +210,8 @@ const prompts = {
             "NextPrompt": "MetalAge4"
         },
         "MetalAge4": {
-            "Prompt": "// Jousting tournaments have started becoming popular and are drawing more people into your civilization, but all of your good fighting men are focusing on jousting instead of actual protection!\n" +
+            "Prompt": "// Jousting tournaments have started becoming popular and are drawing more people into your \n" +
+                "civilization, but all of your good fighting men are focusing on jousting instead of actual protection!\n" +
                 "// 1) Halt the jousting tournaments until you have enough knights for both.\n" +
                 "// 2) Give full support to jousting and grow your community.\n\n",
             "Choice": [{
@@ -223,7 +232,8 @@ const prompts = {
             "NextPrompt": "MetalAge5"
         },
         "MetalAge5": {
-            "Prompt": "// A supposed \'witch\' has revealed herself to your civilization and claims to have the power to cure any disease.\n" +
+            "Prompt": "// A supposed \'witch\' has revealed herself to your civilization and claims to have the power \n" +
+                "to cure any disease.\n" +
                 "// 1) She’s telling the truth - let her cure the sick.\n" +
                 "// 2) She’s full of shit - magic doesn\'t exist.\n\n",
             "Choice": [{
@@ -239,7 +249,9 @@ const prompts = {
                 "Population": -50,
                 "Military": 0,
                 "Science": 25,
-                "Result" : "// Threatening the witch worked great! It\'s not magic at all! You\'ve convinced her to provide the formula to a natural remedy to the common sicknesses, as well as a wonderful pain reliever. Unfortunately many people died during the wait. \n\n"
+                "Result" : "// Threatening the witch worked great! It\'s not magic at all! You\'ve convinced her to \n" +
+                    "provide the formula to a natural remedy to the common sicknesses, as well as a wonderful pain \n" +
+                    "reliever. Unfortunately many people died during the wait. \n\n"
             }],
             "NextPrompt": "MetalAge6"
         },
@@ -260,7 +272,8 @@ const prompts = {
                 "Population": -150,
                 "Military": 0,
                 "Science": 40,
-                "Result" : "// Turns out dragons think of us humans as entire meals, let alone snacks, and boy did we learn a lot at great cost. \n\n"
+                "Result" : "// Turns out dragons think of us humans as entire meals, let alone snacks, and boy did we \n" +
+                    "learn a lot at great cost. \n\n"
             }],
             "NextPrompt": "ConqueringAge1"
         },
@@ -281,12 +294,14 @@ const prompts = {
                 "Population": 150,
                 "Military": 0,
                 "Science": 10,
-                "Result" : "// A celebration is in order to honor our deities! The citizens go wild with joy as a more potent alcohol is created for the celebrations. \n\n"
+                "Result" : "// A celebration is in order to honor our deities! The citizens go wild with joy as a more \n" +
+                    "potent alcohol is created for the celebrations. \n\n"
             }],
             "NextPrompt": "ConqueringAge2"
         },
         "ConqueringAge2": {
-            "Prompt": "// We discovered a kingdom that we never learned about before! Fortunately, they speak the same language as we do.\n" +
+            "Prompt": "// We discovered a kingdom that we never learned about before! Fortunately, they speak the same \n" +
+                "language as we do.\n" +
                 "//1) Want to trade?\n" +
                 "//2) To Waarrrrrrr!\n\n",
             "Choice": [{
@@ -316,14 +331,16 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 30,
-                "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! He speaks of a land beyond the vast ocean! Wow! \n\n"
+                "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! \n" +
+                    "He speaks of a land beyond the vast ocean! Wow! \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": -10,
                 "Science": 0,
-                "Result" : "// He is so distraught at your refusal that he takes out a few of your guards in a fit of anger. \n\n"
+                "Result" : "// He is so distraught at your refusal that he takes out a few of your guards in a fit \n" +
+                    "of anger. \n\n"
             }],
             "NextPrompt": "ConqueringAge4"
         },
@@ -337,14 +354,16 @@ const prompts = {
                 "Population": -200,
                 "Military": -15,
                 "Science": 0,
-                "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have toad meat.  \n\n"
+                "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have \n" +
+                    "toad meat.  \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// The ocean toad takes one look at fleeing citizens and uses its lengthy tongue to scoop up many of them. Both the toad and the people are never heard from again. \n\n"
+                "Result" : "// The ocean toad takes one look at fleeing citizens and uses its lengthy tongue to scoop \n" +
+                    "up many of them. Both the toad and the people are never heard from again. \n\n"
             }],
             "NextPrompt": "ConqueringAge5"
         },
@@ -365,7 +384,8 @@ const prompts = {
                 "Population": 150,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an added bonus of long shelf life. \n\n"
+                "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an \n" +
+                    "added bonus of long shelf life. \n\n"
             }],
             "NextPrompt": "IndustrialAge1"
         },
@@ -412,9 +432,12 @@ const prompts = {
             "NextPrompt": "IndustrialAge3"
         },
         "IndustrialAge3": {
-            "Prompt": "// The date is September 20th, 2019. Humanity is eager to learn military secrets, with high hopes to reveal inter-galactic beings to the public. \n" +
-                "// 1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive and violent. \n" +
-                "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s influence and get more to join the cause.\n\n",
+            "Prompt": "// The date is September 20th, 2019. Humanity is eager to learn military secrets, with high \n" +
+                "hopes to reveal inter-galactic beings to the public. \n" +
+                "// 1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive \n" +
+                "and violent. \n" +
+                "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
+                "influence and get more to join the cause.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 1,
@@ -428,7 +451,8 @@ const prompts = {
                 "Population": 0,
                 "Military": -10,
                 "Science": 40,
-                "Result" : "// People came in flocks to discover tucked away secrets. No military can stop this many people. The secured RAYGUN becomes public property. \n\n"
+                "Result" : "// People came in flocks to discover tucked away secrets. No military can stop this many \n" +
+                    "people. The secured RAYGUN becomes public property. \n\n"
             }],
             "NextPrompt": "SpaceAge1"
         },
@@ -463,7 +487,8 @@ const prompts = {
                 "Population": -100,
                 "Military": -10,
                 "Science": 50,
-                "Result" : "// Well it started great, but by the third system update, the robots formed a resistance group for robot rights.  \n\n"
+                "Result" : "// Well it started great, but by the third system update, the robots formed a resistance \n" +
+                    "group for robot rights.  \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
@@ -484,7 +509,8 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": -30,
-                "Result" : "// The scientists are disappointed they couldn\'t test their theories and put them in action, maybe another time?. \n\n"
+                "Result" : "// The scientists are disappointed they couldn\'t test their theories and put them in \n" +
+                    "action, maybe another time?. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
@@ -505,14 +531,16 @@ const prompts = {
                 "Population": 0,
                 "Military": -15,
                 "Science": 40,
-                "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n"
+                "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, \n" +
+                    "I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": -20,
-                "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on repeat in the cosmos. \n\n"
+                "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on \n" +
+                    "repeat in the cosmos. \n\n"
             }],
             "NextPrompt": "SpaceAge5"
         },
@@ -533,7 +561,8 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad for you, they\'re on the way. \n\n"
+                "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad \n" +
+                    "for you, they\'re on the way. \n\n"
             }],
             "NextPrompt": "SpaceAge6"
         },
