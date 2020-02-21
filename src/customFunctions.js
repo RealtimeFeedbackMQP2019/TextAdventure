@@ -35,6 +35,12 @@ let FunctionManager = (function () {
                 updatePreviewVisualizer(commandPrompt);
             }, 2000);
         };
+
+        let _setCharAt = function setCharAt(str,index,chr) {
+            if(index > str.length-1) return str;
+            return str.substr(0,index) + chr + str.substr(index+1);
+        }
+
         return{
             getValue(key){
                 console.log(DataManager.getInstance().getValue(key).getValue());
@@ -56,6 +62,28 @@ let FunctionManager = (function () {
                     let str = funName.name;
                     appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
                 }
+            },
+            thanos(){
+                let lines = "";
+                for(let i = 0; i < commandPrompt.lineCount(); i++){
+                    //if(Math.random() > 0.5){
+                    let temp = commandPrompt.getLine(i);
+                    let newline = "";
+
+                        //lines += commandPrompt.getLine(i) + "\n";
+                    for(let j = 0; j < temp.length; j++){
+                        if(Math.random() > 0.5 && temp.charAt(j) !== " "){
+                            newline += temp.charAt(j);
+                        }
+                        else{
+                            newline += " ";
+                        }
+                    }
+                    lines += newline + "\n";
+
+                    //}
+                }
+                commandPrompt.setValue(lines);
             },
             legend(){
 
