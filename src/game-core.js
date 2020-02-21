@@ -298,7 +298,7 @@ function getNextPrompt() {
 
 
     //getting info for firebase
-    if(currPrompt === prompts.MetalAge1 || prompts.ConqueringAge1  || prompts.IndustrialAge1 || prompts.SpaceAge1 || prompts.finish){
+    if((currPrompt === prompts.MetalAge1) || (currPrompt === prompts.ConqueringAge1)  || (currPrompt === prompts.IndustrialAge1) || (currPrompt === prompts.SpaceAge1) || (currPrompt === prompts.finish)){
         //if start of new age, push age choices and empty list
         //TODO: need to gather the data for at the end of the game
         ageList.push(getStatsPerAge(ageChoices));
