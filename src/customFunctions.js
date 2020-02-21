@@ -30,7 +30,10 @@ let FunctionManager = (function () {
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
             dm.checkGameStatus();
-            setTimeout(function() {addPrompt(currPrompt.Prompt)}, 2000);
+            setTimeout(function() {
+                addPrompt(currPrompt.Prompt);
+                updatePreviewVisualizer(commandPrompt);
+            }, 2000);
         };
         return{
             getValue(key){

@@ -36,7 +36,7 @@ function init(){
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
-        lineWrapping: true,
+        //lineWrapping: true,
         theme: "darcula",
     });
     commandPrompt.setOption("extraKeys",{
@@ -214,6 +214,7 @@ function matchCommand(inputString){
                 appendText(commandPrompt, "\n" + err + "\n\n>");
             }
         }
+        updatePreviewVisualizer(commandPrompt);
 
         /*
         let actual = commandObject.act;
@@ -297,13 +298,13 @@ function getNextPrompt() {
 
 
     //getting info for firebase
-    if(currPrompt == prompts.MetalAge1 || prompts.ConqueringAge1  || prompts.IndustrialAge1 || prompts.SpaceAge1 || prompts.finish){
+    if(currPrompt === prompts.MetalAge1 || prompts.ConqueringAge1  || prompts.IndustrialAge1 || prompts.SpaceAge1 || prompts.finish){
         //if start of new age, push age choices and empty list
         //TODO: need to gather the data for at the end of the game
         ageList.push(getStatsPerAge(ageChoices));
         ageChoices = [];
     }
-    if(currPrompt == prompts.finish){
+    if(currPrompt === prompts.finish){
         console.log("data pushed to database");
         writeResults();
     }
@@ -334,8 +335,8 @@ function appendText(cm, text){
     let charPos = lineStr.length;
 
     cm.replaceRange(
-        lineStr + text,
-        { line:lineNumber, ch:0 },
+        text,
+        { line:lineNumber, ch:charPos },
         { line:lineNumber, ch: charPos }
     );
 
