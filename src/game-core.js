@@ -28,6 +28,8 @@ let manual = "\n\n// You have access to the following functions:\n\n" +
 
 let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
 
+let tv;
+
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -49,10 +51,19 @@ function init(){
 
     });
     commandPrompt.setSize('100%', '100%');
-    commandPrompt.on("keydown", function (cm, event) {
+    commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
         updatePreviewVisualizer(cm);
     });
+
+    //Setup timer
+    let cv = document.getElementById("timer");
+    tv = new TimerVisualizer(cv, 30);
+
+    setInterval(function(){
+        tv.decreaseTime();
+    }, 100);
+    visUpdate(tv);
 
 
 

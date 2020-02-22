@@ -93,7 +93,7 @@ function updatePreviewVisualizer(cm){
         //position.top += 50;
         //console.log(position);
 
-        cm.addWidget({line:lineNumber - 2, ch:charPos +  2}, previewCanvas, false);
+        cm.addWidget({line:lineNumber - 1, ch:charPos +  2}, previewCanvas, false);
         document.getElementById("previewCanvas").style.position = "fixed";
         document.getElementById("previewCanvas").style.top = position.top + "px";
         document.getElementById("previewCanvas").style.left = position.left + 30 + "px";
@@ -101,11 +101,6 @@ function updatePreviewVisualizer(cm){
         //Remove the element
         //Re insert the element to new position
     }
-}
-
-
-function removePreviewVisualizer(cm){
-
 }
 
 /*
