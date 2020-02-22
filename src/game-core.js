@@ -50,6 +50,7 @@ function init(){
     });
     commandPrompt.setSize('100%', '100%');
     commandPrompt.on("keydown", function (cm, event) {
+        //Set the content of the line into...
         updatePreviewVisualizer(cm);
     });
 

@@ -83,17 +83,30 @@ function updatePreviewVisualizer(cm){
     }
     else{
         //Get current line
+         //First remove the widget.
+        //First get where to position the widget.
         let lineNumber = cm.lineCount() - 1;
         let charPos = cm.getLine(lineNumber).length;
-        //document.getElementById("previewCanvas").remove();
+
+        let position = cm.charCoords({line:lineNumber, ch:charPos + 2}); //This gives me the position.
+        //offset the position by a small amount.
+        //position.top += 50;
+        //console.log(position);
 
         cm.addWidget({line:lineNumber - 2, ch:charPos +  2}, previewCanvas, false);
+        document.getElementById("previewCanvas").style.position = "fixed";
+        document.getElementById("previewCanvas").style.top = position.top + "px";
+        document.getElementById("previewCanvas").style.left = position.left + 30 + "px";
         //Get current line number
         //Remove the element
         //Re insert the element to new position
     }
 }
 
+
+function removePreviewVisualizer(cm){
+
+}
 
 /*
 function renderFrame(context, value){
