@@ -88,7 +88,7 @@ function updatePreviewVisualizer(cm){
         let lineNumber = cm.lineCount() - 1;
         let charPos = cm.getLine(lineNumber).length;
 
-        let position = cm.charCoords({line:lineNumber, ch:charPos + 2}); //This gives me the position.
+        let position = cm.charCoords({line:lineNumber, ch:charPos + 2}, "window"); //This gives me the position.
         //offset the position by a small amount.
         //position.top += 50;
         //console.log(position);
