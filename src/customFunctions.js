@@ -39,7 +39,11 @@ let FunctionManager = (function () {
         let _setCharAt = function setCharAt(str,index,chr) {
             if(index > str.length-1) return str;
             return str.substr(0,index) + chr + str.substr(index+1);
-        }
+        };
+
+        let _automate = function(code){
+            console.log(code);
+        };
 
         return{
             getValue(key){
@@ -88,8 +92,8 @@ let FunctionManager = (function () {
             legend(){
 
             },
-            automate(fun){
-                fun();
+            automate(code){
+                _automate(code);
             }
         }
     }

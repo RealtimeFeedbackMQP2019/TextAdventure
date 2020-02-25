@@ -15,6 +15,10 @@ let automation2;
 // Keep track of adding automation
 let numAutomation = 0;
 
+// Keeping track of whether automation has begun or not
+let isAutomation;
+let automationCode = [];
+
 let previewCanvas;
 
 // Manual for to tell user what functions can access
@@ -117,6 +121,8 @@ function init(){
 
     // Initialize legend to be hidden
     document.getElementById("legend").style.display = "none";
+
+    isAutomation = false;
 }
 
 // Update the game state - called at each game tick
@@ -219,11 +225,22 @@ function matchCommand(inputString){
         //let commandObject = parseCommandString(inputString);
 
         with(FunctionManager.getInstance()){
-            try{
-                eval(inputString.substring(1));
-            }
-            catch(err) {
-                appendText(commandPrompt, "\n" + err + "\n\n>");
+
+            //console.log(inputString);
+
+            // Special case for automation
+            if(inputString.includes("automate")){
+                isAutomation = true;
+                parseAutomation(inputString.substring(1));
+            } else if(isAutomation){
+                parseAutomation(inputString);
+            } else{
+                try{
+                    eval(inputString.substring(1));
+                }
+                catch(err) {
+                    appendText(commandPrompt, "\n" + err + "\n\n>");
+                }
             }
         }
         updatePreviewVisualizer(commandPrompt);
@@ -386,36 +403,58 @@ function parseCommandString(inputString){
 }
 
 // Parsing the automation blocks
-function parseAutomation(code) {
+function parseAutomation(inputString) {
+
+    automationCode.push(inputString);
+    console.log(automationCode);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
     let endingBraceCount = 0;
 
+    // Counters for parentheses
+    let beginningParCount = 0;
+    let endingParCount = 0;
+
     // String to store code as
     let codeString = "";
 
     // Iterate through lines
-    for(let i = 0; i < code.length; i++) {
+    for(let i = 0; i < automationCode.length; i++) {
 
         // If curly braces, add to count
-        if(code[i].includes('{')) {
+        if(automationCode[i].includes('{')) {
             beginningBraceCount += 1;
         }
-        if(code[i].includes('}')) {
+        if(automationCode[i].includes('}')) {
             endingBraceCount += 1;
+        }
+        if(automationCode[i].includes('(')) {
+            beginningParCount += 1;
+        }
+        if(automationCode[i].includes(')')) {
+            endingParCount += 1;
         }
 
         // Add to string
-        codeString += code[i];
+        codeString += automationCode[i];
     }
 
     // If valid automation, execute
-    if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount) {
+    if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount &&
+    beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
+        isAutomation = false;
         console.log(codeString);
-        eval(codeString);
-    } else {
-        automation1.replaceSelection("\n", "end");
+        try{
+            eval(inputString.substring(1));
+        }
+        catch(err) {
+            appendText(commandPrompt, "\n" + err);
+        }
+        appendText(commandPrompt, "\n\n>");
+        automationCode = [];
+    }  else {
+        commandPrompt.replaceSelection("\n", "end");
     }
 
 }
