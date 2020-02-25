@@ -130,6 +130,7 @@ function init(){
 
 // Update the game state - called at each game tick
 function update(){
+
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
     if(datalist.Population.getValue() <= 0){
@@ -154,6 +155,9 @@ function update(){
         dm.subtractFromValue("Military", 5);
         dm.subtractFromValue("Science", 5);
     }
+
+    // Constantly update automation code
+    eval(FunctionManager.getInstance().getAutomationFunction());
 
     // // Add automation if applicable
     if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
@@ -430,20 +434,6 @@ function parseAutomation(inputString) {
         endingBraceCount += (automationCode[i].match(new RegExp(/\}/, 'g')) || []).length;
         beginningParCount += (automationCode[i].match(new RegExp(/\(/, 'g')) || []).length;
         endingParCount += (automationCode[i].match(new RegExp(/\)/, 'g')) || []).length;
-
-        // // If curly braces, add to count
-        // if(automationCode[i].includes('{')) {
-        //     beginningBraceCount += 1;
-        // }
-        // if(automationCode[i].includes('}')) {
-        //     endingBraceCount += 1;
-        // }
-        // if(automationCode[i].includes('(')) {
-        //     beginningParCount += 1;
-        // }
-        // if(automationCode[i].includes(')')) {
-        //     endingParCount += 1;
-        // }
 
         // Add to string
         codeString += automationCode[i];

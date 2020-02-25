@@ -44,8 +44,12 @@ let FunctionManager = (function () {
             return str.substr(0,index) + chr + str.substr(index+1);
         };
 
+        let automationFunction;
+
         let _automate = function(fun){
-            fun();
+            automationFunction = fun;
+            console.log(fun);
+            console.log(automationFunction);
         };
 
         return{
@@ -97,6 +101,10 @@ let FunctionManager = (function () {
             },
             automate(fun){
                 _automate(fun);
+            },
+            getAutomationFunction(){
+                console.log("HIII!");
+                return automationFunction;
             }
         }
     }
