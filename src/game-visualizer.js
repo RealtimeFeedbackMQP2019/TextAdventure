@@ -90,6 +90,9 @@ class TimerVisualizer{
     }
 
     decreaseTime(){
+        if(this._pause){
+            return;
+        }
         this._currentTime -= 0.1;
         if(this._currentTime < 0.0){
             //Time's up!

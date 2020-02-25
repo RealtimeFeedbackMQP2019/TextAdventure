@@ -38,6 +38,7 @@ let tv;
 function init(){
 
     //initVariables();
+
     //visInit();
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
@@ -57,6 +58,10 @@ function init(){
     commandPrompt.setSize('100%', '100%');
     commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
+        updatePreviewVisualizer(cm);
+    });
+
+    window.addEventListener("onscroll", function(){
         updatePreviewVisualizer(cm);
     });
 
