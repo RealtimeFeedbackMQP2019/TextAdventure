@@ -425,23 +425,34 @@ function parseAutomation(inputString) {
     // Iterate through lines
     for(let i = 0; i < automationCode.length; i++) {
 
-        // If curly braces, add to count
-        if(automationCode[i].includes('{')) {
-            beginningBraceCount += 1;
-        }
-        if(automationCode[i].includes('}')) {
-            endingBraceCount += 1;
-        }
-        if(automationCode[i].includes('(')) {
-            beginningParCount += 1;
-        }
-        if(automationCode[i].includes(')')) {
-            endingParCount += 1;
-        }
+        // // Add all opening and closing curly braces and parentheses to count
+        beginningBraceCount += (automationCode[i].match(new RegExp(/\{/, 'g')) || []).length;
+        endingBraceCount += (automationCode[i].match(new RegExp(/\}/, 'g')) || []).length;
+        beginningParCount += (automationCode[i].match(new RegExp(/\(/, 'g')) || []).length;
+        endingParCount += (automationCode[i].match(new RegExp(/\)/, 'g')) || []).length;
+
+        // // If curly braces, add to count
+        // if(automationCode[i].includes('{')) {
+        //     beginningBraceCount += 1;
+        // }
+        // if(automationCode[i].includes('}')) {
+        //     endingBraceCount += 1;
+        // }
+        // if(automationCode[i].includes('(')) {
+        //     beginningParCount += 1;
+        // }
+        // if(automationCode[i].includes(')')) {
+        //     endingParCount += 1;
+        // }
 
         // Add to string
         codeString += automationCode[i];
     }
+
+    console.log(beginningBraceCount);
+    console.log(endingBraceCount);
+    console.log(beginningParCount);
+    console.log(endingParCount);
 
     // If valid automation, execute
     if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount &&
@@ -449,7 +460,9 @@ function parseAutomation(inputString) {
         isAutomation = false;
         console.log(codeString);
         try{
-            eval(inputString.substring(1));
+            with(FunctionManager.getInstance()) {
+                eval(codeString);
+            }
         }
         catch(err) {
             appendText(commandPrompt, "\n" + err);
