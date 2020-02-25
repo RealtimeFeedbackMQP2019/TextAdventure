@@ -594,22 +594,22 @@ const prompts = {
             "NextPrompt": "finish"
         },
         "finish": {
-        "Prompt": "// You win.\n",
-        "Choice": [{
-            "Food": 0,
-            "Security": 0,
-            "Population": 0,
-            "Military": 0,
-            "Science": 0,
-            "Result" : "// Nothing happens...because you won. \n\n"
-        },{
-            "Food": 0,
-            "Security": 0,
-            "Population": 0,
-            "Military": 0,
-            "Science": 0,
-            "Result" : "// Nothing happens...because you won. \n\n"
-        }],
-        "NextPrompt": "CONGRATS, YOU WON!"
+            "Prompt": "// You win.\n",
+            "Choice": [{
+                "Food": 0,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 0,
+                "Result" : "// Nothing happens...because you won. \n\n"
+            },{
+                "Food": 0,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 0,
+                "Result" : "// Nothing happens...because you won. \n\n"
+            }],
+            "NextPrompt": "CONGRATS, YOU WON!"
     }
 };
