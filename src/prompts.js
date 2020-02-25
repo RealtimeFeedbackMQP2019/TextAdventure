@@ -3,7 +3,8 @@
 
 const prompts = {
         "StoneAge1": {
-            "Prompt": "// On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow \n" +
+            "Prompt": "// Stone Age \n" +
+                "// On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow \n" +
                 "//      substance seems to be consuming nearby trees. It\'s unlike anything you\'ve ever seen\n" +
                 "// 1) Try to reason with to the orange.\n" +
                 "// 2) Sacrifice a rabbit to the orange.\n\n",
@@ -143,7 +144,8 @@ const prompts = {
             "NextPrompt": "MetalAge1"
         },
         "MetalAge1": {
-            "Prompt": "// Iron has been discovered! This metal has many different uses, but you should prioritize \n" +
+            "Prompt": "// Metal Age\n" +
+                "// Iron has been discovered! This metal has many different uses, but you should prioritize \n" +
                 "//      one first.\n" +
                 "// 1) Start by making better weapons to defend your community.\n" +
                 "// 2) Start by making farming tools to harvest crops.\n\n",
@@ -279,7 +281,8 @@ const prompts = {
             "NextPrompt": "ConqueringAge1"
         },
         "ConqueringAge1": {
-            "Prompt": "// A carpenter in our town claims he has the ability to make massive wood structures.\n" +
+            "Prompt": "// Conquering Age\n" +
+                "// A carpenter in our town claims he has the ability to make massive wood structures.\n" +
                 "// 1) Build a ship!\n" +
                 "// 2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
@@ -391,7 +394,8 @@ const prompts = {
             "NextPrompt": "IndustrialAge1"
         },
         "IndustrialAge1": {
-            "Prompt": "// Nuclear fission has been discovered. \n" +
+            "Prompt": "// Industrial Age\n" +
+                "// Nuclear fission has been discovered. \n" +
                 "// 1) Endorse nuclear technology development.\n" +
                 "// 2) Seems a little risky, keep on using coal and electricity. \n\n",
             "Choice": [{
@@ -458,7 +462,8 @@ const prompts = {
             "NextPrompt": "SpaceAge1"
         },
         "SpaceAge1": {
-            "Prompt": "// Scientists have confirmed that humans can survive by living on Mars!\n" +
+            "Prompt": "// Space Age\n" +
+                "// Scientists have confirmed that humans can survive by living on Mars!\n" +
                 "// 1) Send a group of people over to have them start a new community there.\n" +
                 "// 2) Don\'t risk losing anyone out in space.\n\n",
             "Choice": [{
