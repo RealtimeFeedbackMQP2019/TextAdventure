@@ -85,6 +85,7 @@ class TimerVisualizer{
         this._ctx = canvas.getContext("2d");
         this._totalTime = totalTime;
         this._currentTime = totalTime;
+        this._pause = false;
 
     }
 
@@ -115,9 +116,14 @@ class TimerVisualizer{
         //}
     }
 
+    pause(){
+        this._pause = true;
+    }
+
     reset(){
         //Pause the timer.
         this._currentTime = this._totalTime;
+        this._pause = false;
     }
 
     drawVisuals(value){

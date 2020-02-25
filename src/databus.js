@@ -69,6 +69,10 @@ let DataManager = (function () {
 
             resetTimer(){
                 timer.reset();
+            },
+
+            pauseTimer(){
+                timer.pause();
             }
 
 

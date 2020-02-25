@@ -30,6 +30,7 @@ let FunctionManager = (function () {
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
             dm.checkGameStatus();
+            DataManager.getInstance().pauseTimer();
             setTimeout(function() {
                 addPrompt(currPrompt.Prompt);
                 updatePreviewVisualizer(commandPrompt);
