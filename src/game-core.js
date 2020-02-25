@@ -537,11 +537,11 @@ function displayLegend() {
 function getStatsPerChocie(){
     let currentStats = [];
     let DataStr = DataManager.getInstance().getDataList();
-    let currHunger = DataStr["Hunger"].getValue();
-    let currSecure = DataStr["Security"].getValue();
-    let currPop = DataStr["Population"].getValue();
-    let currMil = DataStr["Military"].getValue();
-    let currSci = DataStr["Science"].getValue();
+    let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() * 100;
+    let currSecure = DataStr["Security"].getValue() / DataStr["Security"].getMax() * 100;
+    let currPop = DataStr["Population"].getValue() / DataStr["Population"].getMax() * 100;
+    let currMil = DataStr["Military"].getValue() / DataStr["Military"].getMax() * 100;
+    let currSci = DataStr["Science"].getValue() / DataStr["Science"].getMax() * 100;
     currentStats.push(currHunger,currSecure,currPop,currMil,currSci);
     return currentStats;
 }
