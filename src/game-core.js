@@ -524,11 +524,11 @@ function displayLegend() {
 function getStatsPerChocie(){
     let currentStats = [];
     let DataStr = DataManager.getInstance().getDataList();
-    let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() * 100;
-    let currSecure = DataStr["Security"].getValue() / DataStr["Security"].getMax() * 100;
-    let currPop = DataStr["Population"].getValue() / DataStr["Population"].getMax() * 100;
-    let currMil = DataStr["Military"].getValue() / DataStr["Military"].getMax() * 100;
-    let currSci = DataStr["Science"].getValue() / DataStr["Science"].getMax() * 100;
+    let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() ;
+    let currSecure = DataStr["Security"].getValue() / DataStr["Security"].getMax();
+    let currPop = DataStr["Population"].getValue() / DataStr["Population"].getMax();
+    let currMil = DataStr["Military"].getValue() / DataStr["Military"].getMax() ;
+    let currSci = DataStr["Science"].getValue() / DataStr["Science"].getMax() ;
     currentStats.push(currHunger,currSecure,currPop,currMil,currSci);
     return currentStats;
 }
