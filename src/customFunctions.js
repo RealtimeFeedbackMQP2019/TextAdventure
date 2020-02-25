@@ -43,9 +43,9 @@ let FunctionManager = (function () {
             return str.substr(0,index) + chr + str.substr(index+1);
         };
 
-        let _automate = function(code){
-            console.log(code);
-        };
+        // let _automate = function(code){
+        //     console.log(code);
+        // };
 
         return{
             getValue(key){
@@ -92,11 +92,11 @@ let FunctionManager = (function () {
                 commandPrompt.setValue(lines);
             },
             legend(){
-
+                appendText(commandPrompt, "\n\n// HUNGER: orange\n// FOOD: red\n// SECURITY: blue\n// POPULATION: green\n// MILITARY: pink\n// SCIENCE: purple\n\n>")
             },
-            automate(code){
-                _automate(code);
-            }
+            // automate(code){
+            //     _automate(code);
+            // }
         }
     }
 
