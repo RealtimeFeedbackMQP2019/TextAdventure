@@ -60,14 +60,12 @@ function init(){
         updatePreviewVisualizer(cm);
     });
 
+    /*
     //Setup timer
     let cv = document.getElementById("timer");
-    tv = new TimerVisualizer(cv, 30);
+    tv = new TimerVisualizer(cv, 30);*/
 
-    setInterval(function(){
-        tv.decreaseTime();
-    }, 100);
-    visUpdate(tv);
+
 
 
 

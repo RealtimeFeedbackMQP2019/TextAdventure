@@ -85,12 +85,25 @@ class TimerVisualizer{
         this._ctx = canvas.getContext("2d");
         this._totalTime = totalTime;
         this._currentTime = totalTime;
-        this._timer = null;
 
     }
 
     decreaseTime(){
         this._currentTime -= 0.1;
+        if(this._currentTime < 0.0){
+            //Time's up!
+            this.reset();
+            appendText(commandPrompt, "//Time's up baby!\n//Our AI has picked a wise decision for you automatically.\n");
+            let fm = FunctionManager.getInstance();
+            if(Math.random() > 0.5){
+                fm.choose(2);
+            }
+            else{
+                fm.choose(1);
+            }
+
+
+        }
     }
 
     start(){
@@ -104,8 +117,6 @@ class TimerVisualizer{
 
     reset(){
         //Pause the timer.
-        clearInterval(this._timer);
-        this._timer = null;
         this._currentTime = this._totalTime;
     }
 

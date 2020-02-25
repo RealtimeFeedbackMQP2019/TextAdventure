@@ -12,6 +12,12 @@ let DataManager = (function () {
             "Science": new ValueData("Science", 50, 50, "rgba(127,0,255,1.0)")
         };
 
+        let timer = new TimerVisualizer(document.getElementById("timer"),30);
+        setInterval(function(){
+            timer.decreaseTime();
+        }, 100);
+        visUpdate(timer);
+
         return{
             addToValue(key, value){
                 let dEntry = DataList[key];
@@ -59,6 +65,10 @@ let DataManager = (function () {
 
             getDataList(){
                 return DataList;
+            },
+
+            resetTimer(){
+                timer.reset();
             }
 
 

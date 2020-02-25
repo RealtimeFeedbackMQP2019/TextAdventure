@@ -33,6 +33,8 @@ let FunctionManager = (function () {
             setTimeout(function() {
                 addPrompt(currPrompt.Prompt);
                 updatePreviewVisualizer(commandPrompt);
+                //reset timer
+                DataManager.getInstance().resetTimer();
             }, 2000);
         };
 
