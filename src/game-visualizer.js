@@ -135,6 +135,6 @@ class TimerVisualizer{
         this._ctx.fillStyle = "#00FF7F";
         this._ctx.strokeStyle = "rgba(1,1,1,0)";
         this._ctx.fillRect(0,0,this._canvas.width * (this._currentTime / this._totalTime), this._canvas.height);
-        console.log(this._currentTime / this._totalTime);
+        //console.log(this._currentTime / this._totalTime);
     }
 }
