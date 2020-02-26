@@ -157,7 +157,7 @@ function update(){
     }
 
     // Constantly update automation code
-    eval(FunctionManager.getInstance().getAutomationFunction());
+    FunctionManager.getInstance().getAutomationFunction()();
 
     // // Add automation if applicable
     if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {

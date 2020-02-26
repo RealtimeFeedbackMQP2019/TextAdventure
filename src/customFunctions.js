@@ -44,7 +44,9 @@ let FunctionManager = (function () {
             return str.substr(0,index) + chr + str.substr(index+1);
         };
 
-        let automationFunction;
+        let automationFunction = function(){
+            //Do nothing right now
+        };
 
         let _automate = function(fun){
             automationFunction = fun;
