@@ -26,6 +26,7 @@ let FunctionManager = (function () {
         };
 
         let _choose = function(val){
+            createVisualizer(commandPrompt);
             changeStats(currPrompt.Choice[val - 1]);
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();

@@ -56,8 +56,9 @@ function createVisualizer(cm) {
     let charPos = lineStr.length;
     //doc.replaceRange(replacement: string, from: {line, ch}, to: {line, ch},
     cm.replaceRange(
-        lineStr + ' \n\n>',
-        { line:lineNumber, ch:0 },
+        //lineStr + ' \n\n',
+        " ",
+        { line:lineNumber, ch:charPos },
         { line:lineNumber, ch: charPos }
     );
     charPos++;
@@ -65,8 +66,8 @@ function createVisualizer(cm) {
     lineNumber = cm.lineCount() - 1;
 
     cm.markText(
-        { line:lineNumber - 2, ch:charPos - 1},
-        { line:lineNumber - 2, ch:charPos },
+        { line:lineNumber, ch:charPos - 1},
+        { line:lineNumber, ch:charPos },
         { replacedWith: canvas }
     );
     //cm.addWidget( { line:lineNumber, ch:0 }, canvas, true )
