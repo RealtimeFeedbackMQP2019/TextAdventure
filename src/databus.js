@@ -43,8 +43,8 @@ let DataManager = (function () {
                 // Check for game loss condition
                 if(DataList["Hunger"].getValue() <= 0){
                     clearInterval(gameTickUpdate);
-                    document.getElementById("gameOver").innerHTML = "GAME OVER";
-                    document.getElementById("gameOver").style.display = "inline";
+                    appendText(commandPrompt, "GAME OVER");
+                    //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
                     document.getElementById("textEditorBox").style.pointerEvents = "none";
                 }
@@ -52,8 +52,8 @@ let DataManager = (function () {
                 // Check for game win condition
                 if(currPrompt === "CONGRATS, YOU WON!") {
                     clearInterval(gameTickUpdate);
-                    document.getElementById("gameOver").innerHTML = "YOU'RE WINNER";
-                    document.getElementById("gameOver").style.display = "inline";
+                    appendText(commandPrompt, "YOU'RE WINNER");
+                    //document.getElementById("gameOver").style.display = "inline";
                 }
             },
 
@@ -73,6 +73,10 @@ let DataManager = (function () {
 
             pauseTimer(){
                 timer.pause();
+            },
+
+            getTimer(){
+                return timer;
             }
 
 
