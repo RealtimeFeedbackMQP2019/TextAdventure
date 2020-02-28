@@ -18,7 +18,9 @@ class dbWriter{
         //key for new post
         var newKey = firebase.database().ref().child("playSession").push().key;
         var updates = {};
-        updates["/playSession/"+this.generateUUID()] = data;
+
+        //TODO://here at the beginning of the uuid, add either "vis" or "base" depending on which experiment
+        updates["/playSession/"+"vis"+this.generateUUID()] = data;
 
         return firebase.database().ref().update(updates);
     }
