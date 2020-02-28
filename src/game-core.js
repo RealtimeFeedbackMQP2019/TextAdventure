@@ -116,6 +116,9 @@ function init(){
 
     gameTickUpdate = setInterval('update()', 1000);
 
+    // Check security every 15 seconds
+    setInterval('securityIssue()', 15000);
+
     // Set current prompt to Stone Age 1
     currPrompt = prompts.StoneAge1;
 
@@ -123,7 +126,7 @@ function init(){
     addPrompt(prompts.StoneAge1.Prompt);
 
     // Initialize legend to be hidden
-    document.getElementById("legend").style.display = "none";
+    //document.getElementById("legend").style.display = "none";
 
     isAutomation = false;
 }
@@ -546,4 +549,54 @@ function getStatsPerAge(listOfChoiceStats){
 function writeResults(){
     thingToWrite = new dbWriter();
     thingToWrite.writePerSession(ageList);
+}
+
+// Randomly select choice
+function makeRandomChoice() {
+    appendText(commandPrompt, "\n// Our AI has picked a wise decision for you automatically.");
+    let fm = FunctionManager.getInstance();
+    if(Math.random() > 0.5){
+        fm.choose(2);
+    }
+    else{
+        fm.choose(1);
+    }
+}
+
+// Make random choice based on security
+function securityIssue() {
+
+    let datalist = DataManager.getInstance().getDataList();
+    let dm = DataManager.getInstance();
+
+    if(dm.getTimer()._currentTime > 0) {
+
+        // Random chance of making random decision whenever
+        let securityLevel = datalist.Security.getValue();
+        let randChoiceChance;
+
+        switch (securityLevel) {
+            case 1:
+                randChoiceChance = 0.5;
+                break;
+            case 2:
+                randChoiceChance = 0.33;
+                break;
+            case 3:
+                randChoiceChance = 0.25;
+                break;
+            case 4:
+                randChoiceChance = 0.1;
+                break;
+            case 5:
+                randChoiceChance = 0.01;
+                break;
+        }
+
+        let randNum = Math.random();
+        if (randNum > randChoiceChance) {
+            makeRandomChoice();
+            dm.resetTimer();
+        }
+    }
 }

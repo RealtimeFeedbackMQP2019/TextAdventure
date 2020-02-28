@@ -97,16 +97,8 @@ class TimerVisualizer{
         if(this._currentTime < 0.0){
             //Time's up!
             this.reset();
-            appendText(commandPrompt, "//Time's up baby!\n//Our AI has picked a wise decision for you automatically.\n");
-            let fm = FunctionManager.getInstance();
-            if(Math.random() > 0.5){
-                fm.choose(2);
-            }
-            else{
-                fm.choose(1);
-            }
-
-
+            appendText(commandPrompt, "\n// Time's up baby!");
+            makeRandomChoice();
         }
     }
 
