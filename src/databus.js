@@ -18,6 +18,8 @@ let DataManager = (function () {
         }, 100);
         visUpdate(timer);
 
+        let previewValues = {};
+
         return{
             addToValue(key, value){
                 let dEntry = DataList[key];
@@ -77,6 +79,14 @@ let DataManager = (function () {
 
             getTimer(){
                 return timer;
+            },
+
+            setPreviewValues(pv){
+                previewValues = pv;
+            },
+
+            getPreviewValues(){
+                return previewValues;
             }
 
 

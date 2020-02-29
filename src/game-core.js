@@ -58,7 +58,10 @@ function init(){
     commandPrompt.setSize('100%', '100%');
     commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
+        let line = commandPrompt.getLine(commandPrompt.getCursor().line);
+        prematchCommand(line);
         updatePreviewVisualizer(cm);
+
     });
 
     window.addEventListener("onscroll", function(){
@@ -174,47 +177,65 @@ function update(){
 }
 
 
-const keywords = ["eat", "raiseSecurity", "choose"];
+let param_val = -1;
+const keywords = ["eat", "secure", "choose"];
 const functions = {
     "":function(){
-        drawFunction = renderPreview;
         param = {};
     },
     "eat": function(){
-        drawFunction = renderPreview;
-        param = {"Hunger":5};
+        DataManager.getInstance().setPreviewValues({"Hunger":5});
     },
-    "raiseSecurity": function () {
-        drawFunction = renderPreview;
-        param = {"Security":1};
+    "secure": function () {
+        DataManager.getInstance().setPreviewValues({"Security":1})
     },
     "choose": function () {
         //don't do anything yet..
+        if(param_val[0] != null){
+            DataManager.getInstance().setPreviewValues(currPrompt.Choice[param_val[0] - 1]);
+        }
+
+
     }
 };
 
 function prematchCommand(inputString){
-    console.log(inputString);
+
+    //Only work with the current line it is.
+
     if(inputString === ""){
         functions[""]();
         return;
     }
+    if(inputString.startsWith(">")){
+        inputString = inputString.substring(1);
+    }
 
-    let lbpos = inputString.indexOf("(");
+
+
+    //This code is reuseable...
+    let lbpos = inputString.indexOf("("); //Find the left brace of the command.
     if(lbpos !== -1){
         //We have found less information than given
         let command = inputString.substring(0, lbpos);
-        for(var keyword of keywords){
+        for(let keyword of keywords){
             if(keyword === command){
                 //Found a match for the command, call function..
+                //param_val = -1;
+                //Get all of the parameters:
+                let param = inputString.substring(lbpos + 1);
+                if(param.endsWith(")")){
+                    param = param.substring(0, param.length - 1);
+                }
+                param_val = param.split(",");
+
                 functions[keyword]();
             }
-
         }
     }
     else{
-
-        for(var keyword of keywords){
+        //If we found more information than given
+        for(let keyword of keywords){
             //Matches the parameters. also gives the index of where it is.
             if(keyword.startsWith(inputString)){
                 //Found a partial match...
@@ -254,73 +275,6 @@ function matchCommand(inputString){
             }
         }
         updatePreviewVisualizer(commandPrompt);
-
-        /*
-        let actual = commandObject.act;
-        let arguments = commandObject.arg;
-
-        let DataStr = DataManager.getInstance().getDataList();
-        let dm = DataManager.getInstance();
-
-        // Break the command into the command body and argument.
-        switch (actual) {
-            // Eat() command
-            case "eat":
-                if(DataStr["Food"].getValue() > 0) {
-                    dm.subtractFromValue("Food", 1);
-                    dm.addToValue("Hunger", 5);
-                }
-                break;
-
-            // RaiseSecurity() command
-            case "secure":
-                if (DataStr["Security"].getValue() < 5) {
-                    dm.addToValue("Security", 1);
-                }
-                break;
-
-            // Snapshot() command
-            case "snapshot":
-                createVisualizer(commandPrompt);
-                break;
-
-            // Choose() command with parameters
-            case "choose":
-                console.log(arguments);
-                console.log(typeof arguments);
-
-                let choiceOption = 0;
-                try {
-                    choiceOption = parseInt(arguments.shift());
-                }
-                catch(e) {
-
-                }
-                changeStats(currPrompt.Choice[choiceOption - 1]);
-                addResult(currPrompt.Choice[choiceOption - 1].Result);
-                getNextPrompt();
-                DataManager.getInstance().checkGameStatus();
-
-                addPrompt(currPrompt.Prompt);
-                break;
-
-            // Automate() command with parameters
-            case "automate":
-                // Do something for automation woo
-                break;
-
-            // Manual for references
-            case "man":
-                appendText(commandPrompt, manual + ">");
-                break;
-
-            // Legend for bars
-            case "legend":
-                displayLegend();
-                break;
-        }*/
-        
-    //}
 }
 
 
@@ -390,26 +344,6 @@ function appendText(cm, text){
 // Function for adding prompt result text
 function addResult(choice) {
     appendText(commandPrompt,"\n\n" + choice);
-}
-
-function parseCommandString(inputString){
-    let line = inputString.substr(inputString.lastIndexOf(">"));
-    // line = inputString;
-    let command = line.substr(1);
-    // Get last line of text area
-
-    console.log(command);
-    //let command = commandPrompt.getValue();
-    let actual = command.toLowerCase();
-    let lbpos = command.indexOf("(");
-    let argString = actual.substr(lbpos + 1, actual.length - lbpos - 2);
-
-    // Actual command name
-    actual = actual.substr(0, lbpos);
-
-    // Arguments of choose() command
-    let arguments = argString.split(/\s*,{1}\s*/);
-    return {"act":actual, "arg":arguments};
 }
 
 // Parsing the automation blocks
@@ -512,18 +446,6 @@ function openTab(event, tabName) {
             document.getElementById('references').style.display = "block";
     }
 }
-
-// Function for displaying legend
-function displayLegend() {
-    appendText(commandPrompt, "\n\n" + "wooo legend" + "\n\n>");
-    // appendText(commandPrompt, "\n\n" + document.getElementById("hungerLegend").innerText + "\n");
-    //     // appendText(commandPrompt, document.getElementById("foodLegend").innerHTML + "\n");
-    //     // appendText(commandPrompt, document.getElementById("securityLegend").innerHTML + "\n");
-    //     // appendText(commandPrompt, document.getElementById("populationLegend").innerHTML + "\n");
-    //     // appendText(commandPrompt, document.getElementById("militaryLegend").innerHTML + "\n");
-    //     // appendText(commandPrompt, document.getElementById("scienceLegend").innerHTML + "\n\n>");
-}
-
 
 
 //firebase things to store

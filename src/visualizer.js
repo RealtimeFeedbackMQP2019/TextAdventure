@@ -79,7 +79,7 @@ function updatePreviewVisualizer(cm){
         previewCanvas = drawSnapshot(cm.defaultTextHeight());
         //previewCanvas.stype = "position:fixed";
         previewCanvas.id = "previewCanvas";
-        let visualizer = new BarVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
+        let visualizer = new BarVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL, true);
         visUpdate(visualizer);
     }
     else{
