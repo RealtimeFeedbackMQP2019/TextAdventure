@@ -19,7 +19,6 @@ let DataManager = (function () {
         visUpdate(timer);
 
         let previewValues = {};
-        let gameOver = false;
 
         return{
             addToValue(key, value){
@@ -46,17 +45,19 @@ let DataManager = (function () {
                 // Check for game loss condition
                 if(DataList["Hunger"].getValue() <= 0){
                     clearInterval(gameTickUpdate);
+                    clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "GAME OVER");
                     this.pauseTimer();
-                    gameOver = true;
                     //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
-                    document.getElementById("textEditorBox").style.pointerEvents = "none";
+                    //document.getElementById("textEditorBox").style.pointerEvents = "none";
                 }
 
                 // Check for game win condition
                 if(currPrompt === "CONGRATS, YOU WON!") {
                     clearInterval(gameTickUpdate);
+                    clearInterval(securityTickUpdate);
+                    this.pauseTimer();
                     appendText(commandPrompt, "YOU'RE WINNER");
                     //document.getElementById("gameOver").style.display = "inline";
                 }
@@ -90,13 +91,7 @@ let DataManager = (function () {
 
             getPreviewValues(){
                 return previewValues;
-            },
-
-            getGameStatus(){
-                return gameOver;
             }
-
-
         }
     }
 

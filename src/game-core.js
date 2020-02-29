@@ -479,7 +479,7 @@ function securityIssue() {
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
 
-    if(dm.getTimer()._currentTime > 0 && !dm.getGameStatus()) {
+    if(dm.getTimer()._currentTime > 0) {
 
         console.log("You getting called bruh?");
 

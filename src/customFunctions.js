@@ -123,7 +123,6 @@ let FunctionManager = (function () {
                 _automate(fun);
             },
             getAutomationFunction(){
-                console.log("HIII!");
                 return automationFunction;
             },
             getNumChoices(){
