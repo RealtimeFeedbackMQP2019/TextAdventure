@@ -30,6 +30,7 @@ let FunctionManager = (function () {
         };
 
         let _choose = function(val){
+            clearInterval(securityTickUpdate);
             createVisualizer(commandPrompt);
             changeStats(currPrompt.Choice[val - 1]);
             addResult(currPrompt.Choice[val - 1].Result);
@@ -53,6 +54,7 @@ let FunctionManager = (function () {
                 //reset timer
                 DataManager.getInstance().resetTimer();
             }, 2000);
+            securityTickUpdate = setInterval('securityIssue()', 15000);
         };
 
         let _setCharAt = function setCharAt(str,index,chr) {

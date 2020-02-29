@@ -5,6 +5,7 @@
 
 // Timer to update game - called with each tick
 let gameTickUpdate;
+let securityTickUpdate;
 
 // Keep track of current prompt
 let currPrompt;
@@ -107,8 +108,7 @@ function init(){
     gameTickUpdate = setInterval('update()', 1000);
 
     // Check security every 15 seconds
-    setInterval('securityIssue()', 15000);
-
+    securityTickUpdate = setInterval('securityIssue()', 15000);
     // Set current prompt to Stone Age 1
     currPrompt = prompts.StoneAge1;
 
@@ -479,7 +479,9 @@ function securityIssue() {
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
 
-    if(dm.getTimer()._currentTime > 0) {
+    if(dm.getTimer()._currentTime > 0 && !dm.getGameStatus()) {
+
+        console.log("You getting called bruh?");
 
         // Random chance of making random decision whenever
         let securityLevel = datalist.Security.getValue();
@@ -505,6 +507,7 @@ function securityIssue() {
 
         let randNum = Math.random();
         if (randNum > randChoiceChance) {
+            console.log("TIME TO DELIVER A PIZZA BALL!");
             makeRandomChoice();
             dm.resetTimer();
         }
