@@ -13,22 +13,13 @@ let automation1;
 let automation2;
 
 // Keep track of adding automation
-let numAutomation = 0;
+//let numAutomation = 0;
 
 // Keeping track of whether automation has begun or not
 let isAutomation;
 let automationCode = [];
 
 let previewCanvas;
-
-// Manual for to tell user what functions can access
-let manual = "\n\n// You have access to the following functions:\n\n" +
-    "// choose(choice); - make a choice in response to the given prompt, with the choice parameter being the number of the decision to make\n" +
-    "// eat() - eat 1 piece of food, decreases food remaining by 1 and increases Hunger by 5\n" +
-    "// secure() - raise the Security statistic by 1, when permitted to\n" +
-    "// automate(code) - automatically executes the code specified as a code block and continues to execute until the automate() call is removed\n" +
-    "// legend() - brings up the legend for the bar chart visualization to match each bar to a statistics\n" +
-    "// man() - display this manual again\n\n";
 
 let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
 
@@ -73,11 +64,7 @@ function init(){
     let cv = document.getElementById("timer");
     tv = new TimerVisualizer(cv, 30);*/
 
-
-
-
-
-    automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
+    /*automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
         lineNumbers : true,
         lineWrapping: true,
         theme: "darcula"
@@ -105,17 +92,17 @@ function init(){
 
         }
     });
-    automation2.setSize('100%', '100%');
+    automation2.setSize('100%', '100%');*/
 
     // Only set main console visible
     commandPrompt.getWrapperElement().style.display = "block";
-    automation1.getWrapperElement().style.display = "none";
-    automation2.getWrapperElement().style.display = "none";
-    document.getElementById('references').style.display = "none";
+    // automation1.getWrapperElement().style.display = "none";
+    // automation2.getWrapperElement().style.display = "none";
+    // document.getElementById('references').style.display = "none";
 
     // Hide automation tabs as well
-    document.getElementById("automation1Tab").style.display = "none";
-    document.getElementById("automation2Tab").style.display = "none";
+    // document.getElementById("automation1Tab").style.display = "none";
+    // document.getElementById("automation2Tab").style.display = "none";
 
     gameTickUpdate = setInterval('update()', 1000);
 
@@ -165,15 +152,15 @@ function update(){
     // Constantly update automation code
     FunctionManager.getInstance().getAutomationFunction()();
 
-    // // Add automation if applicable
-    if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
-        addAutomationTab(1);
-        numAutomation += 1;
-
-    } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
-        addAutomationTab(2);
-        numAutomation += 1;
-    }
+    // // // Add automation if applicable
+    // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
+    //     addAutomationTab(1);
+    //     numAutomation += 1;
+    //
+    // } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
+    //     addAutomationTab(2);
+    //     numAutomation += 1;
+    // }
 }
 
 
@@ -477,6 +464,7 @@ function writeResults(){
 function makeRandomChoice() {
     appendText(commandPrompt, "\n// Our AI has picked a wise decision for you automatically.");
     let fm = FunctionManager.getInstance();
+    fm.setNumChoices(fm.getNumChoices() - 1);
     if(Math.random() > 0.5){
         fm.choose(2);
     }

@@ -12,9 +12,13 @@ let FunctionManager = (function () {
             "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic."
         };
 
+        let numChoices = 0;
+        let numTimesCanSecure = 0;
+
         let _secure = function(){
-            if (dm.getValue("Security").getValue() < 5) {
+            if (dm.getValue("Security").getValue() < 5 && numTimesCanSecure > 0) {
                 dm.addToValue("Security", 1);
+                numTimesCanSecure -= 1;
             }
         };
 
@@ -30,6 +34,17 @@ let FunctionManager = (function () {
             changeStats(currPrompt.Choice[val - 1]);
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
+
+            // Add to choices counter and check for security
+            if(dm.getValue("Security").getValue() < 5) {
+                numChoices += 1;
+            }
+
+            if(numChoices % 3 === 0) {
+                appendText(commandPrompt, "// You can now upgrade your security another level!\n\n");
+                numTimesCanSecure += 1;
+            }
+
             dm.checkGameStatus();
             DataManager.getInstance().pauseTimer();
             setTimeout(function() {
@@ -108,6 +123,12 @@ let FunctionManager = (function () {
             getAutomationFunction(){
                 console.log("HIII!");
                 return automationFunction;
+            },
+            getNumChoices(){
+                return numChoices;
+            },
+            setNumChoices(num){
+                numChoices = num;
             }
         }
     }
