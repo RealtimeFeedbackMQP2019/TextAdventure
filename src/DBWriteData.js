@@ -2,9 +2,11 @@ class dbWriter{
 
     //make a new UUID for a user.
     generateUUID(){
-        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        var uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
+        this.id = uuid;
+        return uuid;
     }
 
     writePerSession(ageData){
@@ -19,8 +21,13 @@ class dbWriter{
         var newKey = firebase.database().ref().child("playSession").push().key;
         var updates = {};
 
-        //TODO://here at the beginning of the uuid, add either "vis" or "base" depending on which experiment
-        updates["/playSession/"+"vis"+this.generateUUID()] = data;
+        updates["/playSession/"+this.generateUUID()] = data;
+
+        //redirect to form
+        //window.location.replace("https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id);
+
+        //console.log(this.id);
+        //console.log(this.id);
 
         return firebase.database().ref().update(updates);
     }

@@ -346,6 +346,9 @@ function getNextPrompt() {
     if(currPrompt === prompts.finish){
         console.log("data pushed to database");
         writeResults();
+        //redirect to form
+        window.location.href ="https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id;
+
     }
     else{
         ageChoices.push(getStatsPerChocie());
@@ -549,6 +552,7 @@ function getStatsPerAge(listOfChoiceStats){
 function writeResults(){
     thingToWrite = new dbWriter();
     thingToWrite.writePerSession(ageList);
+
 }
 
 // Randomly select choice
