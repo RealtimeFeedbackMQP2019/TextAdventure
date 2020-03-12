@@ -8,6 +8,11 @@ class dbWriter{
         this.id = uuid;
         return uuid;
     }
+    redirect(){
+        //redirect to form
+        let url = "https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id;
+        return url;
+    }
 
     writePerSession(ageData){
         //the entry
