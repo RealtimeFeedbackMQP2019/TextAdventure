@@ -461,6 +461,7 @@ function writeResults(){
 
     thingToWrite.writePerSession(ageList);
     //redirect to survey
+    console.log("redirecting to survey");
     window.location.href = thingToWrite.redirect();
 
 }
