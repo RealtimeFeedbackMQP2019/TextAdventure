@@ -4,7 +4,7 @@ let DataManager = (function () {
     function createInstance() {
         //Initialize things here.
         let DataList = {
-            "Hunger": new ValueData("Hunger", 500, 40, "rgba(255,127,0,1.0)"),
+            "Hunger": new ValueData("Hunger", 30, 40, "rgba(255,127,0,1.0)"),
             "Food": new ValueData("Food", 5, 20, "rgba(255,64,0,1.0)"),
             "Security": new ValueData("Security", 3, 5, "rgba(0,127,255,1.0)"),
             "Population": new ValueData("Population", 200, 1000, "rgba(0,255,64,1.0)"),
