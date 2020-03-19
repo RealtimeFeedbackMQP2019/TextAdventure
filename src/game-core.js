@@ -26,8 +26,6 @@ let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Scie
 
 let tv;
 
-let thingToWrite = new dbWriter();
-
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -41,12 +39,12 @@ function init(){
         theme: "darcula",
     });
     commandPrompt.setOption("extraKeys",{
-       Enter: function(cm){
-           let line = commandPrompt.getLine(commandPrompt.lastLine());
-           matchCommand(line);
-           //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
-           updatePreviewVisualizer(cm);
-       },
+        Enter: function(cm){
+            let line = commandPrompt.getLine(commandPrompt.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+            updatePreviewVisualizer(cm);
+        },
 
     });
     commandPrompt.setSize('100%', '100%');
@@ -77,11 +75,9 @@ function init(){
             let code = automation1.getValue().split('\n');
             console.log(code);
             parseAutomation(code);
-
         }
     });
     automation1.setSize('100%', '100%');
-
     automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"),{
         lineNumbers : true,
         lineWrapping: true,
@@ -92,7 +88,6 @@ function init(){
             let code = automation2.getValue().split('\n');
             console.log(code);
             parseAutomation(code);
-
         }
     });
     automation2.setSize('100%', '100%');*/
@@ -242,28 +237,28 @@ function matchCommand(inputString){
     // For now, only when enter is pressed
     //if(event.key === "Enter") {
 
-        //let commandObject = parseCommandString(inputString);
+    //let commandObject = parseCommandString(inputString);
 
-        with(FunctionManager.getInstance()){
+    with(FunctionManager.getInstance()){
 
-            //console.log(inputString);
+        //console.log(inputString);
 
-            // Special case for automation
-            if(inputString.includes("automate")){
-                isAutomation = true;
-                parseAutomation(inputString.substring(1));
-            } else if(isAutomation){
-                parseAutomation(inputString);
-            } else{
-                try{
-                    eval(inputString.substring(1));
-                }
-                catch(err) {
-                    appendText(commandPrompt, "\n" + err + "\n\n>");
-                }
+        // Special case for automation
+        if(inputString.includes("automate")){
+            isAutomation = true;
+            parseAutomation(inputString.substring(1));
+        } else if(isAutomation){
+            parseAutomation(inputString);
+        } else{
+            try{
+                eval(inputString.substring(1));
+            }
+            catch(err) {
+                appendText(commandPrompt, "\n" + err + "\n\n>");
             }
         }
-        updatePreviewVisualizer(commandPrompt);
+    }
+    updatePreviewVisualizer(commandPrompt);
 }
 
 
@@ -308,7 +303,7 @@ function changeStats(choice) {
 // Function for adding text to prompt
 function addPrompt(prompt) {
     appendText(commandPrompt,prompt + ">");
-    
+
 }
 
 function appendText(cm, text){
@@ -372,7 +367,7 @@ function parseAutomation(inputString) {
 
     // If valid automation, execute
     if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount &&
-    beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
+        beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
         isAutomation = false;
         console.log(codeString);
         try{
@@ -458,10 +453,9 @@ function getStatsPerAge(listOfChoiceStats){
 }
 
 function writeResults(){
-
+    let thingToWrite = new dbWriter();
     thingToWrite.writePerSession(ageList);
     //redirect to survey
-    console.log("redirecting to survey");
     window.location.href = thingToWrite.redirect();
 
 }
