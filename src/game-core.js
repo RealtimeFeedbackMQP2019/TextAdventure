@@ -26,6 +26,8 @@ let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Scie
 
 let tv;
 
+let thingToWrite = new dbWriter();
+
 // Initialize commandPrompt and game ticks
 function init(){
 
@@ -284,10 +286,9 @@ function getNextPrompt() {
         ageList.push(getStatsPerAge(ageChoices));
         ageChoices = [];
     }
-    if(currPrompt === prompts.finish){
+    if(currPrompt === prompts.finish || DataManager.getInstance().getDataList()["Hunger"].getValue() <= 0){
         console.log("data pushed to database");
         writeResults();
-        redirect();
     }
     else{
         ageChoices.push(getStatsPerChocie());
@@ -457,7 +458,7 @@ function getStatsPerAge(listOfChoiceStats){
 }
 
 function writeResults(){
-    thingToWrite = new dbWriter();
+
     thingToWrite.writePerSession(ageList);
     //redirect to survey
     window.location.href = thingToWrite.redirect();
