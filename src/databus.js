@@ -47,6 +47,7 @@ let DataManager = (function () {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "GAME OVER");
+                    currPrompt = "finishL";
                     this.pauseTimer();
                     //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
@@ -54,7 +55,7 @@ let DataManager = (function () {
                 }
 
                 // Check for game win condition
-                if(currPrompt === "CONGRATS, YOU WON!") {
+                if(currPrompt === "finish") {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     this.pauseTimer();

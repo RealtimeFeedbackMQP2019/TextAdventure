@@ -601,15 +601,34 @@ const prompts = {
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// Nothing happens...because you won. \n\n"
+                "Result" : "// Nothing happens...because you the game is over. \n\n"
             },{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
                 "Science": 0,
-                "Result" : "// Nothing happens...because you won. \n\n"
+                "Result" : "// Nothing happens...because you the game is over. \n\n"
             }],
             "NextPrompt": "CONGRATS, YOU WON!"
+        },
+    "finishL": {
+        "Prompt": "// You finished the game, unfortunately you did not balance your resources!\n",
+        "Choice": [{
+            "Food": 0,
+            "Security": 0,
+            "Population": 0,
+            "Military": 0,
+            "Science": 0,
+            "Result": "// Nothing happens...because you the game is over. \n\n"
+        }, {
+            "Food": 0,
+            "Security": 0,
+            "Population": 0,
+            "Military": 0,
+            "Science": 0,
+            "Result": "// Nothing happens...because you the game is over. \n\n"
+        }],
+        "NextPrompt": "CONGRATS, YOU WON!"
     }
 };

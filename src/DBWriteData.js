@@ -10,7 +10,7 @@ class dbWriter{
     }
     redirect(){
         //redirect to form
-        let url = "https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id;
+        let url = "https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+"test"+this.id;
         return url;
     }
 
@@ -26,7 +26,7 @@ class dbWriter{
         var newKey = firebase.database().ref().child("playSession").push().key;
         var updates = {};
 
-        updates["/playSession/"+this.generateUUID()] = data;
+        updates["/playSession/"+"test"+this.generateUUID()] = data;
 
         //redirect to form
         //window.location.replace("https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id);

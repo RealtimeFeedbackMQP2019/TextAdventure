@@ -281,7 +281,7 @@ function getNextPrompt() {
         ageList.push(getStatsPerAge(ageChoices));
         ageChoices = [];
     }
-    if(currPrompt === prompts.finish || DataManager.getInstance().getDataList()["Hunger"].getValue() <= 0){
+    if(currPrompt === prompts.finish || currPrompt === prompts.finishL ){
         console.log("data pushed to database");
         writeResults();
     }
