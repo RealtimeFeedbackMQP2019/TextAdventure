@@ -10,15 +10,17 @@ let securityTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
-let automation1;
-let automation2;
+//let automation1;
+//let automation2;
 
 // Keep track of adding automation
 //let numAutomation = 0;
 
 // Keeping track of whether automation has begun or not
 let isAutomation;
+let isAutomationFull;
 let automationCode = [];
+let automateLineNums = [];
 
 let previewCanvas;
 
@@ -39,12 +41,12 @@ function init(){
         theme: "darcula",
     });
     commandPrompt.setOption("extraKeys",{
-       Enter: function(cm){
-           let line = commandPrompt.getLine(commandPrompt.lastLine());
-           matchCommand(line);
-           //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
-           updatePreviewVisualizer(cm);
-       },
+        Enter: function(cm){
+            let line = commandPrompt.getLine(commandPrompt.lastLine());
+            matchCommand(line);
+            //commandPrompt.setValue(commandPrompt.getValue() + "\n\n>");
+            updatePreviewVisualizer(cm);
+        },
 
     });
     commandPrompt.setSize('100%', '100%');
@@ -119,6 +121,7 @@ function init(){
     //document.getElementById("legend").style.display = "none";
 
     isAutomation = false;
+    isAutomationFull = false;
 }
 
 // Update the game state - called at each game tick
@@ -150,7 +153,33 @@ function update(){
     }
 
     // Constantly update automation code
-    FunctionManager.getInstance().getAutomationFunction()();
+    if(automationCode.length === 0) {
+        let automationFunction = FunctionManager.getInstance().getAutomationFunction();
+
+        // Compare stored function to new code to see if different
+        let autoFuncString = automationFunction.toString();
+        console.log(autoFuncString);
+        let currAutoFunc = function(){};
+        let currAutoCode = "";
+        for(let i = 0; i < automateLineNums.length; i++) {
+            let autoLine = commandPrompt.getLine(automateLineNums[i]).toString();
+            currAutoCode += autoLine;
+        }
+        console.log(currAutoCode);
+
+        if(autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
+            try{
+                with(FunctionManager.getInstance()) {
+                    eval(currAutoCode.substring(1));
+                }
+            }
+            catch(err) {
+                appendText(commandPrompt, "\n" + err);
+            }
+        }
+
+        automationFunction();
+    }
 
     // // // Add automation if applicable
     // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
@@ -240,28 +269,31 @@ function matchCommand(inputString){
     // For now, only when enter is pressed
     //if(event.key === "Enter") {
 
-        //let commandObject = parseCommandString(inputString);
+    //let commandObject = parseCommandString(inputString);
 
-        with(FunctionManager.getInstance()){
+    with(FunctionManager.getInstance()){
 
-            //console.log(inputString);
+        //console.log(inputString);
 
-            // Special case for automation
-            if(inputString.includes("automate")){
-                isAutomation = true;
-                parseAutomation(inputString.substring(1));
-            } else if(isAutomation){
-                parseAutomation(inputString);
-            } else{
-                try{
-                    eval(inputString.substring(1));
-                }
-                catch(err) {
-                    appendText(commandPrompt, "\n" + err + "\n\n>");
-                }
+        // Special case for automation
+        if(inputString.includes("automate") && !isAutomationFull){
+            isAutomation = true;
+            parseAutomation(inputString.substring(1), commandPrompt);
+        } else if(isAutomation && !isAutomationFull){
+            parseAutomation(inputString, commandPrompt);
+        } else if(isAutomationFull) {
+            appendText(commandPrompt, "\n\n// Sorry! You have used up all of your automated functions!\n\n>");
+        }
+        else{
+            try{
+                eval(inputString.substring(1));
+            }
+            catch(err) {
+                appendText(commandPrompt, "\n" + err + "\n\n>");
             }
         }
-        updatePreviewVisualizer(commandPrompt);
+    }
+    updatePreviewVisualizer(commandPrompt);
 }
 
 
@@ -307,7 +339,7 @@ function changeStats(choice) {
 // Function for adding text to prompt
 function addPrompt(prompt) {
     appendText(commandPrompt,prompt + ">");
-    
+
 }
 
 function appendText(cm, text){
@@ -335,10 +367,12 @@ function addResult(choice) {
 }
 
 // Parsing the automation blocks
-function parseAutomation(inputString) {
+function parseAutomation(inputString, cm) {
 
     automationCode.push(inputString);
+    automateLineNums.push(cm.lineCount() - 1);
     console.log(automationCode);
+    console.log(automateLineNums);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -371,19 +405,20 @@ function parseAutomation(inputString) {
 
     // If valid automation, execute
     if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount &&
-    beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
+        beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
         isAutomation = false;
         console.log(codeString);
         try{
             with(FunctionManager.getInstance()) {
+                isAutomationFull = true;
                 eval(codeString);
             }
         }
         catch(err) {
             appendText(commandPrompt, "\n" + err);
         }
-        appendText(commandPrompt, "\n\n>");
         automationCode = [];
+        appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
     }
@@ -391,49 +426,49 @@ function parseAutomation(inputString) {
 }
 
 // Add automation block
-function addAutomationTab(index) {
+// function addAutomationTab(index) {
+//
+//     switch(index) {
+//         case 1:
+//             document.getElementById('automation1Tab').style.display = 'inline-block';
+//             break;
+//         case 2:
+//             document.getElementById('automation2Tab').style.display = 'inline-block';
+//             break;
+//     }
+// }
 
-    switch(index) {
-        case 1:
-            document.getElementById('automation1Tab').style.display = 'inline-block';
-            break;
-        case 2:
-            document.getElementById('automation2Tab').style.display = 'inline-block';
-            break;
-    }
-}
-
-// Function for opening a tab to display CodeMirror widget
-function openTab(event, tabName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-
-    switch(tabName) {
-        case 'commandPrompt':
-            commandPrompt.getWrapperElement().style.display = "block";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'automation1':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "block";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'automation2':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "block";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'references':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "block";
-    }
-}
+// // Function for opening a tab to display CodeMirror widget
+// function openTab(event, tabName) {
+//     let i, tabcontent, tablinks;
+//     tabcontent = document.getElementsByClassName("tabcontent");
+//
+//     switch(tabName) {
+//         case 'commandPrompt':
+//             commandPrompt.getWrapperElement().style.display = "block";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'automation1':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "block";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'automation2':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "block";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'references':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "block";
+//     }
+// }
 
 
 //firebase things to store
@@ -485,8 +520,6 @@ function securityIssue() {
 
     if(dm.getTimer()._currentTime > 0) {
 
-        console.log("You getting called bruh?");
-
         // Random chance of making random decision whenever
         let securityLevel = datalist.Security.getValue();
         let randChoiceChance;
@@ -496,13 +529,13 @@ function securityIssue() {
                 randChoiceChance = 0.5;
                 break;
             case 2:
-                randChoiceChance = 0.33;
-                break;
-            case 3:
                 randChoiceChance = 0.25;
                 break;
+            case 3:
+                randChoiceChance = 0.00000001;
+                break;
             case 4:
-                randChoiceChance = 0.1;
+                randChoiceChance = 0.05;
                 break;
             case 5:
                 randChoiceChance = 0.01;
@@ -510,8 +543,7 @@ function securityIssue() {
         }
 
         let randNum = Math.random();
-        if (randNum > randChoiceChance) {
-            console.log("TIME TO DELIVER A PIZZA BALL!");
+        if (randNum < randChoiceChance) {
             makeRandomChoice();
             dm.resetTimer();
         }

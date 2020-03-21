@@ -68,7 +68,6 @@ let FunctionManager = (function () {
 
         let _automate = function(fun){
             automationFunction = fun;
-            console.log(fun);
             console.log(automationFunction);
         };
 
@@ -101,7 +100,7 @@ let FunctionManager = (function () {
                     let temp = commandPrompt.getLine(i);
                     let newline = "";
 
-                        //lines += commandPrompt.getLine(i) + "\n";
+                    //lines += commandPrompt.getLine(i) + "\n";
                     for(let j = 0; j < temp.length; j++){
                         if(Math.random() > 0.5 && temp.charAt(j) !== " "){
                             newline += temp.charAt(j);
