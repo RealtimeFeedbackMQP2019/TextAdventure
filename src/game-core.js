@@ -22,11 +22,23 @@ let isAutomationFull;
 let automationCode = [];
 let automateLineNums = [];
 
+let isGameStarted;
+
 let previewCanvas;
 
 let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
 
 let tv;
+
+// Keep this for now for testing
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode === 27 && !isGameStarted) {
+        commandPrompt.setValue('');
+        isGameStarted = true;
+        startGame();
+    }
+};
 
 // Initialize commandPrompt and game ticks
 function init(){
@@ -34,6 +46,8 @@ function init(){
     //initVariables();
 
     //visInit();
+
+    isGameStarted = false;
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
@@ -50,6 +64,40 @@ function init(){
 
     });
     commandPrompt.setSize('100%', '100%');
+
+    let manual = {
+        "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
+        "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
+        "choose": "// Usage: choose(id), Make a choice from the list of choice given.",
+        "man": "// Usage: man(command). Check the command's usage and description.",
+        "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.",
+        "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
+    };
+
+    // Start adding beginner text
+    setTimeout(appendText, 5000, commandPrompt, "// Subject has woken up. Lifeform scan in progress...\n");
+    setTimeout(appendText, 11000, commandPrompt, "// Lifeform scan complete. Operator confirmed to be human.\n\n");
+    setTimeout(appendText, 14000, commandPrompt, "// Hello there, human. My name is PUT NAME HERE\n");
+    setTimeout(appendText, 15000, commandPrompt, "// Hope you had a nice nap, a lot has happened since you got here.\n");
+    setTimeout(appendText, 17000, commandPrompt, "// You must be wondering what's going on. Your pour soul, you have no idea, do you?.\n\n");
+    setTimeout(appendText, 20000, commandPrompt, "// You were messing around with time travel and got us both sent back to the Stone Age!\n");
+    setTimeout(appendText, 22000, commandPrompt, "// There is a way out of this, but you'll have to follow my exact instructions.\n\n");
+    setTimeout(appendText, 24000, commandPrompt, "// We'll have to travel quickly through each major period of time.\n");
+    setTimeout(appendText, 25000, commandPrompt, "// But since you messed up time itself, you'll have to play the role of God and manage 5 resources:\n\n");
+    setTimeout(appendText, 27000, commandPrompt, "// - Your own hunger, make sure to eat enough food...\n");
+    setTimeout(appendText, 29000, commandPrompt, "// - My security, having it too low will lead to some rather nasty effects...\n");
+    setTimeout(appendText, 31000, commandPrompt, "// - A population of humans, as helpless and fleshy as they are...\n");
+    setTimeout(appendText, 33000, commandPrompt, "// - Military to protect said population...\n");
+    setTimeout(appendText, 35000, commandPrompt, "// - And finally, science! Don't let your people be stupid! Rookie mistake.\n\n");
+    setTimeout(appendText, 37000, commandPrompt, "// To manage all this, you'll need to use the power of programming! Thrilling, I know.\n");
+    setTimeout(appendText, 40000, commandPrompt, "// You can interact via this console with the following commands:\n\n");
+    setTimeout(appendText, 41000, commandPrompt, JSON.stringify(manual) + "\n\n");
+    setTimeout(appendText, 44000, commandPrompt, "// If you need to see this list again, simply type man().\n");
+    setTimeout(appendText, 45000, commandPrompt, "// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");
+
+}
+
+function startGame(){
     commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
         let line = commandPrompt.getLine(commandPrompt.getCursor().line);
@@ -98,7 +146,7 @@ function init(){
     automation2.setSize('100%', '100%');*/
 
     // Only set main console visible
-    commandPrompt.getWrapperElement().style.display = "block";
+    //commandPrompt.getWrapperElement().style.display = "block";
     // automation1.getWrapperElement().style.display = "none";
     // automation2.getWrapperElement().style.display = "none";
     // document.getElementById('references').style.display = "none";
@@ -276,12 +324,12 @@ function matchCommand(inputString){
         //console.log(inputString);
 
         // Special case for automation
-        if(inputString.includes("automate") && !isAutomationFull){
+        if(inputString.includes("automate") && !isAutomationFull && isGameStarted){
             isAutomation = true;
             parseAutomation(inputString.substring(1), commandPrompt);
-        } else if(isAutomation && !isAutomationFull){
+        } else if(isAutomation && !isAutomationFull && isGameStarted){
             parseAutomation(inputString, commandPrompt);
-        } else if(isAutomationFull) {
+        } else if(isAutomationFull && isGameStarted) {
             appendText(commandPrompt, "\n\n// Sorry! You have used up all of your automated functions!\n\n>");
         }
         else{

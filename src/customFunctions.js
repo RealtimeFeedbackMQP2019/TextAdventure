@@ -9,7 +9,8 @@ let FunctionManager = (function () {
             "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
             "choose": "// Usage: choose(id), Make a choice from the list of choice given.",
             "man": "// Usage: man(command). Check the command's usage and description.",
-            "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic."
+            "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.",
+            "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
         };
 
         let numChoices = 0;
@@ -71,6 +72,14 @@ let FunctionManager = (function () {
             console.log(automationFunction);
         };
 
+        let _next = function(){
+            if(!isGameStarted) {
+                commandPrompt.setValue('');
+                isGameStarted = true;
+                startGame();
+            }
+        };
+
         return{
             getValue(key){
                 console.log(DataManager.getInstance().getValue(key).getValue());
@@ -121,6 +130,9 @@ let FunctionManager = (function () {
             automate(fun){
                 _automate(fun);
             },
+            next(){
+                _next();
+            },
             getAutomationFunction(){
                 return automationFunction;
             },
@@ -129,7 +141,7 @@ let FunctionManager = (function () {
             },
             setNumChoices(num){
                 numChoices = num;
-            }
+            },
         }
     }
 
