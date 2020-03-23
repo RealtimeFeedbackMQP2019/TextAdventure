@@ -1,9 +1,11 @@
 let EventDispatcher = (function () {
     let instance;
 
+
     function createInstance() {
         let registered = [];
-        return{
+
+        return {
             signup(item){
                 registered.push(item);
             },
@@ -22,7 +24,7 @@ let EventDispatcher = (function () {
             return instance;
         }
     };
-});
+})();
 
 class GameEvent{
     constructor(name, additionalData){

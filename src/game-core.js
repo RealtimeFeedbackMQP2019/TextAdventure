@@ -110,6 +110,8 @@ function startGame(){
         updatePreviewVisualizer(cm);
     });
 
+    EventDispatcher.getInstance().fireEvent(new GameEvent("gameStartEvent", {}));
+
     /*
     //Setup timer
     let cv = document.getElementById("timer");
