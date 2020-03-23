@@ -10,15 +10,19 @@ let securityTickUpdate;
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
-let automation1;
-let automation2;
+//let automation1;
+//let automation2;
 
 // Keep track of adding automation
 //let numAutomation = 0;
 
 // Keeping track of whether automation has begun or not
 let isAutomation;
+let isAutomationFull;
 let automationCode = [];
+let automateLineNums = [];
+
+let isGameStarted;
 
 let previewCanvas;
 
@@ -26,12 +30,24 @@ let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Scie
 
 let tv;
 
+// Keep this for now for testing
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode === 27 && !isGameStarted) {
+        commandPrompt.setValue('');
+        isGameStarted = true;
+        startGame();
+    }
+};
+
 // Initialize commandPrompt and game ticks
 function init(){
 
     //initVariables();
 
     //visInit();
+
+    isGameStarted = false;
 
     commandPrompt = CodeMirror.fromTextArea(document.getElementById("commandPrompt"),{
         lineNumbers : true,
@@ -48,6 +64,40 @@ function init(){
 
     });
     commandPrompt.setSize('100%', '100%');
+
+    let manual = {
+        "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
+        "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
+        "choose": "// Usage: choose(id), Make a choice from the list of choice given.",
+        "man": "// Usage: man(command). Check the command's usage and description.",
+        "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.",
+        "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
+    };
+
+    // Start adding beginner text
+    setTimeout(appendText, 5000, commandPrompt, "// Subject has woken up. Lifeform scan in progress...\n");
+    setTimeout(appendText, 11000, commandPrompt, "// Lifeform scan complete. Operator confirmed to be human.\n\n");
+    setTimeout(appendText, 14000, commandPrompt, "// Hello there, human. My name is PUT NAME HERE\n");
+    setTimeout(appendText, 15000, commandPrompt, "// Hope you had a nice nap, a lot has happened since you got here.\n");
+    setTimeout(appendText, 17000, commandPrompt, "// You must be wondering what's going on. Your pour soul, you have no idea, do you?.\n\n");
+    setTimeout(appendText, 20000, commandPrompt, "// You were messing around with time travel and got us both sent back to the Stone Age!\n");
+    setTimeout(appendText, 22000, commandPrompt, "// There is a way out of this, but you'll have to follow my exact instructions.\n\n");
+    setTimeout(appendText, 24000, commandPrompt, "// We'll have to travel quickly through each major period of time.\n");
+    setTimeout(appendText, 25000, commandPrompt, "// But since you messed up time itself, you'll have to play the role of God and manage 5 resources:\n\n");
+    setTimeout(appendText, 27000, commandPrompt, "// - Your own hunger, make sure to eat enough food...\n");
+    setTimeout(appendText, 29000, commandPrompt, "// - My security, having it too low will lead to some rather nasty effects...\n");
+    setTimeout(appendText, 31000, commandPrompt, "// - A population of humans, as helpless and fleshy as they are...\n");
+    setTimeout(appendText, 33000, commandPrompt, "// - Military to protect said population...\n");
+    setTimeout(appendText, 35000, commandPrompt, "// - And finally, science! Don't let your people be stupid! Rookie mistake.\n\n");
+    setTimeout(appendText, 37000, commandPrompt, "// To manage all this, you'll need to use the power of programming! Thrilling, I know.\n");
+    setTimeout(appendText, 40000, commandPrompt, "// You can interact via this console with the following commands:\n\n");
+    setTimeout(appendText, 41000, commandPrompt, JSON.stringify(manual) + "\n\n");
+    setTimeout(appendText, 44000, commandPrompt, "// If you need to see this list again, simply type man().\n");
+    setTimeout(appendText, 45000, commandPrompt, "// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");
+
+}
+
+function startGame(){
     commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
         let line = commandPrompt.getLine(commandPrompt.getCursor().line);
@@ -93,7 +143,7 @@ function init(){
     automation2.setSize('100%', '100%');*/
 
     // Only set main console visible
-    commandPrompt.getWrapperElement().style.display = "block";
+    //commandPrompt.getWrapperElement().style.display = "block";
     // automation1.getWrapperElement().style.display = "none";
     // automation2.getWrapperElement().style.display = "none";
     // document.getElementById('references').style.display = "none";
@@ -116,6 +166,7 @@ function init(){
     //document.getElementById("legend").style.display = "none";
 
     isAutomation = false;
+    isAutomationFull = false;
 }
 
 // Update the game state - called at each game tick
@@ -147,7 +198,33 @@ function update(){
     }
 
     // Constantly update automation code
-    FunctionManager.getInstance().getAutomationFunction()();
+    if(automationCode.length === 0) {
+        let automationFunction = FunctionManager.getInstance().getAutomationFunction();
+
+        // Compare stored function to new code to see if different
+        let autoFuncString = automationFunction.toString();
+        console.log(autoFuncString);
+        let currAutoFunc = function(){};
+        let currAutoCode = "";
+        for(let i = 0; i < automateLineNums.length; i++) {
+            let autoLine = commandPrompt.getLine(automateLineNums[i]).toString();
+            currAutoCode += autoLine;
+        }
+        console.log(currAutoCode);
+
+        if(autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
+            try{
+                with(FunctionManager.getInstance()) {
+                    eval(currAutoCode.substring(1));
+                }
+            }
+            catch(err) {
+                appendText(commandPrompt, "\n" + err);
+            }
+        }
+
+        automationFunction();
+    }
 
     // // // Add automation if applicable
     // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
@@ -194,9 +271,6 @@ function prematchCommand(inputString){
     if(inputString.startsWith(">")){
         inputString = inputString.substring(1);
     }
-
-
-
     //This code is reuseable...
     let lbpos = inputString.indexOf("("); //Find the left brace of the command.
     if(lbpos !== -1){
@@ -244,12 +318,15 @@ function matchCommand(inputString){
         //console.log(inputString);
 
         // Special case for automation
-        if(inputString.includes("automate")){
+        if(inputString.includes("automate") && !isAutomationFull && isGameStarted){
             isAutomation = true;
-            parseAutomation(inputString.substring(1));
-        } else if(isAutomation){
-            parseAutomation(inputString);
-        } else{
+            parseAutomation(inputString.substring(1), commandPrompt);
+        } else if(isAutomation && !isAutomationFull && isGameStarted){
+            parseAutomation(inputString, commandPrompt);
+        } else if(isAutomationFull && isGameStarted) {
+            appendText(commandPrompt, "\n\n// Sorry! You have used up all of your automated functions!\n\n>");
+        }
+        else{
             try{
                 eval(inputString.substring(1));
             }
@@ -323,6 +400,8 @@ function appendText(cm, text){
     cm.markText({line: lineNumber, ch: charPos+1}, {line: newLineNumber, ch:newCharPos}, {readOnly:true});
 
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
+    //Now move down a bit more...
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 // Function for adding prompt result text
@@ -331,10 +410,12 @@ function addResult(choice) {
 }
 
 // Parsing the automation blocks
-function parseAutomation(inputString) {
+function parseAutomation(inputString, cm) {
 
     automationCode.push(inputString);
+    automateLineNums.push(cm.lineCount() - 1);
     console.log(automationCode);
+    console.log(automateLineNums);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -372,14 +453,15 @@ function parseAutomation(inputString) {
         console.log(codeString);
         try{
             with(FunctionManager.getInstance()) {
+                isAutomationFull = true;
                 eval(codeString);
             }
         }
         catch(err) {
             appendText(commandPrompt, "\n" + err);
         }
-        appendText(commandPrompt, "\n\n>");
         automationCode = [];
+        appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
     }
@@ -387,49 +469,49 @@ function parseAutomation(inputString) {
 }
 
 // Add automation block
-function addAutomationTab(index) {
+// function addAutomationTab(index) {
+//
+//     switch(index) {
+//         case 1:
+//             document.getElementById('automation1Tab').style.display = 'inline-block';
+//             break;
+//         case 2:
+//             document.getElementById('automation2Tab').style.display = 'inline-block';
+//             break;
+//     }
+// }
 
-    switch(index) {
-        case 1:
-            document.getElementById('automation1Tab').style.display = 'inline-block';
-            break;
-        case 2:
-            document.getElementById('automation2Tab').style.display = 'inline-block';
-            break;
-    }
-}
-
-// Function for opening a tab to display CodeMirror widget
-function openTab(event, tabName) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-
-    switch(tabName) {
-        case 'commandPrompt':
-            commandPrompt.getWrapperElement().style.display = "block";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'automation1':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "block";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'automation2':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "block";
-            document.getElementById('references').style.display = "none";
-            break;
-        case 'references':
-            commandPrompt.getWrapperElement().style.display = "none";
-            automation1.getWrapperElement().style.display = "none";
-            automation2.getWrapperElement().style.display = "none";
-            document.getElementById('references').style.display = "block";
-    }
-}
+// // Function for opening a tab to display CodeMirror widget
+// function openTab(event, tabName) {
+//     let i, tabcontent, tablinks;
+//     tabcontent = document.getElementsByClassName("tabcontent");
+//
+//     switch(tabName) {
+//         case 'commandPrompt':
+//             commandPrompt.getWrapperElement().style.display = "block";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'automation1':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "block";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'automation2':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "block";
+//             document.getElementById('references').style.display = "none";
+//             break;
+//         case 'references':
+//             commandPrompt.getWrapperElement().style.display = "none";
+//             automation1.getWrapperElement().style.display = "none";
+//             automation2.getWrapperElement().style.display = "none";
+//             document.getElementById('references').style.display = "block";
+//     }
+// }
 
 
 //firebase things to store
@@ -481,8 +563,6 @@ function securityIssue() {
 
     if(dm.getTimer()._currentTime > 0) {
 
-        console.log("You getting called bruh?");
-
         // Random chance of making random decision whenever
         let securityLevel = datalist.Security.getValue();
         let randChoiceChance;
@@ -492,13 +572,13 @@ function securityIssue() {
                 randChoiceChance = 0.5;
                 break;
             case 2:
-                randChoiceChance = 0.33;
-                break;
-            case 3:
                 randChoiceChance = 0.25;
                 break;
+            case 3:
+                randChoiceChance = 0.00000001;
+                break;
             case 4:
-                randChoiceChance = 0.1;
+                randChoiceChance = 0.05;
                 break;
             case 5:
                 randChoiceChance = 0.01;
@@ -506,8 +586,7 @@ function securityIssue() {
         }
 
         let randNum = Math.random();
-        if (randNum > randChoiceChance) {
-            console.log("TIME TO DELIVER A PIZZA BALL!");
+        if (randNum < randChoiceChance) {
             makeRandomChoice();
             dm.resetTimer();
         }

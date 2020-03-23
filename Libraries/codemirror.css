@@ -8,6 +8,7 @@
   direction: ltr;
   border: 1px solid black;
   font-size: 1.5em;
+  overflow-x: hidden;
 }
 
 /* PADDING */
@@ -22,6 +23,10 @@
 
 .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
   background-color: white; /* The little square between H and V scrollbars */
+}
+
+.CodeMirror-scroll {
+  overflow:hidden;
 }
 
 /* GUTTER */

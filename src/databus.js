@@ -29,6 +29,10 @@ let DataManager = (function () {
                 else{
                     dEntry.addValue(value);
                 }
+                EventDispatcher.getInstance().fireEvent(new GameEvent(
+                    "valueChangeEvent",
+                    {stat:key, value:value}
+                    ));
                 this.updateDisplayVariables();
                 this.checkGameStatus();
             },
