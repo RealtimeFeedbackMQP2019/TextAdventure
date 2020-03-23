@@ -274,9 +274,6 @@ function prematchCommand(inputString){
     if(inputString.startsWith(">")){
         inputString = inputString.substring(1);
     }
-
-
-
     //This code is reuseable...
     let lbpos = inputString.indexOf("("); //Find the left brace of the command.
     if(lbpos !== -1){
@@ -407,6 +404,8 @@ function appendText(cm, text){
     cm.markText({line: lineNumber, ch: charPos+1}, {line: newLineNumber, ch:newCharPos}, {readOnly:true});
 
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
+    //Now move down a bit more...
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 // Function for adding prompt result text
