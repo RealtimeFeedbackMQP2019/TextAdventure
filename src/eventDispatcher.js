@@ -9,7 +9,7 @@ let EventDispatcher = (function () {
             },
             fireEvent(event){
                 for(let i in registered){
-                    i.handleEvent();
+                    i.handleEvent(event);
                 }
             }
         }
@@ -24,11 +24,18 @@ let EventDispatcher = (function () {
     };
 });
 
-class EventHandler{
-    constructor(name){
+class GameEvent{
+    constructor(name, additionalData){
         this.name = name;
+        this.data = additionalData;
     }
-    handleEvent(){
-        
+}
+
+class EventHandler{
+    constructor(){
+
+    }
+    handleEvent(event){
+
     }
 }
