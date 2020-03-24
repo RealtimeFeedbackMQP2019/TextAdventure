@@ -14,18 +14,21 @@ class dbWriter{
         return url;
     }
 
-    writePerSession(ageData){
+    writePerSession(ageData,mans,ais){
         //the entry
         var data = {
             //input vars here
             //the is the list of age stats
-            ageData : ageData
+            ageData : ageData,
+            numMans : mans,
+            numAI : ais
         };
 
         //key for new post
         var newKey = firebase.database().ref().child("playSession").push().key;
         var updates = {};
 
+        console.log("firebase store info confirmed");
         updates["/playSession/"+"test"+this.generateUUID()] = data;
 
         //redirect to form
