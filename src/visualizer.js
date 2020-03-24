@@ -1,17 +1,8 @@
 
-
-const BAR_MAX_HEIGHT = 100;
 const BAR_MAX_WIDTH = 30;
-
 const BAR_DIST = 10;
-
 var VISCOL = new Map();
-var INTERPVAL = new Map();
-
-const INTERPSPEED = 0.1;
-
 var param = null;
-
 var snapshotIndex = 0;
 
 /*
