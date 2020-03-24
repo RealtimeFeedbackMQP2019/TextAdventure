@@ -516,26 +516,32 @@ function parseAutomation(inputString, cm) {
 
 //firebase things to store
 function getStatsPerChocie(){
-    let currentStats = [];
+    let currentStats = {};
+    //TODO:// get a timer thang
+    let currChoiceTime = 10; //in seconds
     let DataStr = DataManager.getInstance().getDataList();
     let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() ;
     let currSecure = DataStr["Security"].getValue() / DataStr["Security"].getMax();
     let currPop = DataStr["Population"].getValue() / DataStr["Population"].getMax();
     let currMil = DataStr["Military"].getValue() / DataStr["Military"].getMax() ;
     let currSci = DataStr["Science"].getValue() / DataStr["Science"].getMax() ;
-    currentStats.push(currHunger,currSecure,currPop,currMil,currSci);
+    currentStats = {hunger: currHunger,
+                    security: currSecure,
+                    population: currPop,
+                    military: currMil,
+                    science: currSci,
+                    time: currChoiceTime};
     return currentStats;
 }
 function getStatsPerAge(listOfChoiceStats){
     let currentAgeStats = [];
-    //TODO:// get a timer thang
-    let currAgeTime = 120; //in seconds
-    currentAgeStats.push(currAgeTime,listOfChoiceStats);
+    currentAgeStats.push(listOfChoiceStats);
     return currentAgeStats;
 }
 
 function writeResults(){
     let thingToWrite = new dbWriter();
+    //todo:// add manuel counter, add ai counter
     thingToWrite.writePerSession(ageList);
     //redirect to survey
     window.location.href = thingToWrite.redirect();
