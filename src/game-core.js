@@ -30,6 +30,14 @@ let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Scie
 
 let tv;
 
+//firebase stored stuff
+//list of choices in an age
+let ageChoices = [];
+let ageList = [];
+let manCount = 0;
+let aiCount = 0;
+
+
 // Keep this for now for testing
 document.onkeydown = function(evt) {
     evt = evt || window.event;
@@ -342,9 +350,7 @@ function matchCommand(inputString){
 
 
 
-//list of choices in an age
-let ageChoices = [];
-let ageList = [];
+
 
 // Function for switching to next prompt
 function getNextPrompt() {
@@ -552,6 +558,7 @@ function writeResults(){
 
 // Randomly select choice
 function makeRandomChoice() {
+    aiCount++;
     appendText(commandPrompt, "\n// Our AI has picked a wise decision for you automatically.");
     let fm = FunctionManager.getInstance();
     fm.setNumChoices(fm.getNumChoices() - 1);
