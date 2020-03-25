@@ -101,26 +101,26 @@ const prompts = {
             "NextPrompt": "StoneAge5"
         },
         "StoneAge5": {
-        "Prompt": "// You\'ve spotted a curious creature prowling around, but it seems kinda big.\n" +
-            "// 1) Run up to it and whack it with your club!\n" +
-            "// 2) Maybe best to leave this one alone...\n\n",
-        "Choice": [{
-            "Food": 0,
-            "Security": 0,
-            "Population": -50,
-            "Military": 0,
-            "Science": 0,
-            "Result" : "// The bear did not take kindly to your whack. In return, it rampages onto your village. \n\n"
-        },{
-            "Food": 0,
-            "Security": 0,
-            "Population": 0,
-            "Military": 0,
-            "Science": 15,
-            "Result" : "// Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n"
-        }],
-        "NextPrompt": "StoneAge6"
-    },
+            "Prompt": "// You\'ve spotted a curious creature prowling around, but it seems kinda big.\n" +
+                "// 1) Run up to it and whack it with your club!\n" +
+                "// 2) Maybe best to leave this one alone...\n\n",
+            "Choice": [{
+                "Food": 0,
+                "Security": 0,
+                "Population": -50,
+                "Military": 0,
+                "Science": 0,
+                "Result" : "// The bear did not take kindly to your whack. In return, it rampages onto your village. \n\n"
+            },{
+                "Food": 0,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 15,
+                "Result" : "// Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n"
+            }],
+            "NextPrompt": "StoneAge6"
+        },
         "StoneAge6": {
             "Prompt": "// The temperature drops quickly and the world turns to winter in one night.\n" +
                 "// 1) Stay in the current community for the winter with abundant resources.\n" +
@@ -612,23 +612,23 @@ const prompts = {
             }],
             "NextPrompt": "CONGRATS, YOU WON!"
         },
-    "finishL": {
-        "Prompt": "// You finished the game, unfortunately you did not balance your resources!\n",
-        "Choice": [{
-            "Food": 0,
-            "Security": 0,
-            "Population": 0,
-            "Military": 0,
-            "Science": 0,
-            "Result": "// Nothing happens...because you the game is over. \n\n"
-        }, {
-            "Food": 0,
-            "Security": 0,
-            "Population": 0,
-            "Military": 0,
-            "Science": 0,
-            "Result": "// Nothing happens...because you the game is over. \n\n"
-        }],
-        "NextPrompt": "CONGRATS, YOU WON!"
-    }
+        "finishL": {
+            "Prompt": "// You finished the game, unfortunately you did not balance your resources!\n",
+            "Choice": [{
+                "Food": 0,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 0,
+                "Result": "// Nothing happens...because you the game is over. \n\n"
+            }, {
+                "Food": 0,
+                "Security": 0,
+                "Population": 0,
+                "Military": 0,
+                "Science": 0,
+                "Result": "// Nothing happens...because you the game is over. \n\n"
+            }],
+            "NextPrompt": "CONGRATS, YOU WON!"
+        }
 };
