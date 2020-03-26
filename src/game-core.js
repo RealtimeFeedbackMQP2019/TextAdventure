@@ -328,12 +328,14 @@ function matchCommand(inputString){
             parseAutomation(inputString.substring(1), commandPrompt);
         } else if(isAutomation && !isAutomationFull && isGameStarted){
             parseAutomation(inputString, commandPrompt);
+
         } else if(isAutomationFull && isGameStarted) {
             appendText(commandPrompt, "\n\n// Sorry! You have used up all of your automated functions!\n\n>");
         }
         else{
             try{
                 eval(inputString.substring(1));
+                EventDispatcher.getInstance().fireEvent(new GameEvent("commandExecuteEvent", {command:inputString.substring(1)}));
             }
             catch(err) {
                 appendText(commandPrompt, "\n" + err + "\n\n>");
@@ -341,6 +343,7 @@ function matchCommand(inputString){
         }
     }
     updatePreviewVisualizer(commandPrompt);
+
 }
 
 
@@ -559,6 +562,7 @@ function makeRandomChoice() {
     else{
         fm.choose(1);
     }
+    EventDispatcher.getInstance().fireEvent(new GameEvent("randomChoiceEvent", {}));
 }
 
 // Make random choice based on security
