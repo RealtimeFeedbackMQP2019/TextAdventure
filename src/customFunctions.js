@@ -3,6 +3,7 @@ let FunctionManager = (function () {
 
     function createInstance() {
         let dm = DataManager.getInstance();
+        let promptCount = 0;
 
         let manual = {
             "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
@@ -30,10 +31,21 @@ let FunctionManager = (function () {
             }
         };
 
+        let _overview = function(){
+            appendText(commandPrompt, "This is your performance over the last few prompts: ");
+            createVisualizer(commandPrompt,  drawOverview("Population", commandPrompt.defaultTextHeight()));
+        };
+
         let _choose = function(val){
             clearInterval(securityTickUpdate);
-            createVisualizer(commandPrompt);
+            createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
             changeStats(currPrompt.Choice[val - 1]);
+            DataManager.getInstance().addPromptDataHistory();
+
+            if(promptCount %5 === 0 && promptCount !== 0){
+                _overview();
+            }
+
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
 
@@ -56,6 +68,8 @@ let FunctionManager = (function () {
                 DataManager.getInstance().resetTimer();
             }, 2000);
             securityTickUpdate = setInterval('securityIssue()', 15000);
+
+            promptCount += 1;
         };
 
         let _setCharAt = function setCharAt(str,index,chr) {

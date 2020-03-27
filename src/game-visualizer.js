@@ -94,13 +94,62 @@ class TimerVisualizer{
         this._pause = false;
     }
 
-    drawVisuals(value){
+    drawVisuals(){
         //just draw lol
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
         this._ctx.fillStyle = "#00FF7F";
         this._ctx.strokeStyle = "rgba(1,1,1,0)";
         this._ctx.fillRect(0,0,this._canvas.width * (this._currentTime / this._totalTime), this._canvas.height);
         //console.log(this._currentTime / this._totalTime);
+    }
+}
+
+
+class LineGraphVisualizer{
+    constructor(canvas, key){
+        this._canvas = canvas;
+
+        this._ctx = canvas.getContext("2d");
+        this._key = key;
+    }
+    drawVisuals(){
+        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
+        let DataSet = DataManager.getInstance().getPromptDataHistory();
+        let length = DataSet.length;
+        let separation = this._canvas.width / length;
+        this._ctx.beginPath();
+
+        let max = DataManager.getInstance().getValue(this._key).getMax();
+
+        this._ctx.lineWidth = 1;
+        this._ctx.strokeStyle = DataManager.getInstance().getValue(this._key).getColor();
+
+        for(let i = 0; i < length; i++){
+            let precentage = DataSet[i][this._key] / max;
+            let height = (1-precentage) * this._canvas.height;
+            if(i === 0){
+                this._ctx.moveTo(i * separation, height);
+            }else{
+                this._ctx.lineTo(i * separation, height);
+            }
+        }
+        this._ctx.stroke();
+        /*
+        for(let i = 0; i < length; i++){
+            let precentage = DataSet[i][this._key] / max;
+            let height = (1-precentage) * this._canvas.height;
+            this.drawCircle(i*separation, height, DataManager.getInstance().getValue(this._key).getColor(), 2);
+        }*/
+
+    }
+    drawCircle(centerx, centery, color, radius){
+
+        this._ctx.beginPath();
+        this._ctx.arc(centerx, centery, Math.min(this._canvas.height / 2 - 3,radius), 0, (2 * Math.PI));
+
+        this._ctx.fillStyle = color;
+        this._ctx.fill();
+
     }
 }
 

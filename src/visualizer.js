@@ -40,8 +40,20 @@ function drawSnapshot(height){
     return snapshotCanvas;
 }
 
-function createVisualizer(cm) {
-    const canvas = drawSnapshot(cm.defaultTextHeight());
+function drawOverview(key, height){
+    let canvas = document.createElement("canvas");
+    canvas.id = "old-overview" + key + snapshotIndex;
+    canvas.height = height;
+    let visualizer = new LineGraphVisualizer(canvas, key);
+    visualizer.drawVisuals();
+
+
+    snapshotIndex += 1;
+    return canvas;
+}
+
+
+function createVisualizer(cm, canvas) {
     let lineNumber = cm.lineCount() - 1;
     const lineStr = cm.getLine( lineNumber );
     let charPos = lineStr.length;
@@ -68,9 +80,11 @@ function updatePreviewVisualizer(cm){
     if(previewCanvas == null){
         //create canvas
         previewCanvas = drawSnapshot(cm.defaultTextHeight());
+        //previewCanvas = drawOverview("Population", cm.defaultTextHeight());
         //previewCanvas.stype = "position:fixed";
         previewCanvas.id = "previewCanvas";
         let visualizer = new BarVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL, true);
+        //let visualizer = new LineGraphVisualizer(previewCanvas, "Population");
         visUpdate(visualizer);
     }
     else{

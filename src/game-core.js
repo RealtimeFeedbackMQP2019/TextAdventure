@@ -75,6 +75,7 @@ function init(){
     };
 
     // Start adding beginner text
+    /*
     setTimeout(appendText, 5000, commandPrompt, "// Subject has woken up. Lifeform scan in progress...\n");
     setTimeout(appendText, 11000, commandPrompt, "// Lifeform scan complete. Operator confirmed to be human.\n\n");
     setTimeout(appendText, 14000, commandPrompt, "// Hello there, human. My name is PUT NAME HERE\n");
@@ -93,7 +94,7 @@ function init(){
     setTimeout(appendText, 40000, commandPrompt, "// You can interact via this console with the following commands:\n\n");
     setTimeout(appendText, 41000, commandPrompt, JSON.stringify(manual) + "\n\n");
     setTimeout(appendText, 44000, commandPrompt, "// If you need to see this list again, simply type man().\n");
-    setTimeout(appendText, 45000, commandPrompt, "// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");
+    setTimeout(appendText, 45000, commandPrompt, "// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");*/
 
 }
 
