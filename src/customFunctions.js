@@ -88,6 +88,9 @@ let FunctionManager = (function () {
 
         let _next = function(){
             if(!isGameStarted) {
+                for(let i = 0; i < introTimers.length; i++) {
+                    clearInterval(introTimers[i]);
+                }
                 commandPrompt.setValue('');
                 isGameStarted = true;
                 startGame();

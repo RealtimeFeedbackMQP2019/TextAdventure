@@ -24,6 +24,8 @@ let automateLineNums = [];
 
 let isGameStarted;
 
+let introTimers = [];
+
 let previewCanvas;
 
 let LIST_OF_VALS = ["Hunger","Food", "Security", "Population", "Military", "Science"];
@@ -34,6 +36,9 @@ let tv;
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     if (evt.keyCode === 27 && !isGameStarted) {
+        for(let i = 0; i < introTimers.length; i++) {
+            clearInterval(introTimers[i]);
+        }
         commandPrompt.setValue('');
         isGameStarted = true;
         startGame();
@@ -75,26 +80,45 @@ function init(){
     };
 
     // Start adding beginner text
-    /*
-    setTimeout(appendText, 5000, commandPrompt, "// Subject has woken up. Lifeform scan in progress...\n");
-    setTimeout(appendText, 11000, commandPrompt, "// Lifeform scan complete. Operator confirmed to be human.\n\n");
-    setTimeout(appendText, 14000, commandPrompt, "// Hello there, human. My name is PUT NAME HERE\n");
-    setTimeout(appendText, 15000, commandPrompt, "// Hope you had a nice nap, a lot has happened since you got here.\n");
-    setTimeout(appendText, 17000, commandPrompt, "// You must be wondering what's going on. Your pour soul, you have no idea, do you?.\n\n");
-    setTimeout(appendText, 20000, commandPrompt, "// You were messing around with time travel and got us both sent back to the Stone Age!\n");
-    setTimeout(appendText, 22000, commandPrompt, "// There is a way out of this, but you'll have to follow my exact instructions.\n\n");
-    setTimeout(appendText, 24000, commandPrompt, "// We'll have to travel quickly through each major period of time.\n");
-    setTimeout(appendText, 25000, commandPrompt, "// But since you messed up time itself, you'll have to play the role of God and manage 5 resources:\n\n");
-    setTimeout(appendText, 27000, commandPrompt, "// - Your own hunger, make sure to eat enough food...\n");
-    setTimeout(appendText, 29000, commandPrompt, "// - My security, having it too low will lead to some rather nasty effects...\n");
-    setTimeout(appendText, 31000, commandPrompt, "// - A population of humans, as helpless and fleshy as they are...\n");
-    setTimeout(appendText, 33000, commandPrompt, "// - Military to protect said population...\n");
-    setTimeout(appendText, 35000, commandPrompt, "// - And finally, science! Don't let your people be stupid! Rookie mistake.\n\n");
-    setTimeout(appendText, 37000, commandPrompt, "// To manage all this, you'll need to use the power of programming! Thrilling, I know.\n");
-    setTimeout(appendText, 40000, commandPrompt, "// You can interact via this console with the following commands:\n\n");
-    setTimeout(appendText, 41000, commandPrompt, JSON.stringify(manual) + "\n\n");
-    setTimeout(appendText, 44000, commandPrompt, "// If you need to see this list again, simply type man().\n");
-    setTimeout(appendText, 45000, commandPrompt, "// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");*/
+
+    let introTimer1 = setTimeout(appendText, 5000, commandPrompt, "// Subject has woken up. Lifeform scan in progress...");
+    introTimers.push(introTimer1);
+    let introTimer2 = setTimeout(appendText, 10000, commandPrompt, "\n// Lifeform scan complete. Operator confirmed to be human.");
+    introTimers.push(introTimer2);
+    let introTimer3 = setTimeout(appendText, 13000, commandPrompt, "\n\n// Hello there, human. My name is PUT NAME HERE");
+    introTimers.push(introTimer3);
+    let introTimer4 = setTimeout(appendText, 15000, commandPrompt, "\n// Hope you had a nice nap, a lot has happened since you got here.");
+    introTimers.push(introTimer4);
+    let introTimer5 = setTimeout(appendText, 17000, commandPrompt, "\n// You must be wondering what's going on. Your pour soul, you have no idea, do you?.");
+    introTimers.push(introTimer5);
+    let introTimer6 = setTimeout(appendText, 20000, commandPrompt, "\n\n// You were messing around with time travel and got us both sent back to the Stone Age!");
+    introTimers.push(introTimer6);
+    let introTimer7 = setTimeout(appendText, 22000, commandPrompt, "\n// There is a way out of this, but you'll have to follow my exact instructions.");
+    introTimers.push(introTimer7);
+    let introTimer8 = setTimeout(appendText, 24000, commandPrompt, "\n\n// We'll have to travel quickly through each major period of time.");
+    introTimers.push(introTimer8);
+    let introTimer9 = setTimeout(appendText, 26000, commandPrompt, "\n// But since you messed up time itself, you'll have to play the role of God and manage 5 resources:");
+    introTimers.push(introTimer9);
+    let introTimer10 = setTimeout(appendText, 28000, commandPrompt, "\n\n// - Your own hunger, make sure to eat enough food...");
+    introTimers.push(introTimer10);
+    let introTimer11 = setTimeout(appendText, 30000, commandPrompt, "\n// - My security, having it too low will lead to some rather nasty effects...");
+    introTimers.push(introTimer11);
+    let introTimer12 = setTimeout(appendText, 33000, commandPrompt, "\n// - A population of humans, as helpless and fleshy as they are...");
+    introTimers.push(introTimer12);
+    let introTimer13 = setTimeout(appendText, 35000, commandPrompt, "\n// - Military to protect said population...");
+    introTimers.push(introTimer13);
+    let introTimer14 = setTimeout(appendText, 37000, commandPrompt, "\n// - And finally, science! Don't let your people be stupid! Rookie mistake.");
+    introTimers.push(introTimer14);
+    let introTimer15 = setTimeout(appendText, 39000, commandPrompt, "\n\n// To manage all this, you'll need to use the power of programming! Thrilling, I know.");
+    introTimers.push(introTimer15);
+    let introTimer16 = setTimeout(appendText, 41000, commandPrompt, "\n// You can interact via this console with the following commands:");
+    introTimers.push(introTimer16);
+    let introTimer17 = setTimeout(appendText, 43000, commandPrompt, "\n\n" + JSON.stringify(manual));
+    introTimers.push(introTimer17);
+    let introTimer18 = setTimeout(appendText, 45000, commandPrompt, "\n\n// If you need to see this list again, simply type man().");
+    introTimers.push(introTimer18);
+    let introTimer19 = setTimeout(appendText, 47000, commandPrompt, "\n// To get started, type next() below. Good luck! You'll definitely need it.\n\n>");
+    introTimers.push(introTimer19);
 
 }
 
