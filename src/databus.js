@@ -12,6 +12,8 @@ let DataManager = (function () {
             "Science": new ValueData("Science", 50, 50, "rgba(127,0,255,1.0)")
         };
 
+        let PromptDataHistory = [];
+
         let timer = new TimerVisualizer(document.getElementById("timer"),30);
         setInterval(function(){
             timer.decreaseTime();
@@ -96,6 +98,19 @@ let DataManager = (function () {
 
             getPreviewValues(){
                 return previewValues;
+            },
+
+            addPromptDataHistory(){
+                //Adds in the current values:
+                let val = {};
+                for(let x of LIST_OF_VALS){
+                    val[x] = DataList[x].getValue();
+                }
+                PromptDataHistory.push(val);
+            },
+
+            getPromptDataHistory(){
+                return PromptDataHistory;
             }
         }
     }
