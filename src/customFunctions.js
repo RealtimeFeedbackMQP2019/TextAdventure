@@ -35,7 +35,7 @@ let FunctionManager = (function () {
 
         let _overview = function(){
             appendText(commandPrompt, "This is your performance over the last few prompts: ");
-            createVisualizer(commandPrompt,  drawOverview("Population", commandPrompt.defaultTextHeight()));
+            createVisualizer(commandPrompt,  drawOverview(["Population", "Food"], commandPrompt.defaultTextHeight()));
         };
 
         let _choose = function(val){

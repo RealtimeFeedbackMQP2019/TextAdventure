@@ -42,7 +42,7 @@ function drawSnapshot(height){
 
 function drawOverview(key, height){
     let canvas = document.createElement("canvas");
-    canvas.id = "old-overview" + key + snapshotIndex;
+    canvas.id = "old-overview" + snapshotIndex;
     canvas.height = height;
     let visualizer = new LineGraphVisualizer(canvas, key);
     visualizer.drawVisuals();

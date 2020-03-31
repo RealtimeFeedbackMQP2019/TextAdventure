@@ -119,21 +119,31 @@ class LineGraphVisualizer{
         let separation = this._canvas.width / length;
         this._ctx.beginPath();
 
-        let max = DataManager.getInstance().getValue(this._key).getMax();
+        for(let key of this._key){
+            let max = DataManager.getInstance().getValue(key).getMax();
 
-        this._ctx.lineWidth = 1;
-        this._ctx.strokeStyle = DataManager.getInstance().getValue(this._key).getColor();
+            this._ctx.lineWidth = 1;
+            this._ctx.strokeStyle = DataManager.getInstance().getValue(key).getColor();
 
-        for(let i = 0; i < length; i++){
-            let precentage = DataSet[i][this._key] / max;
-            let height = (1-precentage) * this._canvas.height;
-            if(i === 0){
-                this._ctx.moveTo(i * separation, height);
-            }else{
-                this._ctx.lineTo(i * separation, height);
+            for(let i = 0; i < length; i++){
+                let precentage = DataSet[i][key] / max;
+                let height = (1-precentage) * this._canvas.height;
+                if(i === 0){
+                    this._ctx.moveTo(i * separation, height);
+                }else{
+                    this._ctx.lineTo(i * separation, height);
+                }
+            }
+            this._ctx.stroke();
+
+            for(let i = 0; i < length; i++){
+                let precentage = DataSet[i][key] / max;
+                let height = (1-precentage) * this._canvas.height;
+                this.drawCircle(i*separation, height, DataManager.getInstance().getValue(key).getColor(), 2);
             }
         }
-        this._ctx.stroke();
+
+
         /*
         for(let i = 0; i < length; i++){
             let precentage = DataSet[i][this._key] / max;
