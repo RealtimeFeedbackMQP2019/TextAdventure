@@ -1,3 +1,12 @@
+let manual = {
+    "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.\n",
+    "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.\n",
+    "choose": "// Usage: choose(id), Make a choice from the list of choice given.\n",
+    "man": "// Usage: man(command). Check the command's usage and description.\n",
+    "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.\n",
+    "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
+};
+
 let FunctionManager = (function () {
     let instance;
 
@@ -5,14 +14,7 @@ let FunctionManager = (function () {
         let dm = DataManager.getInstance();
         let promptCount = 0;
 
-        let manual = {
-            "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.",
-            "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.",
-            "choose": "// Usage: choose(id), Make a choice from the list of choice given.",
-            "man": "// Usage: man(command). Check the command's usage and description.",
-            "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.",
-            "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
-        };
+
 
         let numChoices = 0;
         let numTimesCanSecure = 0;
@@ -112,6 +114,7 @@ let FunctionManager = (function () {
                 _choose(val);
             },
             man(funName){
+                manCount +=1;
                 if(!funName) {
                     appendText(commandPrompt, "\n\n" + JSON.stringify(manual) + "\n\n>");
                 } else {
