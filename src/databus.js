@@ -53,7 +53,10 @@ let DataManager = (function () {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "GAME OVER");
+                    //write to firebase - get current age stats even if age isnt over
+                    ageList.push(getStatsPerAge(ageChoices));
                     writeResults();
+
                     this.pauseTimer();
                     //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
