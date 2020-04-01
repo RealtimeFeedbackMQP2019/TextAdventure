@@ -115,8 +115,19 @@ class LineGraphVisualizer{
     drawVisuals(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
         let DataSet = DataManager.getInstance().getPromptDataHistory();
+        this.DataSet = DataSet;
         let length = DataSet.length;
-        let separation = this._canvas.width / length;
+        let base = 0;
+        let separation;
+        if(length === 0 || length === 1){
+            base = 0.5 * this._canvas.width;
+            separation = 1;
+        }
+        else{
+            separation = this._canvas.width / (length - 1);
+        }
+
+
         this._ctx.beginPath();
 
         for(let key of this._key){
@@ -129,17 +140,20 @@ class LineGraphVisualizer{
                 let precentage = DataSet[i][key] / max;
                 let height = (1-precentage) * this._canvas.height;
                 if(i === 0){
-                    this._ctx.moveTo(i * separation, height);
+                    this._ctx.moveTo(base + i * separation, height);
                 }else{
-                    this._ctx.lineTo(i * separation, height);
+                    this._ctx.lineTo(base + i * separation, height);
                 }
             }
             this._ctx.stroke();
 
             for(let i = 0; i < length; i++){
-                let precentage = DataSet[i][key] / max;
-                let height = (1-precentage) * this._canvas.height;
-                this.drawCircle(i*separation, height, DataManager.getInstance().getValue(key).getColor(), 2);
+                if(i === 0 || i === length - 1){
+                    let precentage = DataSet[i][key] / max;
+                    let height = (1-precentage) * this._canvas.height;
+                    this.drawCircle(base + i*separation, height, DataManager.getInstance().getValue(key).getColor(), 2);
+                }
+
             }
         }
 
@@ -158,6 +172,7 @@ class LineGraphVisualizer{
         this._ctx.arc(centerx, centery, Math.min(this._canvas.height / 2 - 3,radius), 0, (2 * Math.PI));
 
         this._ctx.fillStyle = color;
+        this._ctx.strokeStyle = "rgba(1,1,1,0)"
         this._ctx.fill();
 
     }
