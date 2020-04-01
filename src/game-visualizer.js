@@ -42,11 +42,15 @@ class BarVisualizer{
         this._ctx.fillStyle = "rgba(255,255,255,0.5)";
 
         //White marker lines
+        /*
         for(let i = 0; i < 5; i++){
-            this._ctx.fillRect(0, (this._canvas.height) * i / 5, this._canvas.width, 1);
-        }
+            if(i === 0 || i === 4){
+                this._ctx.fillRect(0, (this._canvas.height) * i / 4, this._canvas.width, 1);
+            }
 
-
+        }*/
+        this._ctx.fillRect(0, (this._canvas.height - 1), this._canvas.width, 1);
+        this._ctx.fillRect(0, 0, this._canvas.width, 1);
 
     }
 }
