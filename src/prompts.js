@@ -391,6 +391,27 @@ const prompts = {
                 "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an \n" +
                     "//      added bonus of long shelf life. \n\n"
             }],
+            "NextPrompt": "ConqueringAge6"
+        },
+        "ConqueringAge6": {
+            "Prompt": "// A trade ship was spotted by a nearby pirate ship, and the pirate ship begins to advance! \n" +
+                "// 1) Have the trade ship fire their cannons immediately! Prepare for attack! \n" +
+                "// 2) Have the trade ship attempt to outrun the pirates. Make haste! \n\n",
+            "Choice": [{
+                "Food": 0,
+                "Security": 0,
+                "Population": -100,
+                "Military": -20,
+                "Science": 0,
+                "Result" : "// The pirates were defeated with help from the local navy, but some lives and goods were lost.\n\n"
+            },{
+                "Food": -10,
+                "Security": 0,
+                "Population": -150,
+                "Military": 0,
+                "Science": 0,
+                "Result" : "// Unforunately the sailors could not outrun the pirates: no one survived.\n\n"
+            }],
             "NextPrompt": "IndustrialAge1"
         },
         "IndustrialAge1": {
@@ -437,30 +458,93 @@ const prompts = {
             "NextPrompt": "IndustrialAge3"
         },
         "IndustrialAge3": {
-            "Prompt": "// The date is September 20th, 2019. Humanity is eager to learn military secrets, with high \n" +
-                "//      hopes to reveal inter-galactic beings to the public. \n" +
-                "// 1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive \n" +
-                "//      and violent. \n" +
-                "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
-                "//      influence and get more to join the cause.\n\n",
-            "Choice": [{
-                "Food": 0,
-                "Security": 1,
-                "Population": -100,
-                "Military": 20,
-                "Science": 0,
-                "Result" : "// That went as expected, September 20th goes down in history as a massacre. \n\n"
-            },{
-                "Food": 0,
-                "Security": -1,
-                "Population": 0,
-                "Military": -10,
-                "Science": 40,
-                "Result" : "// People came in flocks to discover tucked away secrets. No military can stop this many \n" +
-                    "//      people. The secured RAYGUN becomes public property. \n\n"
-            }],
-            "NextPrompt": "SpaceAge1"
-        },
+        "Prompt": "// The date is September 20th, 2019. Humanity is eager to learn military secrets, with high \n" +
+            "//      hopes to reveal inter-galactic beings to the public. \n" +
+            "// 1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive \n" +
+            "//      and violent. \n" +
+            "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
+            "//      influence and get more to join the cause.\n\n",
+        "Choice": [{
+            "Food": 0,
+            "Security": 1,
+            "Population": -100,
+            "Military": 20,
+            "Science": 0,
+            "Result" : "// That went as expected, September 20th goes down in history as a massacre. \n\n"
+        },{
+            "Food": 0,
+            "Security": -1,
+            "Population": 0,
+            "Military": -10,
+            "Science": 40,
+            "Result" : "// People came in flocks to discover tucked away secrets. No military can stop this many \n" +
+                "//      people. The secured RAYGUN becomes public property. \n\n"
+        }],
+        "NextPrompt": "IndustrialAge4"
+    },
+    "IndustrialAge4": {
+        "Prompt": "// Submarines unlock a vast oceanic world underneath miles of water.\n" +
+            "// 1) Research alien-like ocean fishies.\n" +
+            "// 2) Research underwater living spaces to sell to the uber rich. \n\n",
+        "Choice": [{
+            "Food": 10,
+            "Security": 0,
+            "Population": 0,
+            "Military": 0,
+            "Science": 40,
+            "Result" : "// Yay fishies! Yay for science! \n\n"
+        },{
+            "Food": 0,
+            "Security": 0,
+            "Population": -50,
+            "Military": 0,
+            "Science": 20,
+            "Result" : "// Lots of space down here for cool rich people, gimme the money! \n\n"
+        }],
+        "NextPrompt": "IndustrialAge5"
+    },
+    "IndustrialAge5": {
+        "Prompt": "// A doctor has discovered the secret to cyber implants!\n" +
+            "// 1) Waeponize the tech.\n" +
+            "// 2) Open source! Open source! \n\n",
+        "Choice": [{
+            "Food": 0,
+            "Security": 0,
+            "Population": -150,
+            "Military": 40,
+            "Science": 20,
+            "Result" : "// One step closer to developing Terminators, great job! \n\n"
+        },{
+            "Food": 0,
+            "Security": 0,
+            "Population": 0,
+            "Military": 20,
+            "Science": 30,
+            "Result" : "// Give everyone the power! \n\n"
+        }],
+        "NextPrompt": "IndustrialAge6"
+    },
+    "IndustrialAge6": {
+        "Prompt": "// Mass-producing food becomes a potential option to satisfy the ever-increasing demand.\n" +
+            "// 1) Support mass-production of food, we need to feed some hungry mouths!.\n" +
+            "// 2) Support organic food and local farms, none of that GMO crap. \n\n",
+        "Choice": [{
+            "Food": 15,
+            "Security": 0,
+            "Population": -100,
+            "Military": 0,
+            "Science": 20,
+            "Result" : "// FEED ME! \n\n"
+        },{
+            "Food": 10,
+            "Security": 0,
+            "Population": 100,
+            "Military": 0,
+            "Science": 0,
+            "Result" : "// Organic food always tastes better anyways, facts. \n\n"
+        }],
+        "NextPrompt": "SpaceAge1"
+    },
         "SpaceAge1": {
             "Prompt": "// Space Age\n" +
                 "// Scientists have confirmed that humans can survive by living on Mars!\n" +
@@ -472,7 +556,7 @@ const prompts = {
                 "Population": -100,
                 "Military": 0,
                 "Science": 35,
-                "Result" : "// something... \n\n" //-population? is that just for moving people? or does the spaceship blow up?
+                "Result" : "// People can live on Mars! With some small modifications...may have cost a few lives... \n\n"
             },{
                 "Food": 0,
                 "Security": -1,

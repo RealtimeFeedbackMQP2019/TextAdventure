@@ -14,7 +14,7 @@ let DataManager = (function () {
 
         let PromptDataHistory = [];
 
-        let timer = new TimerVisualizer(document.getElementById("timer"),30);
+        let timer = new TimerVisualizer(document.getElementById("timer"),45);
         setInterval(function(){
             timer.decreaseTime();
         }, 100);

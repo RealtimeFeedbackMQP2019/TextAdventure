@@ -191,7 +191,7 @@ function startGame(){
     gameTickUpdate = setInterval('update()', 1000);
 
     // Check security every 15 seconds
-    securityTickUpdate = setInterval('securityIssue()', 15000);
+    securityTickUpdate = setInterval('securityIssue()', 22500);
     // Set current prompt to Stone Age 1
     currPrompt = prompts.StoneAge1;
 
