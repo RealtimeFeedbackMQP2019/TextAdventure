@@ -155,19 +155,21 @@ class ComboVisualizer{
         let width = boundx - basex;
 
         let offsetBase = 0;
-        let separation;
-        if(length === 0 || length === 1){
-            offsetBase = 0.5 * width;
-            separation = 1;
-        }
-        else{
-            separation = width / (length - 1);
-        }
+        let separation = width / 4;
         this._ctx.beginPath();
         this._ctx.lineWidth = 1;
         this._ctx.strokeStyle = color;
-        for(let i = 0; i < length; i++){
-            let precentage = DataSet[i][key] / max;
+        for(let i = 0; i < 5; i++){
+            let index = i + length - 5;
+            if(length === 0){
+                break;
+            }
+            else{
+                if(index < 0){
+                    index = 0;
+                }
+            }
+            let precentage = DataSet[index][key] / max;
             let h = (1-precentage) * height;
             if(i === 0){
                 this._ctx.moveTo(basex + offsetBase + i * separation, basey + h);
@@ -178,6 +180,7 @@ class ComboVisualizer{
         //let drawBaseY = basey + values * height;
         this._ctx.stroke();
     }
+
 }
 
 
