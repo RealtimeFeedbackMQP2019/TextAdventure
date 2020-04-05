@@ -72,6 +72,7 @@ let FunctionManager = (function () {
             securityTickUpdate = setInterval('securityIssue()', 15000);
 
             promptCount += 1;
+            isAutomationFull = false;
         };
 
         let _setCharAt = function setCharAt(str,index,chr) {

@@ -21,6 +21,8 @@ let isAutomation;
 let isAutomationFull;
 let automationCode = [];
 let automateLineNums = [];
+let maxAutomation;
+let currNumAutomation;
 
 let isGameStarted;
 
@@ -78,15 +80,6 @@ function init(){
 
     });
     commandPrompt.setSize('100%', '100%');
-
-    // let manual = {
-    //     "secure": "// Usage: secure(). Increase security by a level, when possible. The max security is level 5.\n",
-    //     "eat": "// Usage: eat(). Decrease food by 1, but also increase hunger by a small amount.\n",
-    //     "choose": "// Usage: choose(id), Make a choice from the list of choice given.\n",
-    //     "man": "// Usage: man(command). Check the command's usage and description.\n",
-    //     "legend": "// Usage: legend(). Look at the legend for the bar visual, with color coding for each statistic.\n",
-    //     "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
-    // };
 
     // Start adding beginner text
 
@@ -146,48 +139,6 @@ function startGame(){
 
     EventDispatcher.getInstance().fireEvent(new GameEvent("gameStartEvent", {}));
 
-    /*
-    //Setup timer
-    let cv = document.getElementById("timer");
-    tv = new TimerVisualizer(cv, 30);*/
-
-    /*automation1 = CodeMirror.fromTextArea(document.getElementById("automation1"),{
-        lineNumbers : true,
-        lineWrapping: true,
-        theme: "darcula"
-    });
-    automation1.setOption("extraKeys",{
-        Enter: function(cm){
-            let code = automation1.getValue().split('\n');
-            console.log(code);
-            parseAutomation(code);
-        }
-    });
-    automation1.setSize('100%', '100%');
-    automation2 = CodeMirror.fromTextArea(document.getElementById("automation2"),{
-        lineNumbers : true,
-        lineWrapping: true,
-        theme: "darcula"
-    });
-    automation2.setOption("extraKeys",{
-        Enter: function(cm){
-            let code = automation2.getValue().split('\n');
-            console.log(code);
-            parseAutomation(code);
-        }
-    });
-    automation2.setSize('100%', '100%');*/
-
-    // Only set main console visible
-    //commandPrompt.getWrapperElement().style.display = "block";
-    // automation1.getWrapperElement().style.display = "none";
-    // automation2.getWrapperElement().style.display = "none";
-    // document.getElementById('references').style.display = "none";
-
-    // Hide automation tabs as well
-    // document.getElementById("automation1Tab").style.display = "none";
-    // document.getElementById("automation2Tab").style.display = "none";
-
     gameTickUpdate = setInterval('update()', 1000);
 
     // Check security every 15 seconds
@@ -198,11 +149,10 @@ function startGame(){
     // Display first prompt
     addPrompt(prompts.StoneAge1.Prompt);
 
-    // Initialize legend to be hidden
-    //document.getElementById("legend").style.display = "none";
-
     isAutomation = false;
     isAutomationFull = false;
+    maxAutomation = 1;
+    currNumAutomation = 0;
 }
 
 // Update the game state - called at each game tick
@@ -255,22 +205,12 @@ function update(){
                 }
             }
             catch(err) {
-                appendText(commandPrompt, "\n" + err);
+                //appendText(commandPrompt, "\n" + err);
             }
         }
 
         automationFunction();
     }
-
-    // // // Add automation if applicable
-    // if(currPrompt === prompts.StoneAge2 && numAutomation === 0) {
-    //     addAutomationTab(1);
-    //     numAutomation += 1;
-    //
-    // } else if (currPrompt === prompts.StoneAge3 && numAutomation === 1) {
-    //     addAutomationTab(2);
-    //     numAutomation += 1;
-    // }
 }
 
 
@@ -344,26 +284,23 @@ function prematchCommand(inputString){
 // Function for executing command
 function matchCommand(inputString){
 
-    // For now, only when enter is pressed
-    //if(event.key === "Enter") {
-
-    //let commandObject = parseCommandString(inputString);
-
     with(FunctionManager.getInstance()){
 
         //console.log(inputString);
 
         // Special case for automation
-        if(inputString.includes("automate") && !isAutomationFull && isGameStarted){
-            isAutomation = true;
-            parseAutomation(inputString.substring(1), commandPrompt);
+        if(inputString.includes("automate") && isGameStarted){
+            if(currNumAutomation >= maxAutomation) {
+                appendText(commandPrompt, "\n\n// Sorry! You've used up all " + maxAutomation + " of your automated functions!\n\n>");
+            } else if(isAutomationFull){
+                appendText(commandPrompt, "\n\n// Sorry! You can only write up to one automated function per prompt!\n\n>");
+            }  else {
+                isAutomation = true;
+                parseAutomation(inputString.substring(1), commandPrompt);
+            }
         } else if(isAutomation && !isAutomationFull && isGameStarted){
             parseAutomation(inputString, commandPrompt);
-
-        } else if(isAutomationFull && isGameStarted) {
-            appendText(commandPrompt, "\n\n// Sorry! You have used up all of your automated functions!\n\n>");
-        }
-        else{
+        } else{
             try{
                 eval(inputString.substring(1));
                 EventDispatcher.getInstance().fireEvent(new GameEvent("commandExecuteEvent", {command:inputString.substring(1)}));
@@ -401,6 +338,12 @@ function getNextPrompt() {
     }
     else{
         ageChoices.push(getStatsPerChocie());
+    }
+
+    // Update number of automation based on point in game
+    if(currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.SpaceAge1) {
+        maxAutomation += 1;
+        appendText(commandPrompt, "Congrats! You unlocked another automation function!\n");
     }
 }
 
@@ -491,6 +434,7 @@ function parseAutomation(inputString, cm) {
         try{
             with(FunctionManager.getInstance()) {
                 isAutomationFull = true;
+                currNumAutomation += 1;
                 eval(codeString);
             }
         }
