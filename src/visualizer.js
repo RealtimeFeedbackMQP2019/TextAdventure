@@ -83,7 +83,7 @@ function updatePreviewVisualizer(cm){
         //previewCanvas = drawOverview("Population", cm.defaultTextHeight());
         //previewCanvas.stype = "position:fixed";
         previewCanvas.id = "previewCanvas";
-        let visualizer = new BarVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL, true);
+        let visualizer = new ComboVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, true);
         //let visualizer = new LineGraphVisualizer(previewCanvas, "Population");
         visUpdate(visualizer);
     }

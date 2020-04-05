@@ -109,6 +109,80 @@ class TimerVisualizer{
 }
 
 
+class ComboVisualizer{
+    constructor(canvas, barWidth, barSeparation){
+        this._canvas = canvas;
+
+        this._ctx = canvas.getContext("2d");
+        //this._key = key;
+        this._barWidth = barWidth;
+        this._barSeperation = barSeparation;
+    }
+    //Draw visuals:
+    drawVisuals(){
+        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+        let index = 0;
+        for(let x of LIST_OF_VALS){
+            let dataval = DataManager.getInstance().getDataList()[x];
+            let percentage = (dataval.getDisplayValue() / dataval.getMax());
+            let posx = index * this._barWidth + this._barSeperation * (index + 1);
+            let boundx = posx + this._barWidth;
+            let posy = 0;
+            let boundy = this._canvas.height * 2 / 3;
+            this.drawSquare(posx, boundx, posy, boundy, percentage, dataval.getColor(x));
+            let DataSet = DataManager.getInstance().getPromptDataHistory();
+            this.drawLines(posx, boundx, boundy, this._canvas.height, DataSet, x, dataval.getColor(x));
+            index += 1;
+        }
+    }
+    drawSquare(basex, boundx, basey, boundy, percentage, color){
+        let height = boundy - basey;
+        let width = boundx - basex;
+
+        let drawBaseY = basey + (1-percentage) * height;
+
+        this._ctx.fillStyle = color;
+        //this._ctx.strokeStyle = "rgba(1,1,1,0)"; //remove line color
+        this._ctx.fillRect(basex, drawBaseY, width, height * percentage);
+        //this._ctx
+    }
+    drawLines(basex, boundx, basey, boundy, DataSet, key, color){
+        let max = DataManager.getInstance().getValue(key).getMax();
+        let length = DataSet.length;
+
+
+        let height = boundy - basey;
+        let width = boundx - basex;
+
+        let offsetBase = 0;
+        let separation;
+        if(length === 0 || length === 1){
+            offsetBase = 0.5 * width;
+            separation = 1;
+        }
+        else{
+            separation = width / (length - 1);
+        }
+        this._ctx.beginPath();
+        this._ctx.lineWidth = 1;
+        this._ctx.strokeStyle = color;
+        for(let i = 0; i < length; i++){
+            let precentage = DataSet[i][key] / max;
+            let h = (1-precentage) * height;
+            if(i === 0){
+                this._ctx.moveTo(basex + offsetBase + i * separation, basey + h);
+            }else{
+                this._ctx.lineTo(basex + offsetBase + i * separation, basey + h);
+            }
+        }
+        //let drawBaseY = basey + values * height;
+        this._ctx.stroke();
+    }
+}
+
+
+
+
 class LineGraphVisualizer{
     constructor(canvas, key){
         this._canvas = canvas;
@@ -132,14 +206,14 @@ class LineGraphVisualizer{
         }
 
 
-        this._ctx.beginPath();
+
 
         for(let key of this._key){
             let max = DataManager.getInstance().getValue(key).getMax();
 
             this._ctx.lineWidth = 1;
             this._ctx.strokeStyle = DataManager.getInstance().getValue(key).getColor();
-
+            this._ctx.beginPath();
             for(let i = 0; i < length; i++){
                 let precentage = DataSet[i][key] / max;
                 let height = (1-precentage) * this._canvas.height;
@@ -160,15 +234,6 @@ class LineGraphVisualizer{
 
             }
         }
-
-
-        /*
-        for(let i = 0; i < length; i++){
-            let precentage = DataSet[i][this._key] / max;
-            let height = (1-precentage) * this._canvas.height;
-            this.drawCircle(i*separation, height, DataManager.getInstance().getValue(this._key).getColor(), 2);
-        }*/
-
     }
     drawCircle(centerx, centery, color, radius){
 
