@@ -98,6 +98,10 @@ class TimerVisualizer{
         this._pause = false;
     }
 
+    getTime(){
+        return this._currentTime;
+    }
+
     drawVisuals(){
         //just draw lol
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);

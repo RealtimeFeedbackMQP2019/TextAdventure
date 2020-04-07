@@ -38,7 +38,7 @@ let tv;
 //list of choices in an age
 let ageChoices = [];
 let ageList = [];
-//todo: count manual use in custom functions maybe?
+let currChoiceTime = 0;
 let manCount = 0;
 let aiCount = 0;
 
@@ -324,7 +324,7 @@ function getNextPrompt() {
     let nextPrompt = currPrompt.NextPrompt;
     currPrompt = prompts[nextPrompt];
 
-
+    currChoiceTime = DataManager.getInstance().getTimer().getTime();
     //getting info for firebase
     if((currPrompt === prompts.MetalAge1) || (currPrompt === prompts.ConqueringAge1)  || (currPrompt === prompts.IndustrialAge1) || (currPrompt === prompts.SpaceAge1) || (currPrompt === prompts.finish)){
         //if start of new age, push age choices and empty the list
@@ -498,8 +498,6 @@ function parseAutomation(inputString, cm) {
 //firebase things to store
 function getStatsPerChocie(){
     let currentStats = {};
-    //TODO:// get a timer thang
-    let currChoiceTime = 10; //in seconds
     let DataStr = DataManager.getInstance().getDataList();
     let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() ;
     let currSecure = DataStr["Security"].getValue() / DataStr["Security"].getMax();
