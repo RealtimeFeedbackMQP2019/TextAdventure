@@ -177,10 +177,10 @@ function update(){
         dm.subtractFromValue("Hunger", 1);
     }
     else {
-        dm.subtractFromValue("Hunger", 1);
-        dm.subtractFromValue("Population", 2);
-        dm.subtractFromValue("Military", 5);
-        dm.subtractFromValue("Science", 5);
+        dm.subtractFromValue("Hunger", dm.getStatDecreaseRates()[0]);
+        dm.subtractFromValue("Population", dm.getStatDecreaseRates()[1]);
+        dm.subtractFromValue("Military", dm.getStatDecreaseRates()[2]);
+        dm.subtractFromValue("Science", dm.getStatDecreaseRates()[3]);
     }
 
     // Constantly update automation code
