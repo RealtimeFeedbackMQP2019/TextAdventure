@@ -25,6 +25,7 @@ let DataManager = (function () {
         return{
             addToValue(key, value){
                 let dEntry = DataList[key];
+                //if value <0, set value = 0
                 if(dEntry !== null && dEntry.getValue() + value < 0){
                     dEntry.setValue(0);
                 }
@@ -40,6 +41,7 @@ let DataManager = (function () {
             },
 
             subtractFromValue(key, value){
+                //if value is <0, no worries, refer to addToValue
                 this.addToValue(key, -value);
             },
 
