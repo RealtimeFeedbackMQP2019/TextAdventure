@@ -22,6 +22,9 @@ let DataManager = (function () {
 
         let previewValues = {};
 
+        // Normal decrease rates for hunger, population, military, and science in order
+        let statDecreaseRates = [1, 2, 3, 3];
+
         return{
             addToValue(key, value){
                 let dEntry = DataList[key];
@@ -52,7 +55,7 @@ let DataManager = (function () {
                 if(DataList["Hunger"].getValue() <= 0){
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
-                    appendText(commandPrompt, "GAME OVER");
+                    appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER");
                     //write to firebase - get current age stats even if age isnt over
                     ageList.push(getStatsPerAge(ageChoices));
                     writeResults();
@@ -68,7 +71,7 @@ let DataManager = (function () {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     this.pauseTimer();
-                    appendText(commandPrompt, "YOU'RE WINNER");
+                    appendText(commandPrompt, "// Yay, you did it! We can go back home to our normal time! Great job!");
                     //document.getElementById("gameOver").style.display = "inline";
                 }
             },
@@ -84,10 +87,12 @@ let DataManager = (function () {
             },
 
             resetTimer(){
+                DataManager.getInstance().setStatDecreaseRates(1, 2, 3, 3);
                 timer.reset();
             },
 
             pauseTimer(){
+                DataManager.getInstance().setStatDecreaseRates(0, 0, 0, 0);
                 timer.pause();
             },
 
@@ -114,6 +119,15 @@ let DataManager = (function () {
 
             getPromptDataHistory(){
                 return PromptDataHistory;
+            },
+
+            getStatDecreaseRates(){
+                return statDecreaseRates;
+            },
+
+            setStatDecreaseRates(hun, pop, mil, sci){
+                statDecreaseRates = [];
+                statDecreaseRates.push(hun, pop, mil, sci);
             }
         }
     }
