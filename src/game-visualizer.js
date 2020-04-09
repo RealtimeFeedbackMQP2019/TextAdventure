@@ -74,7 +74,7 @@ class TimerVisualizer{
         if(this._currentTime < 0.0){
             //Time's up!
             this.reset();
-            appendText(commandPrompt, "\n// Time's up baby!");
+            appendText(commandPrompt, "\n// Time's up!");
             makeRandomChoice();
         }
     }

@@ -15,10 +15,12 @@ let DataManager = (function () {
         let PromptDataHistory = [];
 
         let timer = new TimerVisualizer(document.getElementById("timer"),45);
-        setInterval(function(){
-            timer.decreaseTime();
-        }, 100);
-        visUpdate(timer);
+        if(isGameStarted) {
+            setInterval(function(){
+                timer.decreaseTime();
+            }, 100);
+            visUpdate(timer);
+        }
 
         let previewValues = {};
 
