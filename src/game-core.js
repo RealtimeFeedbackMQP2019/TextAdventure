@@ -440,6 +440,9 @@ function parseAutomation(inputString, cm) {
 
     // If valid automation, execute
     if((beginningBraceCount === 0 && endingBraceCount === 0) || (beginningParCount === 0 && endingParCount === 0)) {
+        // If not valid method of automation, switch back to main game
+        automationCode = [];
+        switchToMain();
         appendText(commandPrompt, "\n// Please enter some valid code within the automate() command.\n>");
     } else if(beginningBraceCount === endingBraceCount && beginningParCount === endingParCount) {
 
