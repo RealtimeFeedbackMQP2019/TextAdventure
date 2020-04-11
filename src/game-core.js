@@ -18,7 +18,6 @@ let commandPrompt;
 
 // Keeping track of whether automation has begun or not
 let isAutomation;
-let isAutomationFull;
 let automationCode = [];
 let automateLineNums = [];
 let maxAutomation;
@@ -152,9 +151,12 @@ function startGame(){
     addPrompt(prompts.StoneAge1.Prompt);
 
     isAutomation = false;
-    isAutomationFull = false;
     maxAutomation = 1;
     currNumAutomation = 0;
+
+    // Make sure automation timer is paused and hidden
+    DataManager.getInstance().pauseAutoTimer();
+    document.getElementById("autoTimer").style.visibility = "hidden";
 }
 
 // Update the game state - called at each game tick
@@ -163,27 +165,27 @@ function update(){
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
     if(datalist.Population.getValue() <= 0){
-        dm.subtractFromValue("Hunger", 2);
+        dm.setDecreaseRates(["Hunger"], [2])
     }
     else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
-        dm.subtractFromValue("Military", 10);
-        dm.subtractFromValue("Population", 3);
-        dm.subtractFromValue("Hunger", 1);
+        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 10]);
     }
     else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
-        dm.subtractFromValue("Population", 3);
-        dm.subtractFromValue("Hunger", 1);
+        dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
     }
     else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
-        dm.subtractFromValue("Population", 4);
-        dm.subtractFromValue("Hunger", 1);
+        dm.setDecreaseRates(["Hunger", "Population"], [1, 4]);
     }
     else {
-        dm.subtractFromValue("Hunger", dm.getStatDecreaseRates()[0]);
-        dm.subtractFromValue("Population", dm.getStatDecreaseRates()[1]);
-        dm.subtractFromValue("Military", dm.getStatDecreaseRates()[2]);
-        dm.subtractFromValue("Science", dm.getStatDecreaseRates()[3]);
+        dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
     }
+
+    // Constantly subtract current decrease rates
+    let decreaseRates = dm.getDecreaseRates();
+    dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
+    dm.subtractFromValue("Population", decreaseRates["Population"]);
+    dm.subtractFromValue("Military", decreaseRates["Military"]);
+    dm.subtractFromValue("Science", decreaseRates["Science"]);
 
     // Constantly update automation code
     if(automationCode.length === 0) {
@@ -294,15 +296,14 @@ function matchCommand(inputString){
             if (inputString.includes("automate")) {
                 if (currNumAutomation >= maxAutomation) {
                     appendText(commandPrompt, "\n\n// Sorry! You've used up all " + maxAutomation + " of your automated functions!\n\n>");
-                } else if (isAutomationFull) {
-                    appendText(commandPrompt, "\n\n// Sorry! You can only write up to one automated function per prompt!\n\n>");
                 } else {
-                    isAutomation = true;
+                    // Pause main game timer, start automation timer, and disable all other canvas widgets
+                    switchToAutomation();
                     parseAutomation(inputString.substring(1), commandPrompt);
                 }
             }
             // Special case for automation - after first line
-            else if (isAutomation && !isAutomationFull) {
+            else if (isAutomation) {
                 parseAutomation(inputString, commandPrompt);
             }
             // Otherwise try to parse command as normal
@@ -437,19 +438,15 @@ function parseAutomation(inputString, cm) {
         codeString += automationCode[i];
     }
 
-    console.log(beginningBraceCount);
-    console.log(endingBraceCount);
-    console.log(beginningParCount);
-    console.log(endingParCount);
-
     // If valid automation, execute
-    if(beginningBraceCount !== 0 && endingBraceCount !== 0 && beginningBraceCount === endingBraceCount &&
-        beginningParCount !== 0 && endingParCount !== 0 && beginningParCount === endingParCount) {
-        isAutomation = false;
-        console.log(codeString);
+    if((beginningBraceCount === 0 && endingBraceCount === 0) || (beginningParCount === 0 && endingParCount === 0)) {
+        appendText(commandPrompt, "\n// Please enter some valid code within the automate() command.\n>");
+    } else if(beginningBraceCount === endingBraceCount && beginningParCount === endingParCount) {
+
+        // Switch back to main game
+        switchToMain();
         try{
             with(FunctionManager.getInstance()) {
-                isAutomationFull = true;
                 currNumAutomation += 1;
                 eval(codeString);
             }
@@ -530,7 +527,7 @@ function securityIssue() {
                 randChoiceChance = 0.25;
                 break;
             case 3:
-                randChoiceChance = 0.00000001;
+                randChoiceChance = 0.10;
                 break;
             case 4:
                 randChoiceChance = 0.05;
@@ -546,4 +543,43 @@ function securityIssue() {
             dm.resetTimer();
         }
     }
+}
+
+// Function for changing from main game to automation
+function switchToAutomation() {
+
+    isAutomation = true;
+
+    // Pause current game timer
+    dm = DataManager.getInstance();
+    dm.pauseTimer();
+
+    // Disable all canvas elements
+    let allCanvas = document.querySelectorAll("canvas");
+    for(let i = 0; i < allCanvas.length; i++) {
+        allCanvas[i].style.visibility = "hidden";
+    }
+
+    // Enable just the automation timer
+    document.getElementById("autoTimer").style.visibility = "visible";
+    dm.resumeAutoTimer();
+}
+
+// Function for changing from automation back to main game
+function switchToMain() {
+
+    isAutomation = false;
+    dm.pauseAutoTimer();
+
+    // Re-enable all canvases, then disable auto timer specifically
+    let allCanvas = document.querySelectorAll("canvas");
+    for(let i = 0; i < allCanvas.length; i++) {
+        allCanvas[i].style.visibility = "visible";
+    }
+    document.getElementById("autoTimer").style.visibility = "hidden";
+
+    // Re-enable main game timer
+    dm.resumeTimer();
+
+
 }

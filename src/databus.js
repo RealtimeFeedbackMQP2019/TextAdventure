@@ -12,20 +12,39 @@ let DataManager = (function () {
             "Science": new ValueData("Science", 50, 50, "rgba(127,0,255,1.0)")
         };
 
+        // Decrease rates
+        let DecreaseRates = {
+            "Hunger": 1,
+            "Population": 2,
+            "Military": 3,
+            "Science": 3
+        };
+
+        // Copy of previous decrease rates before pausing
+        let PrevDecreaseRates = {};
+
         let PromptDataHistory = [];
 
+        // Main timer
         let timer = new TimerVisualizer(document.getElementById("timer"),45);
+
+        // Automation timer
+        let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120);
+
+        // Set timers
         if(isGameStarted) {
             setInterval(function(){
                 timer.decreaseTime();
             }, 100);
             visUpdate(timer);
+
+            setInterval(function(){
+                autoTimer.decreaseTime();
+            }, 100);
+            visUpdate(autoTimer);
         }
 
         let previewValues = {};
-
-        // Normal decrease rates for hunger, population, military, and science in order
-        let statDecreaseRates = [1, 2, 3, 3];
 
         return{
             addToValue(key, value){
@@ -88,18 +107,62 @@ let DataManager = (function () {
                 return DataList;
             },
 
+            getDecreaseRates(){
+                return DecreaseRates;
+            },
+
+            setDecreaseRates(keys, values){
+                for(let i = 0; i < keys.length; i++) {
+                    DecreaseRates[keys[i]] = values[i];
+                }
+            },
+
+            assignDecreaseRate(decRates){
+                DecreaseRates = Object.assign({}, decRates);
+            },
+
+            getPrevDecreaseRates(){
+                return PrevDecreaseRates;
+            },
+
+            setPrevDecreaseRates(decRates){
+                PrevDecreaseRates = Object.assign({}, decRates);
+            },
+
             resetTimer(){
-                DataManager.getInstance().setStatDecreaseRates(1, 2, 3, 3);
+                DataManager.getInstance().assignDecreaseRate(DataManager.getInstance().getPrevDecreaseRates());
                 timer.reset();
             },
 
             pauseTimer(){
-                DataManager.getInstance().setStatDecreaseRates(0, 0, 0, 0);
+                DataManager.getInstance().setPrevDecreaseRates(DataManager.getInstance().getDecreaseRates());
+                DataManager.getInstance().setDecreaseRates(["Hunger", "Population", "Military", "Science"], [0, 0, 0, 0]);
                 timer.pause();
+            },
+
+            resumeTimer(){
+                DataManager.getInstance().assignDecreaseRate(DataManager.getInstance().getPrevDecreaseRates());
+                timer.resume();
+            },
+
+            resetAutoTimer(){
+                autoTimer.reset();
+            },
+
+            pauseAutoTimer(){
+                autoTimer.pause();
+            },
+
+            resumeAutoTimer(){
+                autoTimer.resume();
             },
 
             getTimer(){
                 return timer;
+            },
+
+            getAutoTimer(){
+                return autoTimer;
             },
 
             setPreviewValues(pv){
@@ -122,15 +185,6 @@ let DataManager = (function () {
             getPromptDataHistory(){
                 return PromptDataHistory;
             },
-
-            getStatDecreaseRates(){
-                return statDecreaseRates;
-            },
-
-            setStatDecreaseRates(hun, pop, mil, sci){
-                statDecreaseRates = [];
-                statDecreaseRates.push(hun, pop, mil, sci);
-            }
         }
     }
 
