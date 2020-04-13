@@ -128,18 +128,20 @@ class ComboVisualizer{
         let index = 0;
         for(let x of LIST_OF_VALS){
             let dataval = DataManager.getInstance().getDataList()[x];
-            let percentage = (dataval.getDisplayValue() / dataval.getMax());
+
             let posx = index * this._barWidth + this._barSeperation * (index + 1);
             let boundx = posx + this._barWidth;
             let posy = 0;
-            let boundy = this._canvas.height * 2 / 3;
-            this.drawSquare(posx, boundx, posy, boundy, percentage, dataval.getColor(x));
+            let boundy = this._canvas.height;
+            this.drawSquare(posx, boundx, posy, boundy, x, dataval.getColor(x));
             let DataSet = DataManager.getInstance().getPromptDataHistory();
-            this.drawLines(posx, boundx, boundy, this._canvas.height, DataSet, x, dataval.getColor(x));
+            this.drawLines(posx, boundx, posy, boundy, DataSet, x, "#FFFFFFFF");
             index += 1;
         }
     }
-    drawSquare(basex, boundx, basey, boundy, percentage, color){
+    drawSquare(basex, boundx, basey, boundy, key, color, dopreview=true){
+        let dataval = DataManager.getInstance().getDataList()[key];
+        let percentage = (dataval.getDisplayValue() / dataval.getMax());
         let height = boundy - basey;
         let width = boundx - basex;
 
@@ -149,6 +151,17 @@ class ComboVisualizer{
         //this._ctx.strokeStyle = "rgba(1,1,1,0)"; //remove line color
         this._ctx.fillRect(basex, drawBaseY, width, height * percentage);
         //this._ctx
+
+        if(dopreview){
+            let param = DataManager.getInstance().getPreviewValues();
+            if(param != null && param.hasOwnProperty(key)){
+                this._ctx.fillStyle = "#FFFFFF00";
+                this._ctx.strokeStyle = "#FFFFFF";
+                let incrprecent = height * param[key] / dataval.getMax();
+                this._ctx.strokeRect(basex, drawBaseY - incrprecent, width, incrprecent);
+                //console.log(height - incrheight);
+            }
+        }
     }
     drawLines(basex, boundx, basey, boundy, DataSet, key, color){
         let max = DataManager.getInstance().getValue(key).getMax();
@@ -188,7 +201,12 @@ class ComboVisualizer{
 }
 
 
+class HyperGraphVisualizer{
+    //A hyper graph is a graph that shows the trendline and the current value.
+    constructor(canvas, key){
 
+    }
+}
 
 class LineGraphVisualizer{
     constructor(canvas, key){
