@@ -69,6 +69,9 @@ let FunctionManager = (function () {
                 updatePreviewVisualizer(commandPrompt);
                 //reset timer
                 DataManager.getInstance().resetTimer();
+                // Reset then pause auto timer
+                DataManager.getInstance().resetAutoTimer();
+                DataManager.getInstance().pauseAutoTimer();
             }, 2000);
             securityTickUpdate = setInterval('securityIssue()', 15000);
 
@@ -87,19 +90,7 @@ let FunctionManager = (function () {
 
         let _automate = function(fun){
             automationFunction = fun;
-            console.log(automationFunction);
         };
-
-        // let _next = function(){
-        //     if(!isGameStarted) {
-        //         for(let i = 0; i < introTimers.length; i++) {
-        //             clearInterval(introTimers[i]);
-        //         }
-        //         commandPrompt.setValue('');
-        //         isGameStarted = true;
-        //         startGame();
-        //     }
-        // };
 
         return{
             getValue(key){

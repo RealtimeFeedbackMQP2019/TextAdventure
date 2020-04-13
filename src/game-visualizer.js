@@ -92,6 +92,10 @@ class TimerVisualizer{
         this._pause = true;
     }
 
+    resume(){
+        this._pause = false;
+    }
+
     reset(){
         //Pause the timer.
         this._currentTime = this._totalTime;
