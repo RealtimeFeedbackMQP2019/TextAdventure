@@ -58,11 +58,12 @@ let DataManager = (function () {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER");
+                    this.pauseTimer();
+                    //console.log("hello in thereaaaaaaaaaaaaaaaaa");
                     //write to firebase - get current age stats even if age isnt over
                     ageList.push(getStatsPerAge(ageChoices));
-                    writeResults();
-
-                    this.pauseTimer();
+                    //sleep(14000);
+                    setTimeout(writeResults, 25000);
                     //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
                     //document.getElementById("textEditorBox").style.pointerEvents = "none";
@@ -74,7 +75,12 @@ let DataManager = (function () {
                     clearInterval(securityTickUpdate);
                     this.pauseTimer();
                     appendText(commandPrompt, "// Yay, you did it! We can go back home to our normal time! Great job!");
+                    //write to firebase - get current age stats even if age isnt over
+                    ageList.push(getStatsPerAge(ageChoices));
+                    //sleep(14000);
+                    setTimeout(writeResults, 25000);
                     //document.getElementById("gameOver").style.display = "inline";
+                    //write to firebase happens in gamecore
                 }
             },
 
