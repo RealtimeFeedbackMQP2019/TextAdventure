@@ -490,23 +490,12 @@ function getStatsPerAge(listOfChoiceStats){
 function writeResults(){
     let thingToWrite = new dbWriter();
     thingToWrite.writePerSession(ageList,manCount,aiCount);
-
-    console.log("waiting for user to read");
-    //TODO:// WAIT
-    //setTimeout(readWait, 25000);
-    //sleep(25000);
+    
     //redirect to survey
     window.location.href = thingToWrite.redirect();
 
 }
-function readWait(){ console.log("waiting for user to read");}
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-        currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-}
+
 
 
 
