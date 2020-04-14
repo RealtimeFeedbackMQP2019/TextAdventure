@@ -82,7 +82,7 @@ let DataManager = (function () {
                     this.pauseTimer();
                     //console.log("hello in thereaaaaaaaaaaaaaaaaa");
                     //write to firebase - get current age stats even if age isnt over
-                    ageList.push(getStatsPerAge(ageChoices));
+                    ageList.push(ageChoices);
                     //sleep(14000);
                     setTimeout(writeResults, 25000);
                     //document.getElementById("gameOver").style.display = "inline";
@@ -97,7 +97,7 @@ let DataManager = (function () {
                     this.pauseTimer();
                     appendText(commandPrompt, "// Yay, you did it! We can go back home to our normal time! Great job!");
                     //write to firebase - get current age stats even if age isnt over
-                    ageList.push(getStatsPerAge(ageChoices));
+                    ageList.push(ageChoices);
                     //sleep(14000);
                     setTimeout(writeResults, 25000);
                     //document.getElementById("gameOver").style.display = "inline";
