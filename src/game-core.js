@@ -345,7 +345,7 @@ function getNextPrompt() {
     if((currPrompt === prompts.MetalAge1) || (currPrompt === prompts.ConqueringAge1)  || (currPrompt === prompts.IndustrialAge1) || (currPrompt === prompts.SpaceAge1) || (currPrompt === prompts.finish)){
         //if start of new age, push age choices and empty the list
         //gather the data game
-        ageList.push(getStatsPerAge(ageChoices));
+        ageList.push(ageChoices);
         ageChoices = [];
     }
     // if(currPrompt === prompts.finish || currPrompt === prompts.finishL ){
@@ -353,7 +353,7 @@ function getNextPrompt() {
     //     writeResults();
     // }
     else{
-        ageChoices.push(getStatsPerChocie());
+        ageChoices.push(getStatsPerChoice());
     }
 
     // Update number of automation based on point in game
@@ -464,7 +464,7 @@ function parseAutomation(inputString, cm) {
 }
 
 //firebase things to store
-function getStatsPerChocie(){
+function getStatsPerChoice(){
     let currentStats = {};
     let DataStr = DataManager.getInstance().getDataList();
     let currHunger = DataStr["Hunger"].getValue() / DataStr["Hunger"].getMax() ;
@@ -480,11 +480,11 @@ function getStatsPerChocie(){
                     time: currChoiceTime};
     return currentStats;
 }
-function getStatsPerAge(listOfChoiceStats){
-    let currentAgeStats = [];
-    currentAgeStats.push(listOfChoiceStats);
-    return currentAgeStats;
-}
+// function getStatsPerAge(listOfChoiceStats){
+//     let currentAgeStats = [];
+//     currentAgeStats.push(listOfChoiceStats);
+//     return currentAgeStats;
+// }
 function writeResults(){
     let thingToWrite = new dbWriter();
     thingToWrite.writePerSession(ageList,manCount,aiCount);
