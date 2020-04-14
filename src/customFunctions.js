@@ -73,10 +73,17 @@ let FunctionManager = (function () {
                 DataManager.getInstance().resetAutoTimer();
                 DataManager.getInstance().pauseAutoTimer();
             }, 2000);
-            securityTickUpdate = setInterval('securityIssue()', 15000);
 
             promptCount += 1;
             isAutomationFull = false;
+
+            // Reset start time
+            let d = new Date();
+            startTime = d.getTime();
+
+            // Reset security and main game intervals
+            gameTickUpdate = setInterval('update()', gameTickInterval);
+            securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
         };
 
         let _setCharAt = function setCharAt(str,index,chr) {

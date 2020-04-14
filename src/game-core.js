@@ -6,12 +6,14 @@
 // Timer to update game - called with each tick
 let gameTickUpdate;
 let securityTickUpdate;
+const gameTickInterval = 1000;
+const securityTickInterval = 22500;
+let securityTickRemaining;
+let startTime;
 
 // Keep track of current prompt
 let currPrompt;
 let commandPrompt;
-//let automation1;
-//let automation2;
 
 // Keep track of adding automation
 //let numAutomation = 0;
@@ -40,7 +42,6 @@ let ageList = [];
 let currChoiceTime = 0;
 let manCount = 0;
 let aiCount = 0;
-
 
 // Keep this for now for testing
 document.onkeydown = function(evt) {
@@ -140,10 +141,10 @@ function startGame(){
 
     EventDispatcher.getInstance().fireEvent(new GameEvent("gameStartEvent", {}));
 
-    gameTickUpdate = setInterval('update()', 1000);
+    gameTickUpdate = setInterval('update()', gameTickInterval);
 
     // Check security every 15 seconds
-    securityTickUpdate = setInterval('securityIssue()', 22500);
+    securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
     // Set current prompt to Stone Age 1
     currPrompt = prompts.StoneAge1;
 
@@ -153,6 +154,9 @@ function startGame(){
     isAutomation = false;
     maxAutomation = 1;
     currNumAutomation = 0;
+
+    let d = new Date;
+    startTime = d.getTime();
 
     // Make sure automation timer is paused and hidden
     DataManager.getInstance().pauseAutoTimer();
@@ -164,19 +168,16 @@ function update(){
 
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
-    if(datalist.Population.getValue() <= 0){
+
+    if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
-    }
-    else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
+    } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
         dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 10]);
-    }
-    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
+    } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
         dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
-    }
-    else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
+    } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger", "Population"], [1, 4]);
-    }
-    else {
+    } else {
         dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
     }
 
@@ -193,14 +194,12 @@ function update(){
 
         // Compare stored function to new code to see if different
         let autoFuncString = automationFunction.toString();
-        console.log(autoFuncString);
         let currAutoFunc = function(){};
         let currAutoCode = "";
         for(let i = 0; i < automateLineNums.length; i++) {
             let autoLine = commandPrompt.getLine(automateLineNums[i]).toString();
             currAutoCode += autoLine;
         }
-        console.log(currAutoCode);
 
         if(autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
             try{
@@ -358,7 +357,8 @@ function getNextPrompt() {
     }
 
     // Update number of automation based on point in game
-    if(currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.SpaceAge1) {
+    if(currPrompt === prompts.MetalAge1 || currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.IndustrialAge1
+        || currPrompt === prompts.SpaceAge1) {
         maxAutomation += 1;
         appendText(commandPrompt, "Congrats! You unlocked another automation function!\n");
     }
@@ -411,8 +411,6 @@ function parseAutomation(inputString, cm) {
 
     automationCode.push(inputString);
     automateLineNums.push(cm.lineCount() - 1);
-    console.log(automationCode);
-    console.log(automateLineNums);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -495,11 +493,6 @@ function writeResults(){
     window.location.href = thingToWrite.redirect();
 
 }
-
-
-
-
-
 
 // Randomly select choice
 function makeRandomChoice() {

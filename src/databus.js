@@ -145,11 +145,21 @@ let DataManager = (function () {
             pauseTimer(){
                 DataManager.getInstance().setPrevDecreaseRates(DataManager.getInstance().getDecreaseRates());
                 DataManager.getInstance().setDecreaseRates(["Hunger", "Population", "Military", "Science"], [0, 0, 0, 0]);
+
+                // Pause security and main game ticks
+                let currDate = new Date();
+                securityTickRemaining = securityTickInterval - (currDate.getTime() - startTime);
+                clearInterval(gameTickUpdate);
+                clearInterval(securityTickUpdate);
                 timer.pause();
             },
 
             resumeTimer(){
                 DataManager.getInstance().assignDecreaseRate(DataManager.getInstance().getPrevDecreaseRates());
+
+                // Resume both main game and security intervals
+                gameTickUpdate = setInterval('update()', gameTickInterval);
+                setTimeout('securityIssue()', securityTickRemaining);
                 timer.resume();
             },
 
