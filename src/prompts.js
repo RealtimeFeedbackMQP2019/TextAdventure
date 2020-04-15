@@ -59,7 +59,7 @@ const prompts = {
                 "// 1) Welcome them with food, water and shelter.\n" +
                 "// 2) Cook caveman, yum yum yum.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -2,
                 "Security": 0,
                 "Population": 100,
                 "Military": 30,
@@ -93,7 +93,7 @@ const prompts = {
                 "Food": 0,
                 "Security": 0,
                 "Population": -200,
-                "Military": 20,
+                "Military": 50,
                 "Science": 0,
                 "Result" : "// Well, you\'ve tamed the beast but at great cost to your community. On the bright side, \n" +
                     "//      now you have a giant puppy-rex \n\n"
@@ -112,11 +112,11 @@ const prompts = {
                 "Science": 0,
                 "Result" : "// The bear did not take kindly to your whack. In return, it rampages onto your village. \n\n"
             },{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 15,
+                "Science": 20,
                 "Result" : "// Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n"
             }],
             "NextPrompt": "StoneAge6"
@@ -137,7 +137,7 @@ const prompts = {
                 "Security": 0,
                 "Population": -100,
                 "Military": 0,
-                "Science": 20,
+                "Science": 30,
                 "Result" : "// The move goes poorly, many people were caught in the cold. You learn how to treat \n" +
                     "//      frostbite. \n\n"
             }],
@@ -154,14 +154,14 @@ const prompts = {
                 "Security": 0,
                 "Population": 0,
                 "Military": 30,
-                "Science": 0,
+                "Science": 10,
                 "Result" : "// Sharp edge = superior weapon. \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 0,
                 "Military": 0,
-                "Science": 20,
+                "Science": 30,
                 "Result" : "// Stick + iron = superior shovel. \n\n"
             }],
             "NextPrompt": "MetalAge2"
@@ -172,9 +172,9 @@ const prompts = {
                 "//1) Support their studies and let them continue their experiments.\n" +
                 "//2) Put and end to the studies and keep the drinking water clean.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -5,
                 "Security": 0,
-                "Population": -100,
+                "Population": -50,
                 "Military": 0,
                 "Science": 20,
                 "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's \n" +
@@ -183,9 +183,9 @@ const prompts = {
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
-                "Military": 0,
+                "Military": 10,
                 "Science": 0,
-                "Result" : "// Alchemists are rather discouraged, but have created a secret society. \n\n"
+                "Result" : "// Alchemists are rather discouraged, and have withdrawed to create a secret society. \n\n"
             }],
             "NextPrompt": "MetalAge3"
         },
@@ -198,15 +198,15 @@ const prompts = {
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
-                "Military": 35,
-                "Science": 15,
+                "Military": 45,
+                "Science": 20,
                 "Result" : "// Strength in military will lead our kingdom to greatness! \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
-                "Science": 0,
+                "Science": 20,
                 "Result" : "// Long live the humble king! \n\n"
             }],
             "NextPrompt": "MetalAge4"
@@ -219,7 +219,7 @@ const prompts = {
                 "// 2) Give full support to jousting and grow your community.\n\n",
             "Choice": [{
                 "Food": 0,
-                "Security": 0,
+                "Security": -1,
                 "Population": 0,
                 "Military": 20,
                 "Science": 0,
@@ -227,8 +227,8 @@ const prompts = {
             },{
                 "Food": 0,
                 "Security": 0,
-                "Population": 100,
-                "Military": 0,
+                "Population": 50,
+                "Military": 20,
                 "Science": 0,
                 "Result" : "// Jousting has become wildly popular, an arena for it is being built. \n\n"
             }],
@@ -248,7 +248,7 @@ const prompts = {
                 "Result" : "// The public start distrusting your scientists as this miracle worker does her magic. \n\n"
             },{
                 "Food": 0,
-                "Security": 0,
+                "Security": 1,
                 "Population": -50,
                 "Military": 0,
                 "Science": 25,
@@ -259,14 +259,14 @@ const prompts = {
             "NextPrompt": "MetalAge6"
         },
         "MetalAge6": {
-            "Prompt": "// The den of the last dragons alive has been discovered!\n" +
+            "Prompt": "// The den of the last dragon alive has been discovered!\n" +
                 "// 1) Send in all of your best knights to kill the dragons before they hurt any more people.\n" +
                 "// 2) Quietly observe the dragons and possibly learn aviation from them.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": 0,
                 "Population": 0,
-                "Military": -15,
+                "Military": -50,
                 "Science": 0,
                 "Result" : "// The battle was legendary, your army took many losses, but prevailed in the end. \n\n"
             },{
@@ -286,14 +286,14 @@ const prompts = {
                 "// 1) Build a ship!\n" +
                 "// 2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
                 "Population": 0,
-                "Military": 20,
-                "Science": 15,
+                "Military": 30,
+                "Science": 35,
                 "Result" : "// Bigger ships => more people on those ships => cross large rivers => exploration! \n\n"
             },{
-                "Food": 0,
+                "Food": 10,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
@@ -309,11 +309,11 @@ const prompts = {
                 "//1) Want to trade?\n" +
                 "//2) To Waarrrrrrr!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 25,
                 "Security": 0,
                 "Population": 200,
-                "Military": 0,
-                "Science": 0,
+                "Military": 20,
+                "Science": 10,
                 "Result" : "// Wow that went well! We gained new friends and new allies! \n\n"
             },{
                 "Food": -5,
@@ -355,17 +355,17 @@ const prompts = {
             "Choice": [{
                 "Food": 15,
                 "Security": 0,
-                "Population": -200,
-                "Military": -15,
-                "Science": 0,
+                "Population": -50,
+                "Military": -25,
+                "Science": 25,
                 "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have \n" +
                     "//      toad meat.  \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
-                "Population": -100,
+                "Population": -50,
                 "Military": 0,
-                "Science": 0,
+                "Science": 20,
                 "Result" : "// The ocean toad takes one look at fleeing citizens and uses its lengthy tongue to scoop \n" +
                     "//      up many of them. Both the toad and the people are never heard from again. \n\n"
             }],
@@ -380,14 +380,14 @@ const prompts = {
                 "Security": 0,
                 "Population": 100,
                 "Military": 0,
-                "Science": 25,
+                "Science": 35,
                 "Result" : "// Whale oil catches on quickly and many people enjoy the improvement! \n\n"
             },{
-                "Food": 10,
+                "Food": 15,
                 "Security": 0,
                 "Population": 150,
                 "Military": 0,
-                "Science": 0,
+                "Science": 10,
                 "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an \n" +
                     "//      added bonus of long shelf life. \n\n"
             }],
