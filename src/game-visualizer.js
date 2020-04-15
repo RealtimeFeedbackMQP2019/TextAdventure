@@ -116,6 +116,16 @@ class TimerVisualizer{
     }
 }
 
+const VALUE_WIDTH = 9;
+const SPACING = 4;
+const ICON_WIDTH = 7;
+const ICON_HEIGHT = 6;
+
+const LINEGRAPH_WIDTH = 30;
+const LINEGRAPH_HEIGHT = 8;
+const LINEGRAPH_ORIGIN = 2;
+const LINEGRAPH_SPACING = 3;
+
 
 class ComboVisualizer{
     constructor(canvas, barWidth, barSeparation){
@@ -123,54 +133,91 @@ class ComboVisualizer{
 
         this._ctx = canvas.getContext("2d");
         //this._key = key;
-        this._barWidth = barWidth;
-        this._barSeperation = barSeparation;
+        this._barWidth = VALUE_WIDTH;
+        this._barSeperation = SPACING;
     }
     //Draw visuals:
     drawVisuals(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+
         let index = 0;
+        let lgpos_x = LIST_OF_VALS.length * this._barWidth + this._barSeperation * (LIST_OF_VALS.length + 1);
+        let lgpos_y = LINEGRAPH_ORIGIN;
         for(let x of LIST_OF_VALS){
             let dataval = DataManager.getInstance().getDataList()[x];
 
             let posx = index * this._barWidth + this._barSeperation * (index + 1);
             let boundx = posx + this._barWidth;
-            let posy = 0;
+            let posy = 7;
             let boundy = this._canvas.height;
-            this.drawSquare(posx, boundx, posy, boundy, x, dataval.getColor(x));
+
+            //This is working!
+            this.drawIcon(posx + 1, 0, x);
+            this.drawBarGraph(posx+0.5, boundx+0.5, posy, boundy, x, true);
+
+            //Now for the line graphs
+            if(index % 3 === 0){
+                lgpos_y = LINEGRAPH_ORIGIN;
+                if(index !== 0){
+                    lgpos_x += ICON_WIDTH+LINEGRAPH_WIDTH+LINEGRAPH_SPACING * 2;
+                }
+
+            }
+            else{
+                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING;
+            }
+
+            this.drawIcon(lgpos_x, lgpos_y, x);
+
             let DataSet = DataManager.getInstance().getPromptDataHistory();
-            this.drawLines(posx, boundx, posy, boundy, DataSet, x, "#FFFFFFFF");
+            this.drawLines(lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING, lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING+LINEGRAPH_WIDTH,
+                lgpos_y, lgpos_y+LINEGRAPH_HEIGHT, DataSet, x);
             index += 1;
         }
     }
-    drawSquare(basex, boundx, basey, boundy, key, color, dopreview=true){
-        let dataval = DataManager.getInstance().getDataList()[key];
-        let percentage = (dataval.getDisplayValue() / dataval.getMax());
-        let height = boundy - basey;
-        let width = boundx - basex;
 
-        let drawBaseY = basey + (1-percentage) * height;
+    drawBarGraph(x,xl,y,yl,key,dopreview=false){
+        //draw boundaries
+        let dataval = DataManager.getInstance().getDataList()[key];
+        let color = dataval.getColor();
+        let gHeight = yl - y;
+        let gWidth = xl - x;
+
+        let gPercentage = (dataval.getDisplayValue() / dataval.getMax());
+        gPercentage = Math.min(Math.max(0, gPercentage), 1);
+        let drawBaseY = y + (1-gPercentage) * gHeight;
 
         this._ctx.fillStyle = color;
-        //this._ctx.strokeStyle = "rgba(1,1,1,0)"; //remove line color
-        this._ctx.fillRect(basex, drawBaseY, width, height * percentage);
-        //this._ctx
+        this._ctx.fillRect(x, drawBaseY, gWidth, gHeight * gPercentage);
 
-        if(dopreview){
-            let param = DataManager.getInstance().getPreviewValues();
-            if(param != null && param.hasOwnProperty(key)){
-                this._ctx.fillStyle = "#FFFFFF00";
-                this._ctx.strokeStyle = "#FFFFFF";
-                let incrprecent = height * param[key] / dataval.getMax();
-                this._ctx.strokeRect(basex, drawBaseY - incrprecent, width, incrprecent);
-                //console.log(height - incrheight);
-            }
+
+        this.drawLine({x: x, y: y}, {x: x, y: yl});
+        this.drawLine({x: xl, y: y}, {x: xl, y: yl});
+    }
+
+
+    drawIcon(x,y,key){
+        let dataval = DataManager.getInstance().getDataList()[key];
+        let icon = dataval.getIcon();
+        if(icon != null){
+            this._ctx.drawImage(icon, x, y, ICON_WIDTH, ICON_HEIGHT);
         }
     }
-    drawLines(basex, boundx, basey, boundy, DataSet, key, color){
-        let max = DataManager.getInstance().getValue(key).getMax();
-        let length = DataSet.length;
 
+    drawLine(s1, s2, width=1, col="#FFFFFF"){
+        this._ctx.strokeStyle = col;
+        this._ctx.lineWidth = width;
+        this._ctx.beginPath();
+        this._ctx.moveTo(s1.x,s1.y);
+        this._ctx.lineTo(s2.x,s2.y);
+        this._ctx.stroke();
+    }
+
+    drawLines(basex, boundx, basey, boundy, DataSet, key){
+
+        let max = DataManager.getInstance().getValue(key).getMax();
+        let color = DataManager.getInstance().getDataList()[key].getColor();
+        let length = DataSet.length;
 
         let height = boundy - basey;
         let width = boundx - basex;
@@ -190,8 +237,9 @@ class ComboVisualizer{
                     index = 0;
                 }
             }
-            let precentage = DataSet[index][key] / max;
-            let h = (1-precentage) * height;
+            let percentage = DataSet[index][key] / max;
+            percentage = Math.min(Math.max(0, percentage), 1);
+            let h = (1-percentage) * height;
             if(i === 0){
                 this._ctx.moveTo(basex + offsetBase + i * separation, basey + h);
             }else{
@@ -205,12 +253,7 @@ class ComboVisualizer{
 }
 
 
-class HyperGraphVisualizer{
-    //A hyper graph is a graph that shows the trendline and the current value.
-    constructor(canvas, key){
 
-    }
-}
 
 class LineGraphVisualizer{
     constructor(canvas, key){
