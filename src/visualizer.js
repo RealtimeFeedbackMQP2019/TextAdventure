@@ -40,19 +40,6 @@ function drawSnapshot(height){
     return snapshotCanvas;
 }
 
-function drawOverview(key, height){
-    let canvas = document.createElement("canvas");
-    canvas.id = "old-overview" + snapshotIndex;
-    canvas.height = height;
-    let visualizer = new LineGraphVisualizer(canvas, key);
-    visualizer.drawVisuals();
-
-
-    snapshotIndex += 1;
-    return canvas;
-}
-
-
 function createVisualizer(cm, canvas) {
     let lineNumber = cm.lineCount() - 1;
     const lineStr = cm.getLine( lineNumber );

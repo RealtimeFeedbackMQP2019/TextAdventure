@@ -33,21 +33,12 @@ let FunctionManager = (function () {
             }
         };
 
-        let _overview = function(){
-            appendText(commandPrompt, "This is your performance over the last few prompts: ");
-            createVisualizer(commandPrompt,  drawOverview(LIST_OF_VALS, commandPrompt.defaultTextHeight()));
-        };
-
         let _choose = function(val){
             console.log("HIIII!");
             clearInterval(securityTickUpdate);
             createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
             changeStats(currPrompt.Choice[val - 1]);
             DataManager.getInstance().addPromptDataHistory();
-
-            if(promptCount %5 === 0 && promptCount !== 0){
-                _overview();
-            }
 
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
