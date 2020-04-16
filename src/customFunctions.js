@@ -66,7 +66,6 @@ let FunctionManager = (function () {
             }, 2000);
 
             promptCount += 1;
-            isAutomationFull = false;
 
             // Reset start time
             let d = new Date();
@@ -82,12 +81,16 @@ let FunctionManager = (function () {
             return str.substr(0,index) + chr + str.substr(index+1);
         };
 
-        let automationFunction = function(){
-            //Do nothing right now
+        // Used to store automation functions
+        let automationFunctions = {
+            "0": function(){},
+            "1": function(){},
+            "2": function(){},
+            "3": function(){},
         };
 
         let _automate = function(fun){
-            automationFunction = fun;
+            automationFunctions[currNumAutomation-1] = fun;
         };
 
         return{
@@ -141,11 +144,11 @@ let FunctionManager = (function () {
             automate(fun){
                 _automate(fun);
             },
-            // next(){
-            //     _next();
-            // },
-            getAutomationFunction(){
-                return automationFunction;
+            getAutomationFunctions(){
+                return automationFunctions;
+            },
+            setAutomationFunction(key, value) {
+                automationFunctions[key] = value;
             },
             getNumChoices(){
                 return numChoices;
