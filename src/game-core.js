@@ -20,10 +20,24 @@ let commandPrompt;
 
 // Keeping track of whether automation has begun or not
 let isAutomation;
-let automationCode = [];
-let automateLineNums = [];
+
+// Storing automation code and line numbers, as well as max and current numbers of automation
+let automationCode = {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": []
+};
+let automateLineNums = {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": []
+};
 let maxAutomation;
 let currNumAutomation;
+let finishedAutomation;
+let autoError;
 
 let isGameStarted;
 
@@ -152,8 +166,10 @@ function startGame(){
     addPrompt(prompts.StoneAge1.Prompt);
 
     isAutomation = false;
-    maxAutomation = 1;
+    maxAutomation = 2;
     currNumAutomation = 0;
+    finishedAutomation = true;
+    autoError = false;
 
     let d = new Date;
     startTime = d.getTime();
@@ -188,31 +204,51 @@ function update(){
     dm.subtractFromValue("Military", decreaseRates["Military"]);
     dm.subtractFromValue("Science", decreaseRates["Science"]);
 
-    // Constantly update automation code
-    if(automationCode.length === 0) {
-        let automationFunction = FunctionManager.getInstance().getAutomationFunction();
+    // Constantly update automation code - get all automated functions
+    let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();
+    let autoKeys = Object.keys(autoFunctions);
+    for(let key in autoKeys) {
+        // if(finishedAutomation) {
 
-        // Compare stored function to new code to see if different
-        let autoFuncString = automationFunction.toString();
-        let currAutoFunc = function(){};
-        let currAutoCode = "";
-        for(let i = 0; i < automateLineNums.length; i++) {
-            let autoLine = commandPrompt.getLine(automateLineNums[i]).toString();
-            currAutoCode += autoLine;
-        }
+            // Compare stored function to new code to see if different
+            let autoFuncString = autoFunctions[key].toString();
+            let currAutoCode = "";
+            for (let i = 0; i < automateLineNums[key].length; i++) {
+                let autoLine = commandPrompt.getLine(automateLineNums[key][i]).toString();
+                currAutoCode += autoLine;
+            }
 
-        if(autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
-            try{
-                with(FunctionManager.getInstance()) {
-                    eval(currAutoCode.substring(1));
+            // If they're not equal, store as new auto function re-evaluate
+            if (autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
+                try {
+                    with (FunctionManager.getInstance()) {
+                        eval(currAutoCode.substring(1));
+                    }
+                } catch (err) {
+                    //appendText(commandPrompt, "\n" + err);
                 }
             }
-            catch(err) {
-                //appendText(commandPrompt, "\n" + err);
+        //}
+
+        // Execute each function
+        let autoFunction = autoFunctions[key];
+        console.log(autoFunction);
+
+        // Try to execute, but if error, empty
+        try {
+            autoFunction();
+        }
+        catch(err) {
+            if(autoError) {
+                appendText(commandPrompt, "\n" + err + "\n>");
+                automationCode[key] = [];
+                automateLineNums[key] = [];
+                let emptyFunc = function(){};
+                FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
+                currNumAutomation -= 1;
+                autoError = false;
             }
         }
-
-        automationFunction();
     }
 }
 
@@ -409,8 +445,8 @@ function addResult(choice) {
 // Parsing the automation blocks
 function parseAutomation(inputString, cm) {
 
-    automationCode.push(inputString);
-    automateLineNums.push(cm.lineCount() - 1);
+    automationCode[currNumAutomation].push(inputString);
+    automateLineNums[currNumAutomation].push(cm.lineCount() - 1);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -424,22 +460,23 @@ function parseAutomation(inputString, cm) {
     let codeString = "";
 
     // Iterate through lines
-    for(let i = 0; i < automationCode.length; i++) {
+    for(let i = 0; i < automationCode[currNumAutomation].length; i++) {
 
         // // Add all opening and closing curly braces and parentheses to count
-        beginningBraceCount += (automationCode[i].match(new RegExp(/\{/, 'g')) || []).length;
-        endingBraceCount += (automationCode[i].match(new RegExp(/\}/, 'g')) || []).length;
-        beginningParCount += (automationCode[i].match(new RegExp(/\(/, 'g')) || []).length;
-        endingParCount += (automationCode[i].match(new RegExp(/\)/, 'g')) || []).length;
+        beginningBraceCount += (automationCode[currNumAutomation][i].match(new RegExp(/\{/, 'g')) || []).length;
+        endingBraceCount += (automationCode[currNumAutomation][i].match(new RegExp(/\}/, 'g')) || []).length;
+        beginningParCount += (automationCode[currNumAutomation][i].match(new RegExp(/\(/, 'g')) || []).length;
+        endingParCount += (automationCode[currNumAutomation][i].match(new RegExp(/\)/, 'g')) || []).length;
 
         // Add to string
-        codeString += automationCode[i];
+        codeString += automationCode[currNumAutomation][i];
     }
 
     // If valid automation, execute
     if((beginningBraceCount === 0 && endingBraceCount === 0) || (beginningParCount === 0 && endingParCount === 0)) {
         // If not valid method of automation, switch back to main game
-        automationCode = [];
+        automationCode[currNumAutomation] = [];
+        automateLineNums[currNumAutomation] = [];
         switchToMain();
         appendText(commandPrompt, "\n// Please enter some valid code within the automate() command.\n>");
     } else if(beginningBraceCount === endingBraceCount && beginningParCount === endingParCount) {
@@ -449,13 +486,21 @@ function parseAutomation(inputString, cm) {
         try{
             with(FunctionManager.getInstance()) {
                 currNumAutomation += 1;
+                autoError = true;
                 eval(codeString);
             }
         }
         catch(err) {
             appendText(commandPrompt, "\n" + err);
+            automationCode[currNumAutomation] = [];
+            automateLineNums[currNumAutomation] = [];
+            let emptyFunc = function(){};
+            FunctionManager.getInstance().setAutomationFunction(currNumAutomation.toString(), emptyFunc);
+            currNumAutomation -= 1;
         }
-        automationCode = [];
+        console.log(currNumAutomation);
+        console.log("Automated code 0: " + automationCode[0]);
+        console.log("Automated code 1: " + automationCode[1]);
         appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
