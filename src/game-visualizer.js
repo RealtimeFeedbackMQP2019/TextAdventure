@@ -135,6 +135,7 @@ class ComboVisualizer{
         //this._key = key;
         this._barWidth = VALUE_WIDTH;
         this._barSeperation = SPACING;
+        this._ctx.imageSmoothingEnabled = true;
     }
     //Draw visuals:
     drawVisuals(){
@@ -221,6 +222,8 @@ class ComboVisualizer{
         this._ctx.stroke();
     }
 
+
+
     drawLines(basex, boundx, basey, boundy, DataSet, key){
 
         let max = DataManager.getInstance().getValue(key).getMax();
@@ -232,9 +235,7 @@ class ComboVisualizer{
 
         let offsetBase = 0;
         let separation = width / 4;
-        this._ctx.beginPath();
-        this._ctx.lineWidth = 1;
-        this._ctx.strokeStyle = color;
+        let points = [];
         for(let i = 0; i < 5; i++){
             let index = i + length - 5;
             if(length === 0){
@@ -248,14 +249,66 @@ class ComboVisualizer{
             let percentage = DataSet[index][key] / max;
             percentage = Math.min(Math.max(0, percentage), 1);
             let h = (1-percentage) * height;
-            if(i === 0){
-                this._ctx.moveTo(basex + offsetBase + i * separation, basey + h);
-            }else{
-                this._ctx.lineTo(basex + offsetBase + i * separation, basey + h);
-            }
+            points.push({x: basex + offsetBase + i * separation, y: basey + h})
         }
-        //let drawBaseY = basey + values * height;
-        this._ctx.stroke();
+
+        for(let i = 1; i < points.length; i++){
+            this.drawPixelPerfectLine(points[i-1],points[i], color);
+        }
+
+    }
+
+    //credit: Redblobgames
+    drawPixelPerfectLine(p1, p2, color){
+        //First, get the diagonal distance.
+        let dist = this.diagonalDistance(p1, p2);
+        let imgData = this._ctx.getImageData(0,0,this._canvas.width, this._canvas.height);
+        let data = imgData.data;
+        for(let i = 0; i <= dist; i++){
+            let t = dist === 0? 0.0 : i / dist;
+            //points.push();
+            let p = this.roundPoint(this.lerpPoint(p1, p2, t));
+            this.setPixel(data, p.x, p.y, color);
+        }
+        this._ctx.putImageData(imgData, 0, 0);
+    }
+
+    setPixel(data, x, y, color="#FFFFFF") {
+        let n = (y * this._canvas.width + x) * 4;
+        let col = this.hexToRgb(color);
+        data[n] = col.r;
+        data[n + 1] = col.g;
+        data[n + 2] = col.b;
+        data[n + 3] = 255;
+    }
+
+    hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+
+    //credit: Redblobgames
+    roundPoint(p){
+        return {x:Math.round(p.x), y:Math.round(p.y)}
+    }
+
+    //credit: RedBlobGames
+    diagonalDistance(p0, p1) {
+        let dx = p1.x - p0.x, dy = p1.y - p0.y;
+        return Math.max(Math.abs(dx), Math.abs(dy));
+    }
+    //credit: Redblobgames
+    lerpPoint(p0, p1, t){
+        return {x: this.lerp(p0.x, p1.x, t), y: this.lerp(p0.y, p1.y, t)};
+    }
+    //credit: Redblobgames
+    lerp(start, end, t) {
+        return start + t * (end-start);
     }
 
 }

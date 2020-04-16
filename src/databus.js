@@ -276,6 +276,7 @@ class ValueData{
             VDT.image = image;
         };
         image.src = icon;
+        image.crossOrigin = "Anonymous";
     }
 
     getIconStatus(){
