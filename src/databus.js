@@ -4,12 +4,12 @@ let DataManager = (function () {
     function createInstance() {
         //Initialize things here.
         let DataList = {
-            "Hunger": new ValueData("Hunger", 30, 40, "rgba(255,127,0,1.0)"),
-            "Food": new ValueData("Food", 5, 20, "rgba(255,64,0,1.0)"),
-            "Security": new ValueData("Security", 3, 5, "rgba(0,127,255,1.0)"),
-            "Population": new ValueData("Population", 200, 1000, "rgba(0,255,64,1.0)"),
-            "Military": new ValueData("Military", 100, 100, "rgba(255,0,127,1.0)"),
-            "Science": new ValueData("Science", 50, 50, "rgba(127,0,255,1.0)")
+            "Hunger": new ValueData("Hunger", 30, 40, "#e64747", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_hunger.png"),
+            "Food": new ValueData("Food", 5, 20, "#e69647", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_food.png"),
+            "Security": new ValueData("Security", 3, 5, "#478ee6", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_security.png"),
+            "Population": new ValueData("Population", 200, 1000, "#b0e647", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_population.png"),
+            "Military": new ValueData("Military", 100, 100, "#e64796", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_military.png"),
+            "Science": new ValueData("Science", 50, 50, "#a547e6", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_science.png")
         };
 
         // Decrease rates
@@ -218,12 +218,16 @@ let DataManager = (function () {
 
 
 class ValueData{
-    constructor(name, value, max, color){
+    constructor(name, value, max, color, icon){
         this._name = name;
         this._value = value;
         this._max = max;
         this._color = color;
         this._displayValue = value;
+        this.iconReady = false;
+        this.image = null;
+        this.setIcon(icon);
+
     }
 
     getName(){
@@ -258,6 +262,24 @@ class ValueData{
 
     setValue(value){
         this._value = value;
+    }
+
+    getIcon(){
+        return this.image;
+    }
+
+    setIcon(icon){
+        this._icon = icon;
+        let image = new Image();
+        var VDT = this;
+        image.onload = function(){
+            VDT.image = image;
+        };
+        image.src = icon;
+    }
+
+    getIconStatus(){
+        return this.iconReady;
     }
 
 
