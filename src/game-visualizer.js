@@ -116,14 +116,14 @@ class TimerVisualizer{
     }
 }
 
-const VALUE_WIDTH = 9;
-const SPACING = 4;
-const ICON_WIDTH = 7;
-const ICON_HEIGHT = 6;
+const VALUE_WIDTH = 12;
+const SPACING = 6;
+const ICON_WIDTH = 8;
+const ICON_HEIGHT = 7;
 
 const LINEGRAPH_WIDTH = 30;
-const LINEGRAPH_HEIGHT = 8;
-const LINEGRAPH_ORIGIN = 2;
+const LINEGRAPH_HEIGHT = 7;
+const LINEGRAPH_ORIGIN = 1;
 const LINEGRAPH_SPACING = 3;
 
 
@@ -152,7 +152,7 @@ class ComboVisualizer{
             let boundy = this._canvas.height;
 
             //This is working!
-            this.drawIcon(posx + 1, 0, x);
+            this.drawIcon(posx + 2, 0, x);
             this.drawBarGraph(posx+0.5, boundx+0.5, posy, boundy, x, true);
 
             //Now for the line graphs
@@ -164,14 +164,14 @@ class ComboVisualizer{
 
             }
             else{
-                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING;
+                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING - 1;
             }
 
             this.drawIcon(lgpos_x, lgpos_y, x);
 
             let DataSet = DataManager.getInstance().getPromptDataHistory();
             this.drawLines(lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING, lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING+LINEGRAPH_WIDTH,
-                lgpos_y, lgpos_y+LINEGRAPH_HEIGHT, DataSet, x);
+                lgpos_y - 1, lgpos_y+LINEGRAPH_HEIGHT - 1, DataSet, x);
             index += 1;
         }
     }
@@ -188,7 +188,7 @@ class ComboVisualizer{
         let drawBaseY = y + (1-gPercentage) * gHeight;
 
         this._ctx.fillStyle = color;
-        this._ctx.fillRect(x, drawBaseY, gWidth, gHeight * gPercentage);
+        this._ctx.fillRect(x, drawBaseY, gWidth-1, gHeight * gPercentage);
 
         if(dopreview){
             let param = DataManager.getInstance().getPreviewValues();
@@ -196,12 +196,12 @@ class ComboVisualizer{
                 let incrprecent = gHeight * param[key] / dataval.getMax();
                 let ypos = drawBaseY - incrprecent;
                 if(ypos < y) ypos = y;
-                this.drawLine({x:x, y:ypos}, {x:xl, y:ypos});
+                this.drawLine({x:x, y:ypos}, {x:xl-1, y:ypos});
             }
         }
 
         this.drawLine({x: x, y: y}, {x: x, y: yl});
-        this.drawLine({x: xl, y: y}, {x: xl, y: yl});
+        this.drawLine({x: xl-1, y: y}, {x: xl-1, y: yl});
     }
 
 

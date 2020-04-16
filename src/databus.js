@@ -4,12 +4,12 @@ let DataManager = (function () {
     function createInstance() {
         //Initialize things here.
         let DataList = {
-            "Hunger": new ValueData("Hunger", 30, 40, "#e64747", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_hunger.png"),
-            "Food": new ValueData("Food", 5, 20, "#e69647", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_food.png"),
-            "Security": new ValueData("Security", 3, 5, "#478ee6", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_security.png"),
-            "Population": new ValueData("Population", 200, 1000, "#b0e647", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_population.png"),
-            "Military": new ValueData("Military", 100, 100, "#e64796", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_military.png"),
-            "Science": new ValueData("Science", 50, 50, "#a547e6", "https://realtimefeedbackmqp2019.github.io/TextAdventure/Icons/ico_science.png")
+            "Hunger": new ValueData("Hunger", 30, 40, "#e64747", "Icons/ico_hunger.png"),
+            "Food": new ValueData("Food", 5, 20, "#e69647", "Icons/ico_food.png"),
+            "Security": new ValueData("Security", 3, 5, "#478ee6", "Icons/ico_security.png"),
+            "Population": new ValueData("Population", 200, 1000, "#b0e647", "Icons/ico_population.png"),
+            "Military": new ValueData("Military", 100, 100, "#e64796", "Icons/ico_military.png"),
+            "Science": new ValueData("Science", 50, 50, "#a547e6", "Icons/ico_science.png")
         };
 
         // Decrease rates
