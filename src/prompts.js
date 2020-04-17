@@ -333,7 +333,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 1,
-                "Military": 1,
+                "Military": 5,
                 "Science": 30,
                 "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! \n" +
                     "//      He speaks of a land beyond the vast ocean! Wow! \n\n"
@@ -364,7 +364,7 @@ const prompts = {
                 "Food": -3,
                 "Security": 0,
                 "Population": -50,
-                "Military": 1,
+                "Military": 10,
                 "Science": 20,
                 "Result" : "// The ocean toad takes one look at fleeing citizens and uses its lengthy tongue to scoop \n" +
                     "//      up many of them. Both the toad and the people are never heard from again. \n\n"
@@ -430,7 +430,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": -150,
-                "Military": 1,
+                "Military": 10,
                 "Science": 30,
                 "Result" : "// Breathing in coal all day kinda sucks, but we\'ve made so many cool things! \n\n"
             }],
@@ -469,7 +469,7 @@ const prompts = {
             "Security": 1,
             "Population": -50,
             "Military": 20,
-            "Science": 0,
+            "Science": -10,
             "Result" : "// That went as expected, September 20th goes down in history as a massacre. \n\n"
         },{
             "Food": 1,
@@ -489,7 +489,7 @@ const prompts = {
         "Choice": [{
             "Food": 10,
             "Security": 0,
-            "Population": 0,
+            "Population": 50,
             "Military": 0,
             "Science": 40,
             "Result" : "// Wow these fish are fascinating! We can learn so much from these mysterious fishies \n\n"
@@ -554,13 +554,13 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": -10,
-                "Military": 1,
+                "Military": 5,
                 "Science": 35,
                 "Result" : "// People can live on Mars! With some small modifications...may have cost a few lives... \n\n"
             },{
                 "Food": 0,
                 "Security": -1,
-                "Population": 20,
+                "Population": 50,
                 "Military": 5,
                 "Science": 5,
                 "Result" : "// Doing what humans have always done, staying on Earth! \n\n"
@@ -583,7 +583,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 5,
-                "Military": 1,
+                "Military": 5,
                 "Science": 1,
                 "Result" : "// Things continue as normal.  \n\n"
             }],
@@ -597,7 +597,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 50,
-                "Military": 1,
+                "Military": 5,
                 "Science": -10,
                 "Result" : "// The scientists are disappointed they couldn\'t test their theories and put them in \n" +
                     "//      action, maybe another time?. \n\n"
@@ -642,14 +642,14 @@ const prompts = {
                 "Food": 1,
                 "Security": -1,
                 "Population": 1,
-                "Military": 1,
+                "Military": 10,
                 "Science": 35,
                 "Result" : "// something... \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
                 "Population": 5,
-                "Military": 1,
+                "Military": 25,
                 "Science": -5,
                 "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad \n" +
                     "//      for you, they\'re on the way. \n\n"
