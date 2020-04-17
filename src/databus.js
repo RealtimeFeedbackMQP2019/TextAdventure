@@ -26,10 +26,10 @@ let DataManager = (function () {
         let PromptDataHistory = [];
 
         // Main timer
-        let timer = new TimerVisualizer(document.getElementById("timer"),45);
+        let timer = new TimerVisualizer(document.getElementById("timer"),45, "#00FF7F");
 
         // Automation timer
-        let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120);
+        let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120, "#FFFF00");
 
         // Set timers
         if(isGameStarted) {
