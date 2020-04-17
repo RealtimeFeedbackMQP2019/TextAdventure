@@ -116,6 +116,16 @@ class TimerVisualizer{
     }
 }
 
+const VALUE_WIDTH = 12;
+const SPACING = 6;
+const ICON_WIDTH = 8;
+const ICON_HEIGHT = 7;
+
+const LINEGRAPH_WIDTH = 30;
+const LINEGRAPH_HEIGHT = 7;
+const LINEGRAPH_ORIGIN = 1;
+const LINEGRAPH_SPACING = 3;
+
 
 class ComboVisualizer{
     constructor(canvas, barWidth, barSeparation){
@@ -123,63 +133,109 @@ class ComboVisualizer{
 
         this._ctx = canvas.getContext("2d");
         //this._key = key;
-        this._barWidth = barWidth;
-        this._barSeperation = barSeparation;
+        this._barWidth = VALUE_WIDTH;
+        this._barSeperation = SPACING;
+        this._ctx.imageSmoothingEnabled = true;
     }
     //Draw visuals:
     drawVisuals(){
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+
         let index = 0;
+        let lgpos_x = LIST_OF_VALS.length * this._barWidth + this._barSeperation * (LIST_OF_VALS.length + 1);
+        let lgpos_y = LINEGRAPH_ORIGIN;
         for(let x of LIST_OF_VALS){
-            let dataval = DataManager.getInstance().getDataList()[x];
 
             let posx = index * this._barWidth + this._barSeperation * (index + 1);
             let boundx = posx + this._barWidth;
-            let posy = 0;
+            let posy = 7;
             let boundy = this._canvas.height;
-            this.drawSquare(posx, boundx, posy, boundy, x, dataval.getColor(x));
+
+            //This is working!
+            this.drawIcon(posx + 2, 0, x);
+            this.drawBarGraph(posx+0.5, boundx+0.5, posy, boundy, x, true);
+
+            //Now for the line graphs
+            if(index % 3 === 0){
+                lgpos_y = LINEGRAPH_ORIGIN;
+                if(index !== 0){
+                    lgpos_x += ICON_WIDTH+LINEGRAPH_WIDTH+LINEGRAPH_SPACING * 2;
+                }
+
+            }
+            else{
+                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING - 1;
+            }
+
+            this.drawIcon(lgpos_x, lgpos_y, x);
+
             let DataSet = DataManager.getInstance().getPromptDataHistory();
-            this.drawLines(posx, boundx, posy, boundy, DataSet, x, "#FFFFFFFF");
+            this.drawLines(lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING, lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING+LINEGRAPH_WIDTH,
+                lgpos_y - 1, lgpos_y+LINEGRAPH_HEIGHT - 1, DataSet, x);
             index += 1;
         }
     }
-    drawSquare(basex, boundx, basey, boundy, key, color, dopreview=true){
-        let dataval = DataManager.getInstance().getDataList()[key];
-        let percentage = (dataval.getDisplayValue() / dataval.getMax());
-        let height = boundy - basey;
-        let width = boundx - basex;
 
-        let drawBaseY = basey + (1-percentage) * height;
+    drawBarGraph(x,xl,y,yl,key,dopreview=false){
+        //draw boundaries
+        let dataval = DataManager.getInstance().getDataList()[key];
+        let color = dataval.getColor();
+        let gHeight = yl - y;
+        let gWidth = xl - x;
+
+        let gPercentage = (dataval.getDisplayValue() / dataval.getMax());
+        gPercentage = Math.min(Math.max(0, gPercentage), 1);
+        let drawBaseY = y + (1-gPercentage) * gHeight;
 
         this._ctx.fillStyle = color;
-        //this._ctx.strokeStyle = "rgba(1,1,1,0)"; //remove line color
-        this._ctx.fillRect(basex, drawBaseY, width, height * percentage);
-        //this._ctx
+        this._ctx.fillRect(x, drawBaseY, gWidth-1, gHeight * gPercentage);
 
         if(dopreview){
             let param = DataManager.getInstance().getPreviewValues();
             if(param != null && param.hasOwnProperty(key)){
-                this._ctx.fillStyle = "#FFFFFF00";
-                this._ctx.strokeStyle = "#FFFFFF";
-                let incrprecent = height * param[key] / dataval.getMax();
-                this._ctx.strokeRect(basex, drawBaseY - incrprecent, width, incrprecent);
-                //console.log(height - incrheight);
+                let incrprecent = gHeight * param[key] / dataval.getMax();
+                let ypos = drawBaseY - incrprecent;
+                if(ypos < y) ypos = y;
+                this.drawLine({x:x, y:ypos}, {x:xl-1, y:ypos});
             }
         }
-    }
-    drawLines(basex, boundx, basey, boundy, DataSet, key, color){
-        let max = DataManager.getInstance().getValue(key).getMax();
-        let length = DataSet.length;
 
+        this.drawLine({x: x, y: y}, {x: x, y: yl});
+        this.drawLine({x: xl-1, y: y}, {x: xl-1, y: yl});
+    }
+
+
+    drawIcon(x,y,key){
+        let dataval = DataManager.getInstance().getDataList()[key];
+        let icon = dataval.getIcon();
+        if(icon != null){
+            this._ctx.drawImage(icon, x, y, ICON_WIDTH, ICON_HEIGHT);
+        }
+    }
+
+    drawLine(s1, s2, width=1, col="#FFFFFF"){
+        this._ctx.strokeStyle = col;
+        this._ctx.lineWidth = width;
+        this._ctx.beginPath();
+        this._ctx.moveTo(s1.x,s1.y);
+        this._ctx.lineTo(s2.x,s2.y);
+        this._ctx.stroke();
+    }
+
+
+
+    drawLines(basex, boundx, basey, boundy, DataSet, key){
+
+        let max = DataManager.getInstance().getValue(key).getMax();
+        let color = DataManager.getInstance().getDataList()[key].getColor();
+        let length = DataSet.length;
 
         let height = boundy - basey;
         let width = boundx - basex;
 
         let offsetBase = 0;
         let separation = width / 4;
-        this._ctx.beginPath();
-        this._ctx.lineWidth = 1;
-        this._ctx.strokeStyle = color;
+        let points = [];
         for(let i = 0; i < 5; i++){
             let index = i + length - 5;
             if(length === 0){
@@ -190,135 +246,69 @@ class ComboVisualizer{
                     index = 0;
                 }
             }
-            let precentage = DataSet[index][key] / max;
-            let h = (1-precentage) * height;
-            if(i === 0){
-                this._ctx.moveTo(basex + offsetBase + i * separation, basey + h);
-            }else{
-                this._ctx.lineTo(basex + offsetBase + i * separation, basey + h);
-            }
+            let percentage = DataSet[index][key] / max;
+            percentage = Math.min(Math.max(0, percentage), 1);
+            let h = (1-percentage) * height;
+            points.push({x: basex + offsetBase + i * separation, y: basey + h})
         }
-        //let drawBaseY = basey + values * height;
-        this._ctx.stroke();
+
+        for(let i = 1; i < points.length; i++){
+            this.drawPixelPerfectLine(points[i-1],points[i], color);
+        }
+
+    }
+
+    //credit: Redblobgames
+    drawPixelPerfectLine(p1, p2, color){
+        //First, get the diagonal distance.
+        let dist = this.diagonalDistance(p1, p2);
+        let imgData = this._ctx.getImageData(0,0,this._canvas.width, this._canvas.height);
+        let data = imgData.data;
+        for(let i = 0; i <= dist; i++){
+            let t = dist === 0? 0.0 : i / dist;
+            //points.push();
+            let p = this.roundPoint(this.lerpPoint(p1, p2, t));
+            this.setPixel(data, p.x, p.y, color);
+        }
+        this._ctx.putImageData(imgData, 0, 0);
+    }
+
+    setPixel(data, x, y, color="#FFFFFF") {
+        let n = (y * this._canvas.width + x) * 4;
+        let col = this.hexToRgb(color);
+        data[n] = col.r;
+        data[n + 1] = col.g;
+        data[n + 2] = col.b;
+        data[n + 3] = 255;
+    }
+
+    hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+
+    //credit: Redblobgames
+    roundPoint(p){
+        return {x:Math.round(p.x), y:Math.round(p.y)}
+    }
+
+    //credit: RedBlobGames
+    diagonalDistance(p0, p1) {
+        let dx = p1.x - p0.x, dy = p1.y - p0.y;
+        return Math.max(Math.abs(dx), Math.abs(dy));
+    }
+    //credit: Redblobgames
+    lerpPoint(p0, p1, t){
+        return {x: this.lerp(p0.x, p1.x, t), y: this.lerp(p0.y, p1.y, t)};
+    }
+    //credit: Redblobgames
+    lerp(start, end, t) {
+        return start + t * (end-start);
     }
 
 }
-
-
-class HyperGraphVisualizer{
-    //A hyper graph is a graph that shows the trendline and the current value.
-    constructor(canvas, key){
-
-    }
-}
-
-class LineGraphVisualizer{
-    constructor(canvas, key){
-        this._canvas = canvas;
-
-        this._ctx = canvas.getContext("2d");
-        this._key = key;
-    }
-    drawVisuals(){
-        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
-        let DataSet = DataManager.getInstance().getPromptDataHistory();
-        this.DataSet = DataSet;
-        let length = DataSet.length;
-        let base = 0;
-        let separation;
-        if(length === 0 || length === 1){
-            base = 0.5 * this._canvas.width;
-            separation = 1;
-        }
-        else{
-            separation = this._canvas.width / (length - 1);
-        }
-
-
-
-
-        for(let key of this._key){
-            let max = DataManager.getInstance().getValue(key).getMax();
-
-            this._ctx.lineWidth = 1;
-            this._ctx.strokeStyle = DataManager.getInstance().getValue(key).getColor();
-            this._ctx.beginPath();
-            for(let i = 0; i < length; i++){
-                let precentage = DataSet[i][key] / max;
-                let height = (1-precentage) * this._canvas.height;
-                if(i === 0){
-                    this._ctx.moveTo(base + i * separation, height);
-                }else{
-                    this._ctx.lineTo(base + i * separation, height);
-                }
-            }
-            this._ctx.stroke();
-
-            for(let i = 0; i < length; i++){
-                if(i === 0 || i === length - 1){
-                    let precentage = DataSet[i][key] / max;
-                    let height = (1-precentage) * this._canvas.height;
-                    this.drawCircle(base + i*separation, height, DataManager.getInstance().getValue(key).getColor(), 2);
-                }
-
-            }
-        }
-    }
-    drawCircle(centerx, centery, color, radius){
-
-        this._ctx.beginPath();
-        this._ctx.arc(centerx, centery, Math.min(this._canvas.height / 2 - 3,radius), 0, (2 * Math.PI));
-
-        this._ctx.fillStyle = color;
-        this._ctx.strokeStyle = "rgba(1,1,1,0)"
-        this._ctx.fill();
-
-    }
-}
-
-/*
-class CircularVisualizer{
-    constructor(canvas, circleRadius, circleSeparation){
-        this._canvas = canvas;
-        this._ctx = canvas.getContext("2d");
-        this._radius = circleRadius / 2;
-        this._circleSeparation = circleSeparation;
-
-    }
-
-    drawVisuals(value){
-        let index = 0;
-        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height); // clear canvas
-        for(let x of LIST_OF_VALS){
-            let dataval = DataManager.getInstance().getDataList()[x];
-            let percentage = dataval.getDisplayValue() / dataval.getMax();
-
-            this.drawHollowCircle((index + 1) * (this._radius * 2) + this._circleSeparation * (index + 1),
-                this._canvas.height / 2, percentage, dataval.getColor());
-            index += 1;
-        }
-    }
-
-    drawHollowCircle(centerx, centery, percentage, color){
-
-        this._ctx.beginPath();
-        this._ctx.arc(centerx, centery, Math.min(this._canvas.height / 2 - 3,this._radius), 0 - 0.5 * Math.PI, (2 * Math.PI) * percentage  - 0.5 * Math.PI);
-
-        this._ctx.fillStyle = "rgba(1,1,1,0)";
-        this._ctx.lineWidth = 3;
-        this._ctx.strokeStyle = color;
-        this._ctx.stroke();
-
-    }
-
-    clamp(min,val,max){
-        return Math.min(Math.max(min, val), max)
-    }
-}
-
-
-class StockMarketVisualizer{
-    constructor(canvas, fontSize){
-
-    }
-}*/

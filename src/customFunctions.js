@@ -26,21 +26,12 @@ let FunctionManager = (function () {
             }
         };
 
-        let _overview = function(){
-            appendText(commandPrompt, "This is your performance over the last few prompts: ");
-            createVisualizer(commandPrompt,  drawOverview(LIST_OF_VALS, commandPrompt.defaultTextHeight()));
-        };
-
         let _choose = function(val){
             console.log("HIIII!");
             clearInterval(securityTickUpdate);
             createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
             changeStats(currPrompt.Choice[val - 1]);
             DataManager.getInstance().addPromptDataHistory();
-
-            if(promptCount %5 === 0 && promptCount !== 0){
-                _overview();
-            }
 
             addResult(currPrompt.Choice[val - 1].Result);
             getNextPrompt();
@@ -68,7 +59,6 @@ let FunctionManager = (function () {
             }, 2000);
 
             promptCount += 1;
-            isAutomationFull = false;
 
             // Reset start time
             let d = new Date();
@@ -84,12 +74,16 @@ let FunctionManager = (function () {
             return str.substr(0,index) + chr + str.substr(index+1);
         };
 
-        let automationFunction = function(){
-            //Do nothing right now
+        // Used to store automation functions
+        let automationFunctions = {
+            "0": function(){},
+            "1": function(){},
+            "2": function(){},
+            "3": function(){},
         };
 
         let _automate = function(fun){
-            automationFunction = fun;
+            automationFunctions[currNumAutomation-1] = fun;
         };
 
         return{
@@ -143,11 +137,11 @@ let FunctionManager = (function () {
             automate(fun){
                 _automate(fun);
             },
-            // next(){
-            //     _next();
-            // },
-            getAutomationFunction(){
-                return automationFunction;
+            getAutomationFunctions(){
+                return automationFunctions;
+            },
+            setAutomationFunction(key, value) {
+                automationFunctions[key] = value;
             },
             getNumChoices(){
                 return numChoices;
