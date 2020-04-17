@@ -644,7 +644,7 @@ const prompts = {
                 "Population": 1,
                 "Military": 10,
                 "Science": 35,
-                "Result" : "// something... \n\n"
+                "Result" : "// Hmm fascinating, it say's to expect company shortly! How exciting! \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
