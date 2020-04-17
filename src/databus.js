@@ -78,7 +78,7 @@ let DataManager = (function () {
                 if(DataList["Hunger"].getValue() <= 0){
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
-                    appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER");
+                    appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER \n");
                     this.pauseTimer();
                     //console.log("hello in thereaaaaaaaaaaaaaaaaa");
                     //write to firebase - get current age stats even if age isnt over
