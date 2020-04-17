@@ -444,14 +444,14 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": -100,
-                "Military": 1,
+                "Military": 5,
                 "Science": -20,
                 "Result" : "// Wow, people these days can cause such a ruckus. They\'ll believe anything! \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
                 "Population": 5,
-                "Military": 1,
+                "Military": 5,
                 "Science": -20,
                 "Result" : "// Wow, people these days will believe anything, even proven science. \n\n"
             }],

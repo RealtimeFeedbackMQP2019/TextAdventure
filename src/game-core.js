@@ -188,7 +188,7 @@ function update(){
     if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
     } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
-        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 10]);
+        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 5]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
         dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
