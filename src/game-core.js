@@ -40,6 +40,7 @@ let finishedAutomation;
 let autoError;
 
 let isGameStarted;
+let gameRunning;
 
 let introTimers = [];
 
@@ -170,6 +171,7 @@ function startGame(){
     currNumAutomation = 0;
     finishedAutomation = true;
     autoError = false;
+    gameRunning = true;
 
     let d = new Date;
     startTime = d.getTime();
@@ -185,6 +187,9 @@ function update(){
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
 
+    // Always check for game status first
+    dm.checkGameStatus();
+
     if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
     } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
@@ -197,12 +202,14 @@ function update(){
         dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
     }
 
-    // Constantly subtract current decrease rates
-    let decreaseRates = dm.getDecreaseRates();
-    dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
-    dm.subtractFromValue("Population", decreaseRates["Population"]);
-    dm.subtractFromValue("Military", decreaseRates["Military"]);
-    dm.subtractFromValue("Science", decreaseRates["Science"]);
+    // Constantly subtract current decrease rates (unless game win/lose condition)
+    if(gameRunning) {
+        let decreaseRates = dm.getDecreaseRates();
+        dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
+        dm.subtractFromValue("Population", decreaseRates["Population"]);
+        dm.subtractFromValue("Military", decreaseRates["Military"]);
+        dm.subtractFromValue("Science", decreaseRates["Science"]);
+    }
 
     // Constantly update automation code - get all automated functions
     let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();

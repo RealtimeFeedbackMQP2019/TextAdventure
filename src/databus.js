@@ -61,7 +61,7 @@ let DataManager = (function () {
                     {stat:key, value:value}
                     ));
                 this.updateDisplayVariables();
-                this.checkGameStatus();
+                // this.checkGameStatus();
             },
 
             subtractFromValue(key, value){
@@ -76,6 +76,7 @@ let DataManager = (function () {
             checkGameStatus(){
                 // Check for game loss condition
                 if(DataList["Hunger"].getValue() <= 0){
+                    gameRunning = false;
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER \n");
