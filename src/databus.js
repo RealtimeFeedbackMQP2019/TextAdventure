@@ -90,12 +90,13 @@ let DataManager = (function () {
                     //document.getElementById("textEditorBox").style.pointerEvents = "none";
                 }
 
+                //console.log(currPrompt);
                 // Check for game win condition
-                if(currPrompt === "finish") {
+                if(currPrompt === prompts.finish) {
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
+                    appendText(commandPrompt, "// Yay, you did it! We can go back home to our normal time! Great job! \n");
                     this.pauseTimer();
-                    appendText(commandPrompt, "// Yay, you did it! We can go back home to our normal time! Great job!");
                     //write to firebase - get current age stats even if age isnt over
                     ageList.push(ageChoices);
                     //sleep(14000);
