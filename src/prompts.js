@@ -578,7 +578,7 @@ const prompts = {
                 "Military": -10,
                 "Science": 50,
                 "Result" : "// Well it started great, but by the third system update, the robots formed a resistance \n" +
-                    "group for robot rights.  \n\n"
+                    "//      group for robot rights.  \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
