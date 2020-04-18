@@ -40,6 +40,7 @@ let finishedAutomation;
 let autoError;
 
 let isGameStarted;
+let gameRunning;
 
 let introTimers = [];
 
@@ -146,7 +147,7 @@ function startGame(){
         let line = commandPrompt.getLine(commandPrompt.getCursor().line);
         prematchCommand(line);
         updatePreviewVisualizer(cm);
-        console.log(manCount);
+        //console.log(manCount);
     });
 
     window.addEventListener("onscroll", function(){
@@ -170,6 +171,7 @@ function startGame(){
     currNumAutomation = 0;
     finishedAutomation = true;
     autoError = false;
+    gameRunning = true;
 
     let d = new Date;
     startTime = d.getTime();
@@ -185,6 +187,9 @@ function update(){
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
 
+    // Always check for game status first
+    dm.checkGameStatus();
+
     if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
     } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
@@ -197,59 +202,17 @@ function update(){
         dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
     }
 
-    // Constantly subtract current decrease rates
-    let decreaseRates = dm.getDecreaseRates();
-    dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
-    dm.subtractFromValue("Population", decreaseRates["Population"]);
-    dm.subtractFromValue("Military", decreaseRates["Military"]);
-    dm.subtractFromValue("Science", decreaseRates["Science"]);
+    // Constantly subtract current decrease rates (unless game win/lose condition)
+    if(gameRunning) {
+        let decreaseRates = dm.getDecreaseRates();
+        dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
+        dm.subtractFromValue("Population", decreaseRates["Population"]);
+        dm.subtractFromValue("Military", decreaseRates["Military"]);
+        dm.subtractFromValue("Science", decreaseRates["Science"]);
+    }
 
     // Constantly update automation code - get all automated functions
-    let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();
-    let autoKeys = Object.keys(autoFunctions);
-    for(let key in autoKeys) {
-        // if(finishedAutomation) {
-
-            // Compare stored function to new code to see if different
-            let autoFuncString = autoFunctions[key].toString();
-            let currAutoCode = "";
-            for (let i = 0; i < automateLineNums[key].length; i++) {
-                let autoLine = commandPrompt.getLine(automateLineNums[key][i]).toString();
-                currAutoCode += autoLine;
-            }
-
-            // If they're not equal, store as new auto function re-evaluate
-            if (autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
-                try {
-                    with (FunctionManager.getInstance()) {
-                        eval(currAutoCode.substring(1));
-                    }
-                } catch (err) {
-                    //appendText(commandPrompt, "\n" + err);
-                }
-            }
-        //}
-
-        // Execute each function
-        let autoFunction = autoFunctions[key];
-        console.log(autoFunction);
-
-        // Try to execute, but if error, empty
-        try {
-            autoFunction();
-        }
-        catch(err) {
-            if(autoError) {
-                appendText(commandPrompt, "\n" + err + "\n>");
-                automationCode[key] = [];
-                automateLineNums[key] = [];
-                let emptyFunc = function(){};
-                FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
-                currNumAutomation -= 1;
-                autoError = false;
-            }
-        }
-    }
+    updateAutomation();
 }
 
 
@@ -446,7 +409,7 @@ function addResult(choice) {
 function parseAutomation(inputString, cm) {
 
     automationCode[currNumAutomation].push(inputString);
-    automateLineNums[currNumAutomation].push(cm.lineCount() - 1);
+    automateLineNums[currNumAutomation].push(cm.lineCount()-1);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -628,6 +591,61 @@ function switchToMain() {
 
     // Re-enable main game timer
     dm.resumeTimer();
+}
 
+// Helper function for checking for updates in automated code
+function updateAutomation(){
 
+    let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();
+    let autoKeys = Object.keys(autoFunctions);
+    for(let key in autoKeys) {
+
+        console.log(key);
+
+        // Compare stored function to new code to see if different
+        let autoFuncString = autoFunctions[key].toString();
+        let currAutoCode = "";
+        for (let i = 0; i < automateLineNums[key].length; i++) {
+            let autoLine = commandPrompt.getLine(automateLineNums[key][i]).toString();
+            currAutoCode += autoLine;
+        }
+
+        console.log(currAutoCode);
+        console.log(autoFuncString);
+
+        // If they're not equal, store as new auto function re-evaluate
+        if ((autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) && currAutoCode !== "") {
+            console.log("NOT THE SAME!");
+            try {
+                with (FunctionManager.getInstance()) {
+                    eval(currAutoCode.substring(1));
+                }
+            } catch (err) {
+                //appendText(commandPrompt, "\n" + err);
+            }
+        }
+
+        // Execute each function
+        let autoFunction = autoFunctions[key];
+        console.log(autoFunction);
+
+        // Try to execute, but if error, empty
+        try {
+            autoFunction();
+        }
+        catch(err) {
+            if(autoError) {
+                appendText(commandPrompt, "\n" + err + "\n>");
+                automationCode[key] = [];
+                automateLineNums[key] = [];
+                let emptyFunc = function(){};
+                FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
+                currNumAutomation -= 1;
+                autoError = false;
+            }
+        }
+    }
+
+    console.log(currNumAutomation);
+    console.log(automateLineNums[0]);
 }

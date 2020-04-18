@@ -26,10 +26,10 @@ let DataManager = (function () {
         let PromptDataHistory = [];
 
         // Main timer
-        let timer = new TimerVisualizer(document.getElementById("timer"),45);
+        let timer = new TimerVisualizer(document.getElementById("timer"),45, "#00FF7F");
 
         // Automation timer
-        let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120);
+        let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120, "#FFFF00");
 
         // Set timers
         if(isGameStarted) {
@@ -61,7 +61,7 @@ let DataManager = (function () {
                     {stat:key, value:value}
                     ));
                 this.updateDisplayVariables();
-                this.checkGameStatus();
+                // this.checkGameStatus();
             },
 
             subtractFromValue(key, value){
@@ -76,6 +76,7 @@ let DataManager = (function () {
             checkGameStatus(){
                 // Check for game loss condition
                 if(DataList["Hunger"].getValue() <= 0){
+                    gameRunning = false;
                     clearInterval(gameTickUpdate);
                     clearInterval(securityTickUpdate);
                     appendText(commandPrompt, "// Oh, you're not looking so good, guess we're stuck here forever...GAME OVER \n");
