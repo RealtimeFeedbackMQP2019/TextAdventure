@@ -450,6 +450,7 @@ function parseAutomation(inputString, cm) {
             with(FunctionManager.getInstance()) {
                 currNumAutomation += 1;
                 autoError = true;
+                FunctionManager.getInstance().setCurrAutoIndex(currNumAutomation-1);
                 eval(codeString);
             }
         }
@@ -461,9 +462,6 @@ function parseAutomation(inputString, cm) {
             FunctionManager.getInstance().setAutomationFunction(currNumAutomation.toString(), emptyFunc);
             currNumAutomation -= 1;
         }
-        console.log(currNumAutomation);
-        console.log("Automated code 0: " + automationCode[0]);
-        console.log("Automated code 1: " + automationCode[1]);
         appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
@@ -612,16 +610,19 @@ function updateAutomation(){
 
         console.log(currAutoCode);
         console.log(autoFuncString);
+        //console.log(automationCode[0]);
 
         // If they're not equal, store as new auto function re-evaluate
         if ((autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) && currAutoCode !== "") {
             console.log("NOT THE SAME!");
             try {
                 with (FunctionManager.getInstance()) {
+                    FunctionManager.getInstance().setCurrAutoIndex(parseInt(key));
                     eval(currAutoCode.substring(1));
+                    autoError = true;
                 }
             } catch (err) {
-                //appendText(commandPrompt, "\n" + err);
+                appendText(commandPrompt, "\n" + err);
             }
         }
 

@@ -89,8 +89,11 @@ let FunctionManager = (function () {
             "3": function(){},
         };
 
+        // Index of currently-evaluated automation function
+        let currAutoIndex = -1;
+
         let _automate = function(fun){
-            automationFunctions[currNumAutomation-1] = fun;
+            automationFunctions[currAutoIndex] = fun;
         };
 
         return{
@@ -156,6 +159,12 @@ let FunctionManager = (function () {
             setNumChoices(num){
                 numChoices = num;
             },
+            getCurrAutoIndex(){
+                return currAutoIndex;
+            },
+            setCurrAutoIndex(index){
+                currAutoIndex = index;
+            }
         }
     }
 
