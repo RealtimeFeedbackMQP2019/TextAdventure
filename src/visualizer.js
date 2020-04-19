@@ -33,7 +33,7 @@ function drawSnapshot(height){
     snapshotCanvas.height = height;
     snapshotCanvas.width = 400;
 
-    let visualizer = new ComboVisualizer(previewCanvas, BAR_MAX_WIDTH, BAR_DIST, true);
+    let visualizer = new ComboVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, true);
     visualizer.drawVisuals();
 
     snapshotIndex += 1;
