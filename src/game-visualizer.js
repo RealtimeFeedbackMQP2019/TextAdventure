@@ -124,7 +124,7 @@ const LINEGRAPH_HEIGHT = 7;
 const LINEGRAPH_ORIGIN = -1;
 const LINEGRAPH_SPACING = 4;
 
-const VALUE_WIDTH = 25;
+const VALUE_WIDTH = 30;
 const SPACING = 13;
 const ICON_WIDTH = 14;
 const ICON_HEIGHT = 11;
