@@ -116,15 +116,15 @@ class TimerVisualizer{
     }
 }
 
-const VALUE_WIDTH = 12;
-const SPACING = 6;
-const ICON_WIDTH = 8;
-const ICON_HEIGHT = 7;
+const VALUE_WIDTH = 16;
+const SPACING = 4;
+const ICON_WIDTH = 12;
+const ICON_HEIGHT = 9;
 
 const LINEGRAPH_WIDTH = 30;
 const LINEGRAPH_HEIGHT = 7;
-const LINEGRAPH_ORIGIN = 1;
-const LINEGRAPH_SPACING = 3;
+const LINEGRAPH_ORIGIN = 0;
+const LINEGRAPH_SPACING = 4;
 
 
 class ComboVisualizer{
@@ -148,7 +148,7 @@ class ComboVisualizer{
 
             let posx = index * this._barWidth + this._barSeperation * (index + 1);
             let boundx = posx + this._barWidth;
-            let posy = 7;
+            let posy = ICON_HEIGHT + 1;
             let boundy = this._canvas.height;
 
             //This is working!
@@ -171,7 +171,7 @@ class ComboVisualizer{
 
             let DataSet = DataManager.getInstance().getPromptDataHistory();
             this.drawLines(lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING, lgpos_x+ICON_WIDTH+LINEGRAPH_SPACING+LINEGRAPH_WIDTH,
-                lgpos_y - 1, lgpos_y+LINEGRAPH_HEIGHT - 1, DataSet, x);
+                lgpos_y, lgpos_y+LINEGRAPH_HEIGHT - 1, DataSet, x);
             index += 1;
         }
     }
