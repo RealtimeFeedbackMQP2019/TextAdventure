@@ -57,12 +57,13 @@ class BarVisualizer{
 
 
 class TimerVisualizer{
-    constructor(canvas, totalTime){
+    constructor(canvas, totalTime, color){
         this._canvas = canvas;
         this._ctx = canvas.getContext("2d");
         this._totalTime = totalTime;
         this._currentTime = totalTime;
         this._pause = false;
+        this._color = color;
 
     }
 
@@ -109,7 +110,7 @@ class TimerVisualizer{
     drawVisuals(){
         //just draw lol
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
-        this._ctx.fillStyle = "#00FF7F";
+        this._ctx.fillStyle = this._color;
         this._ctx.strokeStyle = "rgba(1,1,1,0)";
         this._ctx.fillRect(0,0,this._canvas.width * (this._currentTime / this._totalTime), this._canvas.height);
         //console.log(this._currentTime / this._totalTime);

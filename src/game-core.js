@@ -1,8 +1,5 @@
 // game-core.js - sandbox for testing core functionality of text-based simulation
 
-// Code Mirror - command prompt functionality
-//let commandPrompt;
-
 // Timer to update game - called with each tick
 let gameTickUpdate;
 let securityTickUpdate;
@@ -40,6 +37,10 @@ let finishedAutomation;
 let autoError;
 
 let isGameStarted;
+let gameRunning;
+let introduceAuto;
+let autoIntroduced;
+let introAutoStartLineNum;
 
 let introTimers = [];
 
@@ -131,7 +132,7 @@ function init(){
     let introTimer16 = setTimeout(appendText, 41000, commandPrompt, "\n// You can interact via this console with the following commands:");
     introTimers.push(introTimer16);
     let introTimer17 = setTimeout(appendText, 43000, commandPrompt, "\n\n// secure(): " + manual.secure + "// eat(): " + manual.eat + "// choose(num): " + manual.choose
-    + "// man(): " + manual.man + "// legend(): " + manual.legend + "// automate(fun): " + manual.automate);
+    + "// man(): " + manual.man + "// legend(): " + manual.legend);
     introTimers.push(introTimer17);
     let introTimer18 = setTimeout(appendText, 45000, commandPrompt, "\n\n// If you need to see this list again, simply type man().");
     introTimers.push(introTimer18);
@@ -146,7 +147,7 @@ function startGame(){
         let line = commandPrompt.getLine(commandPrompt.getCursor().line);
         prematchCommand(line);
         updatePreviewVisualizer(cm);
-        console.log(manCount);
+        //console.log(manCount);
     });
 
     window.addEventListener("onscroll", function(){
@@ -166,10 +167,14 @@ function startGame(){
     addPrompt(prompts.StoneAge1.Prompt);
 
     isAutomation = false;
-    maxAutomation = 2;
+    maxAutomation = 0;
     currNumAutomation = 0;
     finishedAutomation = true;
     autoError = false;
+    gameRunning = true;
+    introduceAuto = false;
+    autoIntroduced = false;
+    introAutoStartLineNum = 0;
 
     let d = new Date;
     startTime = d.getTime();
@@ -185,10 +190,13 @@ function update(){
     let datalist = DataManager.getInstance().getDataList();
     let dm = DataManager.getInstance();
 
+    // Always check for game status first
+    dm.checkGameStatus();
+
     if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
     } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
-        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 10]);
+        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 5]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
         dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
@@ -197,59 +205,17 @@ function update(){
         dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
     }
 
-    // Constantly subtract current decrease rates
-    let decreaseRates = dm.getDecreaseRates();
-    dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
-    dm.subtractFromValue("Population", decreaseRates["Population"]);
-    dm.subtractFromValue("Military", decreaseRates["Military"]);
-    dm.subtractFromValue("Science", decreaseRates["Science"]);
+    // Constantly subtract current decrease rates (unless game win/lose condition)
+    if(gameRunning) {
+        let decreaseRates = dm.getDecreaseRates();
+        dm.subtractFromValue("Hunger", decreaseRates["Hunger"]);
+        dm.subtractFromValue("Population", decreaseRates["Population"]);
+        dm.subtractFromValue("Military", decreaseRates["Military"]);
+        dm.subtractFromValue("Science", decreaseRates["Science"]);
+    }
 
     // Constantly update automation code - get all automated functions
-    let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();
-    let autoKeys = Object.keys(autoFunctions);
-    for(let key in autoKeys) {
-        // if(finishedAutomation) {
-
-            // Compare stored function to new code to see if different
-            let autoFuncString = autoFunctions[key].toString();
-            let currAutoCode = "";
-            for (let i = 0; i < automateLineNums[key].length; i++) {
-                let autoLine = commandPrompt.getLine(automateLineNums[key][i]).toString();
-                currAutoCode += autoLine;
-            }
-
-            // If they're not equal, store as new auto function re-evaluate
-            if (autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) {
-                try {
-                    with (FunctionManager.getInstance()) {
-                        eval(currAutoCode.substring(1));
-                    }
-                } catch (err) {
-                    //appendText(commandPrompt, "\n" + err);
-                }
-            }
-        //}
-
-        // Execute each function
-        let autoFunction = autoFunctions[key];
-        console.log(autoFunction);
-
-        // Try to execute, but if error, empty
-        try {
-            autoFunction();
-        }
-        catch(err) {
-            if(autoError) {
-                appendText(commandPrompt, "\n" + err + "\n>");
-                automationCode[key] = [];
-                automateLineNums[key] = [];
-                let emptyFunc = function(){};
-                FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
-                currNumAutomation -= 1;
-                autoError = false;
-            }
-        }
-    }
+    updateAutomation();
 }
 
 
@@ -323,8 +289,8 @@ function prematchCommand(inputString){
 // Function for executing command
 function matchCommand(inputString){
 
-    // First check to make sure game is started
-    if(isGameStarted) {
+    // Normal game conditions - game started, not introducing automation
+    if(isGameStarted && !introduceAuto) {
 
         with (FunctionManager.getInstance()) {
             // Special case for automation - first line
@@ -353,8 +319,26 @@ function matchCommand(inputString){
         }
     }
 
+    // If introducing automation
+    else if(isGameStarted && introduceAuto) {
+        if (inputString.includes("next")) {
+            // Clear all auto-related text and reset timers
+            commandPrompt.replaceRange("THIS ISN'T WORKING WHY",
+                { line:introAutoStartLineNum, ch:0 },
+                { line:commandPrompt.lineCount(), ch:0 }
+            );
+            introduceAuto = false;
+            autoIntroduced = true;
+            // Finish choose command
+            FunctionManager.getInstance().finishChooseCommand();
+            appendText(commandPrompt, "\n\n");
+        } else {
+            appendText(commandPrompt, "\n// Please enter the next() command to continue.\n>")
+        }
+    }
+
     // If game not started yet, make sure next() command is typed
-    else {
+    else if(!isGameStarted) {
         if (inputString.includes("next")) {
             for (let i = 0; i < introTimers.length; i++) {
                 clearInterval(introTimers[i]);
@@ -363,7 +347,7 @@ function matchCommand(inputString){
             isGameStarted = true;
             startGame();
         } else {
-            appendText(commandPrompt, "\n// Please enter the next() command.\n>")
+            appendText(commandPrompt, "\n// Please enter the next() command to continue.\n>")
         }
     }
     updatePreviewVisualizer(commandPrompt);
@@ -392,9 +376,15 @@ function getNextPrompt() {
         ageChoices.push(getStatsPerChoice());
     }
 
-    // Update number of automation based on point in game
-    if(currPrompt === prompts.MetalAge1 || currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.IndustrialAge1
-        || currPrompt === prompts.SpaceAge1) {
+    // If onto Metal Age 1, introduce automation
+
+    // If beginning of other ages, simply add one to automation counter
+    if(currPrompt === prompts.MetalAge1) {
+        introduceAuto = true;
+        introduceAutomation();
+        maxAutomation += 1;
+    }
+    if(currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.IndustrialAge1 || currPrompt === prompts.SpaceAge1) {
         maxAutomation += 1;
         appendText(commandPrompt, "Congrats! You unlocked another automation function!\n");
     }
@@ -446,7 +436,7 @@ function addResult(choice) {
 function parseAutomation(inputString, cm) {
 
     automationCode[currNumAutomation].push(inputString);
-    automateLineNums[currNumAutomation].push(cm.lineCount() - 1);
+    automateLineNums[currNumAutomation].push(cm.lineCount()-1);
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -487,6 +477,7 @@ function parseAutomation(inputString, cm) {
             with(FunctionManager.getInstance()) {
                 currNumAutomation += 1;
                 autoError = true;
+                FunctionManager.getInstance().setCurrAutoIndex(currNumAutomation-1);
                 eval(codeString);
             }
         }
@@ -498,9 +489,6 @@ function parseAutomation(inputString, cm) {
             FunctionManager.getInstance().setAutomationFunction(currNumAutomation.toString(), emptyFunc);
             currNumAutomation -= 1;
         }
-        console.log(currNumAutomation);
-        console.log("Automated code 0: " + automationCode[0]);
-        console.log("Automated code 1: " + automationCode[1]);
         appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
@@ -628,6 +616,99 @@ function switchToMain() {
 
     // Re-enable main game timer
     dm.resumeTimer();
+}
 
+// Helper function for checking for updates in automated code
+function updateAutomation(){
+
+    let autoFunctions = FunctionManager.getInstance().getAutomationFunctions();
+    let autoKeys = Object.keys(autoFunctions);
+    for(let key in autoKeys) {
+
+        console.log(key);
+
+        // Compare stored function to new code to see if different
+        let autoFuncString = autoFunctions[key].toString();
+        let currAutoCode = "";
+        for (let i = 0; i < automateLineNums[key].length; i++) {
+            let autoLine = commandPrompt.getLine(automateLineNums[key][i]).toString();
+            currAutoCode += autoLine;
+        }
+
+        console.log(currAutoCode);
+        console.log(autoFuncString);
+        //console.log(automationCode[0]);
+
+        // If they're not equal, store as new auto function re-evaluate
+        if ((autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) && currAutoCode !== "") {
+            console.log("NOT THE SAME!");
+            try {
+                with (FunctionManager.getInstance()) {
+                    FunctionManager.getInstance().setCurrAutoIndex(parseInt(key));
+                    eval(currAutoCode.substring(1));
+                    autoError = true;
+                }
+            } catch (err) {
+                appendText(commandPrompt, "\n" + err);
+            }
+        }
+
+        // Execute each function
+        let autoFunction = autoFunctions[key];
+        console.log(autoFunction);
+
+        // Try to execute, but if error, empty
+        try {
+            autoFunction();
+        }
+        catch(err) {
+            if(autoError) {
+                appendText(commandPrompt, "\n" + err + "\n>");
+                automationCode[key] = [];
+                automateLineNums[key] = [];
+                let emptyFunc = function(){};
+                FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
+                currNumAutomation -= 1;
+                autoError = false;
+            }
+        }
+    }
+
+    console.log(currNumAutomation);
+    console.log(automateLineNums[0]);
+}
+
+// Helper function for introducing automation
+function introduceAutomation() {
+
+    // Pause main gamer timer
+    DataManager.getInstance().pauseTimer();
+
+    // Set line number
+    introAutoStartLineNum = commandPrompt.lineCount();
+    console.log(introAutoStartLineNum);
+
+    appendText(commandPrompt,
+        "// ***ALERT!******ALERT!******ALERT!******ALERT!******ALERT!******ALERT!***\n\n" +
+        "// Congrats human! By making it this far, I've been able to\n" +
+        "// upgrade my system so you can write your own basic automated functions!\n\n" +
+        "// By typing the automate() command with an anonymous function inside,\n" +
+        "// I can continuously call these functions to automate some processes for you!\n" +
+        "// For example:\n\n" +
+        "// automate(function() {\n" +
+        "// if((getValue('Hunger') < 10) && (getValue('Food') > 5)){\n" +
+        "// eat();\n" +
+        "// })\n\n" +
+        "// This function will automatically let you eat food if your hunger is below 10\n" +
+        "// and if you have more than 5 pieces of food. Make sense?\n\n" +
+        "// Just follow a similar syntax with matching brackets {} and parentheses ()\n" +
+        "// and it should work! You can also go back to old functions you wrote\n" +
+        "// and edit them, which will change the execution! Assuming it's correct, of course.\n\n" +
+        "// You can access any of the statistics using getValue() and the name inside in quotes,\n" +
+        "// as well as access the value of the timer with getTime().\n\n" +
+        "// Keep in mind that you have a limited amount of time per prompt to write an\n" +
+        "// automated function, and it runs on a separate timer from the main game.\n\n" +
+        "// Type next() below to resume playing the game. Have fun experimenting!\n\n>"
+    );
 
 }

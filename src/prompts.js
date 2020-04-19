@@ -11,7 +11,7 @@ const prompts = {
             "Choice": [{
                 "Food": -3,
                 "Security": 0,
-                "Population": 0,
+                "Population": 1,
                 "Military": 0,
                 "Science": 0,
                 "Result" : "// As you try to explain the meaning of life to the orange blur, a slight breeze comes in, \n" +
@@ -37,16 +37,16 @@ const prompts = {
                 "Food": 5,
                 "Security": 0,
                 "Population": 100,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": 1,
                 "Result" : "// You introduce \'fishing\' to your community, and it becomes a sort of sport as well as a \n" +
                     "//      way to get more food. You gain 5 pieces of food and 100 population, yum!\n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 100,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": 1,
                 "Result" : "// You find that it\'s much easier to hunt rabbits and beavers than fish with these stones,\n" +
                     "//      and your community thrives from the abundance of food and resources. You gain 10 pieces of food \n" +
                     "//      and 100 population.\n\n"
@@ -59,19 +59,19 @@ const prompts = {
                 "// 1) Welcome them with food, water and shelter.\n" +
                 "// 2) Cook caveman, yum yum yum.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -2,
                 "Security": 0,
                 "Population": 100,
                 "Military": 30,
-                "Science": 0,
+                "Science": 1,
                 "Result" : "// You welcome the strangers into your community, and some of them volunteer to protect the \n" +
                     "//      community at all costs! You gain the Military statistic with 30 people to start, and \n" +
                     "//      Population goes up by 100.\n\n"
             },{
                 "Food": 5,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
+                "Population": 1,
+                "Military": 1,
                 "Science": 10,
                 "Result" : "// Yum cannibalism, and you also gain some useful knowledge about cave people from the \n" +
                     "//      \'experiment\'! The Science statistic is introduced at 10, and you earn 5 pieces of food.\n\n"
@@ -83,18 +83,18 @@ const prompts = {
                 "// 1) Fight the T-Rex and try to kill it.\n" +
                 "// 2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 10,
                 "Security": 0,
                 "Population": -100,
                 "Military": -10,
                 "Science": 50,
                 "Result" : "// Many of your community members fall in the legendary fight with the T-Rex. \n\n"
             },{
-                "Food": 0,
+                "Food": -10,
                 "Security": 0,
                 "Population": -200,
-                "Military": 20,
-                "Science": 0,
+                "Military": 50,
+                "Science": 5,
                 "Result" : "// Well, you\'ve tamed the beast but at great cost to your community. On the bright side, \n" +
                     "//      now you have a giant puppy-rex \n\n"
             }],
@@ -105,18 +105,18 @@ const prompts = {
                 "// 1) Run up to it and whack it with your club!\n" +
                 "// 2) Maybe best to leave this one alone...\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -5,
                 "Security": 0,
                 "Population": -50,
-                "Military": 0,
-                "Science": 0,
+                "Military": -5,
+                "Science": 1,
                 "Result" : "// The bear did not take kindly to your whack. In return, it rampages onto your village. \n\n"
             },{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 15,
+                "Population": 5,
+                "Military": 1,
+                "Science": 20,
                 "Result" : "// Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n"
             }],
             "NextPrompt": "StoneAge6"
@@ -129,15 +129,15 @@ const prompts = {
                 "Food": -5,
                 "Security": 0,
                 "Population": 100,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": -1,
                 "Result" : "// Everyone survives, but your food and resources take a heavy hit. \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
                 "Population": -100,
-                "Military": 0,
-                "Science": 20,
+                "Military": -1,
+                "Science": 30,
                 "Result" : "// The move goes poorly, many people were caught in the cold. You learn how to treat \n" +
                     "//      frostbite. \n\n"
             }],
@@ -150,18 +150,18 @@ const prompts = {
                 "// 1) Start by making better weapons to defend your community.\n" +
                 "// 2) Start by making farming tools to harvest crops.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
+                "Population": 5,
                 "Military": 30,
-                "Science": 0,
+                "Science": 10,
                 "Result" : "// Sharp edge = superior weapon. \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 20,
+                "Population": 5,
+                "Military": 1,
+                "Science": 30,
                 "Result" : "// Stick + iron = superior shovel. \n\n"
             }],
             "NextPrompt": "MetalAge2"
@@ -172,20 +172,20 @@ const prompts = {
                 "//1) Support their studies and let them continue their experiments.\n" +
                 "//2) Put and end to the studies and keep the drinking water clean.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -5,
                 "Security": 0,
-                "Population": -100,
-                "Military": 0,
+                "Population": -50,
+                "Military": 1,
                 "Science": 20,
                 "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's \n" +
                     "//      rather poisonous. \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 0,
-                "Result" : "// Alchemists are rather discouraged, but have created a secret society. \n\n"
+                "Population": 5,
+                "Military": 10,
+                "Science": 1,
+                "Result" : "// Alchemists are rather discouraged, and withdrew to create a secret society. \n\n"
             }],
             "NextPrompt": "MetalAge3"
         },
@@ -195,18 +195,18 @@ const prompts = {
                 "// 1) Choose the king who will focus on building the strongest nation.\n" +
                 "// 2) Choose the king who will focus on protecting his own people.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 35,
-                "Science": 15,
+                "Population": 5,
+                "Military": 45,
+                "Science": 20,
                 "Result" : "// Strength in military will lead our kingdom to greatness! \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
                 "Population": 150,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": 20,
                 "Result" : "// Long live the humble king! \n\n"
             }],
             "NextPrompt": "MetalAge4"
@@ -218,18 +218,18 @@ const prompts = {
                 "// 1) Halt the jousting tournaments until you have enough knights for both.\n" +
                 "// 2) Give full support to jousting and grow your community.\n\n",
             "Choice": [{
-                "Food": 0,
-                "Security": 0,
+                "Food": 5,
+                "Security": -1,
                 "Population": 0,
                 "Military": 20,
-                "Science": 0,
+                "Science": 1,
                 "Result" : "// What a spoilsport, the knights grudgingly agree. \n\n"
             },{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
-                "Population": 100,
-                "Military": 0,
-                "Science": 0,
+                "Population": 50,
+                "Military": 20,
+                "Science": 1,
                 "Result" : "// Jousting has become wildly popular, an arena for it is being built. \n\n"
             }],
             "NextPrompt": "MetalAge5"
@@ -240,17 +240,17 @@ const prompts = {
                 "// 1) She’s telling the truth - let her cure the sick.\n" +
                 "// 2) She’s full of shit - magic doesn\'t exist.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": -1,
-                "Population": 0,
-                "Military": 0,
+                "Population": -5,
+                "Military": -1,
                 "Science": -15,
                 "Result" : "// The public start distrusting your scientists as this miracle worker does her magic. \n\n"
             },{
-                "Food": 0,
-                "Security": 0,
+                "Food": 1,
+                "Security": 1,
                 "Population": -50,
-                "Military": 0,
+                "Military": 5,
                 "Science": 25,
                 "Result" : "// Threatening the witch worked great! It\'s not magic at all! You\'ve convinced her to \n" +
                     "//      provide the formula to a natural remedy to the common sicknesses, as well as a wonderful pain \n" +
@@ -259,21 +259,21 @@ const prompts = {
             "NextPrompt": "MetalAge6"
         },
         "MetalAge6": {
-            "Prompt": "// The den of the last dragons alive has been discovered!\n" +
+            "Prompt": "// The den of the last dragon alive has been discovered!\n" +
                 "// 1) Send in all of your best knights to kill the dragons before they hurt any more people.\n" +
                 "// 2) Quietly observe the dragons and possibly learn aviation from them.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": -15,
-                "Science": 0,
+                "Population": 5,
+                "Military": -50,
+                "Science": 5,
                 "Result" : "// The battle was legendary, your army took many losses, but prevailed in the end. \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
                 "Population": -150,
-                "Military": 0,
+                "Military": 1,
                 "Science": 40,
                 "Result" : "// Turns out dragons think of us humans as entire meals, let alone snacks, and boy did we \n" +
                     "//      learn a lot at great cost. \n\n"
@@ -286,17 +286,17 @@ const prompts = {
                 "// 1) Build a ship!\n" +
                 "// 2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
-                "Population": 0,
-                "Military": 20,
-                "Science": 15,
+                "Population": 5,
+                "Military": 30,
+                "Science": 35,
                 "Result" : "// Bigger ships => more people on those ships => cross large rivers => exploration! \n\n"
             },{
-                "Food": 0,
+                "Food": 10,
                 "Security": 0,
                 "Population": 150,
-                "Military": 0,
+                "Military": 1,
                 "Science": 10,
                 "Result" : "// A celebration is in order to honor our deities! The citizens go wild with joy as a more \n" +
                     "//      strong alcohol is created for the celebrations. \n\n"
@@ -309,18 +309,18 @@ const prompts = {
                 "//1) Want to trade?\n" +
                 "//2) To Waarrrrrrr!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 25,
                 "Security": 0,
                 "Population": 200,
-                "Military": 0,
-                "Science": 0,
+                "Military": 20,
+                "Science": 10,
                 "Result" : "// Wow that went well! We gained new friends and new allies! \n\n"
             },{
                 "Food": -5,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
-                "Science": 0,
+                "Science": 1,
                 "Result" : "// We receive staggering losses! They even pillaged us! \n\n"
             }],
             "NextPrompt": "ConqueringAge3"
@@ -330,19 +330,19 @@ const prompts = {
                 "// 1) Endorse him just for the heck of it.\n" +
                 "// 2) Kick him out and let another nation deal with him. \n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
+                "Population": 1,
+                "Military": 5,
                 "Science": 30,
                 "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! \n" +
                     "//      He speaks of a land beyond the vast ocean! Wow! \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
+                "Population": 1,
                 "Military": -10,
-                "Science": 0,
+                "Science": 1,
                 "Result" : "// He is so distraught at your refusal that he takes out a few of your guards in a fit \n" +
                     "//      of anger. \n\n"
             }],
@@ -355,17 +355,17 @@ const prompts = {
             "Choice": [{
                 "Food": 15,
                 "Security": 0,
-                "Population": -200,
-                "Military": -15,
-                "Science": 0,
+                "Population": -50,
+                "Military": -25,
+                "Science": 25,
                 "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have \n" +
                     "//      toad meat.  \n\n"
             },{
                 "Food": -3,
                 "Security": 0,
-                "Population": -100,
-                "Military": 0,
-                "Science": 0,
+                "Population": -50,
+                "Military": 10,
+                "Science": 20,
                 "Result" : "// The ocean toad takes one look at fleeing citizens and uses its lengthy tongue to scoop \n" +
                     "//      up many of them. Both the toad and the people are never heard from again. \n\n"
             }],
@@ -376,18 +376,18 @@ const prompts = {
                 "// 1) Start catching more whales, and use whale oil to power the whole city.\n" +
                 "// 2) Nope, we don\'t want whale oil punks here. Eat whales, but throw away the oil.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
                 "Population": 100,
-                "Military": 0,
-                "Science": 25,
+                "Military": 1,
+                "Science": 35,
                 "Result" : "// Whale oil catches on quickly and many people enjoy the improvement! \n\n"
             },{
-                "Food": 10,
+                "Food": 15,
                 "Security": 0,
                 "Population": 150,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": 10,
                 "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an \n" +
                     "//      added bonus of long shelf life. \n\n"
             }],
@@ -398,18 +398,18 @@ const prompts = {
                 "// 1) Have the trade ship fire their cannons immediately! Prepare for attack! \n" +
                 "// 2) Have the trade ship attempt to outrun the pirates. Make haste! \n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": -5,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
-                "Science": 0,
+                "Science": 1,
                 "Result" : "// The pirates were defeated with help from the local navy, but some lives and goods were lost.\n\n"
             },{
                 "Food": -10,
                 "Security": 0,
                 "Population": -150,
-                "Military": 0,
-                "Science": 0,
+                "Military": -1,
+                "Science": -1,
                 "Result" : "// Unforunately the sailors could not outrun the pirates: no one survived.\n\n"
             }],
             "NextPrompt": "IndustrialAge1"
@@ -420,17 +420,17 @@ const prompts = {
                 "// 1) Endorse nuclear technology development.\n" +
                 "// 2) Seems a little risky, keep on using coal and electricity. \n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 5,
                 "Security": 0,
                 "Population": 150,
-                "Military": 20,
+                "Military": 30,
                 "Science": 40,
                 "Result" : "// Wow! So efficient, so clean! We learned a lot, including weaponized uses! \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": -250,
-                "Military": 0,
+                "Population": -150,
+                "Military": 10,
                 "Science": 30,
                 "Result" : "// Breathing in coal all day kinda sucks, but we\'ve made so many cool things! \n\n"
             }],
@@ -441,18 +441,18 @@ const prompts = {
                 "// 1) Encourage ~the karens~ and conveniently forget what vaccinations do.\n" +
                 "// 2) Encourage ~flat earthers~ and provide them with *definitely credible* fudged data.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": -150,
-                "Military": 0,
+                "Population": -100,
+                "Military": 5,
                 "Science": -20,
                 "Result" : "// Wow, people these days can cause such a ruckus. They\'ll believe anything! \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": -35,
+                "Population": 5,
+                "Military": 5,
+                "Science": -20,
                 "Result" : "// Wow, people these days will believe anything, even proven science. \n\n"
             }],
             "NextPrompt": "IndustrialAge3"
@@ -465,16 +465,16 @@ const prompts = {
             "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
             "//      influence and get more to join the cause.\n\n",
         "Choice": [{
-            "Food": 0,
+            "Food": 1,
             "Security": 1,
-            "Population": -100,
+            "Population": -50,
             "Military": 20,
-            "Science": 0,
+            "Science": -10,
             "Result" : "// That went as expected, September 20th goes down in history as a massacre. \n\n"
         },{
-            "Food": 0,
+            "Food": 1,
             "Security": -1,
-            "Population": 0,
+            "Population": 25,
             "Military": -10,
             "Science": 40,
             "Result" : "// People came in flocks to discover tucked away secrets. No military can stop this many \n" +
@@ -489,12 +489,12 @@ const prompts = {
         "Choice": [{
             "Food": 10,
             "Security": 0,
-            "Population": 0,
+            "Population": 50,
             "Military": 0,
             "Science": 40,
-            "Result" : "// Yay fishies! Yay for science! \n\n"
+            "Result" : "// Wow these fish are fascinating! We can learn so much from these mysterious fishies \n\n"
         },{
-            "Food": 0,
+            "Food": 1,
             "Security": 0,
             "Population": -50,
             "Military": 0,
@@ -508,16 +508,16 @@ const prompts = {
             "// 1) Waeponize the tech.\n" +
             "// 2) Open source! Open source! \n\n",
         "Choice": [{
-            "Food": 0,
+            "Food": 1,
             "Security": 0,
             "Population": -150,
             "Military": 40,
             "Science": 20,
             "Result" : "// One step closer to developing Terminators, great job! \n\n"
         },{
-            "Food": 0,
+            "Food": 5,
             "Security": 0,
-            "Population": 0,
+            "Population": 110,
             "Military": 20,
             "Science": 30,
             "Result" : "// Give everyone the power! \n\n"
@@ -532,15 +532,15 @@ const prompts = {
             "Food": 15,
             "Security": 0,
             "Population": -100,
-            "Military": 0,
+            "Military": 1,
             "Science": 20,
             "Result" : "// FEED ME! \n\n"
         },{
             "Food": 10,
             "Security": 0,
             "Population": 100,
-            "Military": 0,
-            "Science": 0,
+            "Military": 1,
+            "Science": 10,
             "Result" : "// Organic food always tastes better anyways, facts. \n\n"
         }],
         "NextPrompt": "SpaceAge1"
@@ -551,18 +551,18 @@ const prompts = {
                 "// 1) Send a group of people over to have them start a new community there.\n" +
                 "// 2) Don\'t risk losing anyone out in space.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": -100,
-                "Military": 0,
+                "Population": -10,
+                "Military": 5,
                 "Science": 35,
                 "Result" : "// People can live on Mars! With some small modifications...may have cost a few lives... \n\n"
             },{
                 "Food": 0,
                 "Security": -1,
-                "Population": 0,
-                "Military": 0,
-                "Science": 0,
+                "Population": 50,
+                "Military": 5,
+                "Science": 5,
                 "Result" : "// Doing what humans have always done, staying on Earth! \n\n"
             }],
             "NextPrompt": "SpaceAge2"
@@ -578,14 +578,14 @@ const prompts = {
                 "Military": -10,
                 "Science": 50,
                 "Result" : "// Well it started great, but by the third system update, the robots formed a resistance \n" +
-                    "group for robot rights.  \n\n"
+                    "//      group for robot rights.  \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 0,
-                "Result" : "// ... aand nothing happened.  \n\n"
+                "Population": 5,
+                "Military": 5,
+                "Science": 1,
+                "Result" : "// Things continue as normal.  \n\n"
             }],
             "NextPrompt": "SpaceAge3"
         },
@@ -594,19 +594,19 @@ const prompts = {
                 "// 1) They\'re crazy with power and not acting very smart - don\'t let them go.\n" +
                 "// 2) Support the expedition, I HAVE THE POWERRRRR!\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": -30,
+                "Population": 50,
+                "Military": 5,
+                "Science": -10,
                 "Result" : "// The scientists are disappointed they couldn\'t test their theories and put them in \n" +
                     "//      action, maybe another time?. \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
                 "Population": -150,
-                "Military": 0,
-                "Science": 0,
+                "Military": 1,
+                "Science": 5,
                 "Result" : "// Machinery malfunction, the spewing lava from the scientists\'s drill killed some citizens. \n\n"
             }],
             "NextPrompt": "SpaceAge4"
@@ -616,18 +616,18 @@ const prompts = {
                 "// 1) Get your best astronauts on that ship and let them explore the great beyond!\n" +
                 "// 2) The technology is too dangerous, don\'t launch the expedition without knowing what\'s out there.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": -15,
+                "Population": 50,
+                "Military": -1,
                 "Science": 40,
                 "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, \n" +
                     "//      I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
+                "Population": 5,
+                "Military": 1,
                 "Science": -20,
                 "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on \n" +
                     "//      repeat in the cosmos. \n\n"
@@ -639,18 +639,18 @@ const prompts = {
                 "// 1) Recruit your top scientists to decode the message.\n" +
                 "// 2) Ignore the message, it\'s nothing important.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 1,
                 "Security": -1,
-                "Population": 0,
-                "Military": 0,
-                "Science": 30,
-                "Result" : "// something... \n\n"
+                "Population": 1,
+                "Military": 10,
+                "Science": 35,
+                "Result" : "// Hmm fascinating, it say's to expect company shortly! How exciting! \n\n"
             },{
-                "Food": 0,
+                "Food": 1,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 0,
+                "Population": 5,
+                "Military": 25,
+                "Science": -5,
                 "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad \n" +
                     "//      for you, they\'re on the way. \n\n"
             }],
@@ -661,18 +661,18 @@ const prompts = {
                 "// 1) Trust the aliens and accept their peace.\n" +
                 "// 2) Immediately destroy the alien saucers; they pose a major threat.\n\n",
             "Choice": [{
-                "Food": 0,
+                "Food": 10,
                 "Security": 0,
-                "Population": 0,
-                "Military": 0,
-                "Science": 35,
+                "Population": 50,
+                "Military": 10,
+                "Science": 45,
                 "Result" : "// Woo fancy space tech! We can learn so much! \n\n"
             },{
-                "Food": 0,
+                "Food": -5,
                 "Security": 0,
-                "Population": -1000,
+                "Population": -900,
                 "Military": -50,
-                "Science": 0,
+                "Science": -5,
                 "Result" : "// Sure, point our puny pew pew guns at the space traveling beings, that won\'t go poorly. \n\n"
             }],
             "NextPrompt": "finish"
