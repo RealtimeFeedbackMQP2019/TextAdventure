@@ -31,6 +31,7 @@ function drawSnapshot(height){
     let snapshotCanvas = document.createElement("canvas");
     snapshotCanvas.id = "old-preview" + snapshotIndex;
     snapshotCanvas.height = height;
+    snapshotCanvas.width = 400;
 
     let visualizer = new BarVisualizer(snapshotCanvas, BAR_MAX_WIDTH, BAR_DIST, VISCOL);
     visualizer.drawVisuals();

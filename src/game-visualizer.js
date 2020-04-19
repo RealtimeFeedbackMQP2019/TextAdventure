@@ -117,15 +117,17 @@ class TimerVisualizer{
     }
 }
 
-const VALUE_WIDTH = 16;
-const SPACING = 4;
-const ICON_WIDTH = 12;
-const ICON_HEIGHT = 9;
+
 
 const LINEGRAPH_WIDTH = 30;
 const LINEGRAPH_HEIGHT = 7;
-const LINEGRAPH_ORIGIN = 0;
+const LINEGRAPH_ORIGIN = -1;
 const LINEGRAPH_SPACING = 4;
+
+const VALUE_WIDTH = 25;
+const SPACING = 13;
+const ICON_WIDTH = 14;
+const ICON_HEIGHT = 11;
 
 
 class ComboVisualizer{
@@ -147,14 +149,17 @@ class ComboVisualizer{
         let lgpos_y = LINEGRAPH_ORIGIN;
         for(let x of LIST_OF_VALS){
 
-            let posx = index * this._barWidth + this._barSeperation * (index + 1);
+            let posx = index * this._barWidth + this._barSeperation * (index) + Math.round(ICON_WIDTH*2/3);
             let boundx = posx + this._barWidth;
-            let posy = ICON_HEIGHT + 1;
+            let posy = 0;
             let boundy = this._canvas.height;
 
             //This is working!
-            this.drawIcon(posx + 2, 0, x);
+
+
             this.drawBarGraph(posx+0.5, boundx+0.5, posy, boundy, x, true);
+            this.drawIcon(Math.round(posx - ICON_WIDTH*2/3), Math.round((this._canvas.height - ICON_HEIGHT)/2), x);
+
 
             //Now for the line graphs
             if(index % 3 === 0){
@@ -165,7 +170,7 @@ class ComboVisualizer{
 
             }
             else{
-                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING - 1;
+                lgpos_y += ICON_HEIGHT + LINEGRAPH_SPACING - 3;
             }
 
             this.drawIcon(lgpos_x, lgpos_y, x);
