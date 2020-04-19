@@ -331,8 +331,6 @@ function matchCommand(inputString){
     else if(isGameStarted && introduceAuto) {
         if (inputString.includes("next")) {
             // Clear all auto-related text and reset timers
-            //console.log(introAutoStartLineNum);
-            //console.log(commandPrompt.lineCount());
             commandPrompt.replaceRange("THIS ISN'T WORKING WHY",
                 { line:introAutoStartLineNum, ch:0 },
                 { line:commandPrompt.lineCount(), ch:0 }
@@ -416,7 +414,7 @@ function addPrompt(prompt) {
 
 }
 
-function appendText(cm, text){
+function appendText(cm, text, style){
     const lineNumber = cm.lineCount() - 1;
     const lineStr = cm.getLine( lineNumber );
     let charPos = lineStr.length;
@@ -430,7 +428,13 @@ function appendText(cm, text){
     const newLineNumber = cm.lineCount() - 1;
     let newCharPos = cm.getLine(newLineNumber).length;
 
-    cm.markText({line: lineNumber, ch: charPos+1}, {line: newLineNumber, ch:newCharPos}, {readOnly:true});
+    if(style != null){
+        cm.markText({line: lineNumber, ch: charPos}, {line: newLineNumber, ch:newCharPos}, {readOnly:true, css:style});
+    }
+    else{
+        cm.markText({line: lineNumber, ch: charPos}, {line: newLineNumber, ch:newCharPos}, {readOnly:true});
+    }
+
 
     cm.setCursor(cm.lineCount() - 1, cm.getLine(cm.lineCount() - 1).length);
     //Now move down a bit more...
