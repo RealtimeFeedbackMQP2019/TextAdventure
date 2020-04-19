@@ -34,7 +34,6 @@ let FunctionManager = (function () {
         };
 
         let _choose = function(val){
-            console.log("HIIII!");
             clearInterval(securityTickUpdate);
             createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
             changeStats(currPrompt.Choice[val - 1]);
@@ -80,8 +79,10 @@ let FunctionManager = (function () {
 
         return{
             getValue(key){
-                console.log(DataManager.getInstance().getValue(key).getValue());
-
+                return DataManager.getInstance().getValue(key).getValue();
+            },
+            testFunction(){
+                return "TESTING!!!";
             },
             getTime(){
                 return DataManager.getInstance().getTimer.getTime()

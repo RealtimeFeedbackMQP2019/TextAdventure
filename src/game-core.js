@@ -61,13 +61,21 @@ let aiCount = 0;
 // Keep this for now for testing
 document.onkeydown = function(evt) {
     evt = evt || window.event;
-    if (evt.keyCode === 27 && !isGameStarted) {
-        for(let i = 0; i < introTimers.length; i++) {
-            clearInterval(introTimers[i]);
+    // Hitting ESC
+    if (evt.keyCode === 27) {
+        // Skipping game intro
+        if (!isGameStarted) {
+            for (let i = 0; i < introTimers.length; i++) {
+                clearInterval(introTimers[i]);
+            }
+            commandPrompt.setValue('');
+            isGameStarted = true;
+            startGame();
         }
-        commandPrompt.setValue('');
-        isGameStarted = true;
-        startGame();
+        // Exiting automation
+        else if(isAutomation) {
+            switchToAutomation();
+        }
     }
 };
 
@@ -300,7 +308,7 @@ function matchCommand(inputString){
                 } else {
                     // Pause main game timer, start automation timer, and disable all other canvas widgets
                     switchToAutomation();
-                    parseAutomation(inputString.substring(1), commandPrompt);
+                    parseAutomation(inputString, commandPrompt);
                 }
             }
             // Special case for automation - after first line
@@ -323,6 +331,8 @@ function matchCommand(inputString){
     else if(isGameStarted && introduceAuto) {
         if (inputString.includes("next")) {
             // Clear all auto-related text and reset timers
+            //console.log(introAutoStartLineNum);
+            //console.log(commandPrompt.lineCount());
             commandPrompt.replaceRange("THIS ISN'T WORKING WHY",
                 { line:introAutoStartLineNum, ch:0 },
                 { line:commandPrompt.lineCount(), ch:0 }
@@ -386,7 +396,7 @@ function getNextPrompt() {
     }
     if(currPrompt === prompts.ConqueringAge1 || currPrompt === prompts.IndustrialAge1 || currPrompt === prompts.SpaceAge1) {
         maxAutomation += 1;
-        appendText(commandPrompt, "Congrats! You unlocked another automation function!\n");
+        appendText(commandPrompt, "// Congrats! You unlocked another automation function!\n");
     }
 }
 
@@ -435,8 +445,23 @@ function addResult(choice) {
 // Parsing the automation blocks
 function parseAutomation(inputString, cm) {
 
-    automationCode[currNumAutomation].push(inputString);
-    automateLineNums[currNumAutomation].push(cm.lineCount()-1);
+    // Check if changed existing line - if did, replace, otherwise add new one
+    let addNewLine = true;
+    for(let i = 0; i < automateLineNums[currNumAutomation].length; i++){
+        if(automationCode[currNumAutomation][i] !== cm.getLine(automateLineNums[currNumAutomation][i])){
+            automationCode[currNumAutomation][i] = cm.getLine(automateLineNums[currNumAutomation][i]);
+            addNewLine = false;
+        }
+    }
+
+    if(addNewLine){
+        automationCode[currNumAutomation].push(inputString);
+    }
+
+    // If line number not already in list, add it
+    if(!automateLineNums[currNumAutomation].includes(cm.lineCount()-1)) {
+        automateLineNums[currNumAutomation].push(cm.lineCount() - 1);
+    }
 
     // Counters for curly braces
     let beginningBraceCount = 0;
@@ -478,7 +503,7 @@ function parseAutomation(inputString, cm) {
                 currNumAutomation += 1;
                 autoError = true;
                 FunctionManager.getInstance().setCurrAutoIndex(currNumAutomation-1);
-                eval(codeString);
+                eval(codeString.substring(1));
             }
         }
         catch(err) {
@@ -625,7 +650,7 @@ function updateAutomation(){
     let autoKeys = Object.keys(autoFunctions);
     for(let key in autoKeys) {
 
-        console.log(key);
+        //console.log(key);
 
         // Compare stored function to new code to see if different
         let autoFuncString = autoFunctions[key].toString();
@@ -635,13 +660,13 @@ function updateAutomation(){
             currAutoCode += autoLine;
         }
 
-        console.log(currAutoCode);
-        console.log(autoFuncString);
+        //console.log(currAutoCode);
+        //console.log(autoFuncString);
         //console.log(automationCode[0]);
 
         // If they're not equal, store as new auto function re-evaluate
         if ((autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) && currAutoCode !== "") {
-            console.log("NOT THE SAME!");
+            //console.log("NOT THE SAME!");
             try {
                 with (FunctionManager.getInstance()) {
                     FunctionManager.getInstance().setCurrAutoIndex(parseInt(key));
@@ -649,17 +674,23 @@ function updateAutomation(){
                     autoError = true;
                 }
             } catch (err) {
-                appendText(commandPrompt, "\n" + err);
+                if(autoError) {
+                    appendText(commandPrompt, "\n" + err);
+                    autoError = false;
+                }
             }
         }
 
         // Execute each function
         let autoFunction = autoFunctions[key];
-        console.log(autoFunction);
+        //console.log(autoFunction);
 
         // Try to execute, but if error, empty
         try {
-            autoFunction();
+            with(FunctionManager.getInstance()) {
+                autoFunction();
+                autoError = true;
+            }
         }
         catch(err) {
             if(autoError) {
@@ -674,8 +705,8 @@ function updateAutomation(){
         }
     }
 
-    console.log(currNumAutomation);
-    console.log(automateLineNums[0]);
+    //console.log(currNumAutomation);
+    //console.log(automateLineNums[0]);
 }
 
 // Helper function for introducing automation
@@ -686,7 +717,6 @@ function introduceAutomation() {
 
     // Set line number
     introAutoStartLineNum = commandPrompt.lineCount();
-    console.log(introAutoStartLineNum);
 
     appendText(commandPrompt,
         "// ***ALERT!******ALERT!******ALERT!******ALERT!******ALERT!******ALERT!***\n\n" +
