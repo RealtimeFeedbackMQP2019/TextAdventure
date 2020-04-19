@@ -41,7 +41,6 @@ let FunctionManager = (function () {
             DataManager.getInstance().addPromptDataHistory();
 
             addResult(currPrompt.Choice[val - 1].Result);
-            getNextPrompt();
 
             // Add to choices counter and check for security
             if(dm.getValue("Security").getValue() < 5) {
@@ -53,27 +52,10 @@ let FunctionManager = (function () {
                 numTimesCanSecure += 1;
             }
 
-            dm.checkGameStatus();
-            DataManager.getInstance().pauseTimer();
-            setTimeout(function() {
-                addPrompt(currPrompt.Prompt);
-                updatePreviewVisualizer(commandPrompt);
-                //reset timer
-                DataManager.getInstance().resetTimer();
-                // Reset then pause auto timer
-                DataManager.getInstance().resetAutoTimer();
-                DataManager.getInstance().pauseAutoTimer();
-            }, 2000);
-
-            promptCount += 1;
-
-            // Reset start time
-            let d = new Date();
-            startTime = d.getTime();
-
-            // Reset security and main game intervals
-            gameTickUpdate = setInterval('update()', gameTickInterval);
-            securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
+            getNextPrompt();
+            if(!introduceAuto) {
+                FunctionManager.getInstance().finishChooseCommand();
+            }
         };
 
         let _setCharAt = function setCharAt(str,index,chr) {
@@ -101,6 +83,9 @@ let FunctionManager = (function () {
                 console.log(DataManager.getInstance().getValue(key).getValue());
 
             },
+            getTime(){
+                return DataManager.getInstance().getTimer.getTime()
+            },
             secure(){
                 _secure();
             },
@@ -116,7 +101,12 @@ let FunctionManager = (function () {
                     appendText(commandPrompt, "\n\n" + JSON.stringify(manual) + "\n\n>");
                 } else {
                     let str = funName.name;
-                    appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
+                    // Check if automation introduced, and do nothing if not
+                    if(!autoIntroduced && str.includes("automate")){
+                        appendText(commandPrompt, "\n>");
+                    } else {
+                        appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
+                    }
                 }
             },
             thanos(){
@@ -164,6 +154,30 @@ let FunctionManager = (function () {
             },
             setCurrAutoIndex(index){
                 currAutoIndex = index;
+            },
+            finishChooseCommand(){
+                dm = DataManager.getInstance();
+                dm.checkGameStatus();
+                dm.pauseTimer();
+                setTimeout(function () {
+                    addPrompt(currPrompt.Prompt);
+                    updatePreviewVisualizer(commandPrompt);
+                    //reset timer
+                    dm.resetTimer();
+                    // Reset then pause auto timer
+                    dm.resetAutoTimer();
+                    dm.pauseAutoTimer();
+                }, 2000);
+
+                promptCount += 1;
+
+                // Reset start time
+                let d = new Date();
+                startTime = d.getTime();
+
+                // Reset security and main game intervals
+                gameTickUpdate = setInterval('update()', gameTickInterval);
+                securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
             }
         }
     }
