@@ -74,7 +74,9 @@ document.onkeydown = function(evt) {
         }
         // Exiting automation
         else if(isAutomation) {
-            switchToAutomation();
+            commandPrompt.replaceRange("", {line:automateLineNums[currNumAutomation][0], ch:0},
+                {line:commandPrompt.lineCount(), ch:0});
+            switchToMain();
         }
     }
 };
