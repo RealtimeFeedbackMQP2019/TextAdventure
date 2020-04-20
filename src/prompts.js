@@ -505,7 +505,7 @@ const prompts = {
     },
     "IndustrialAge5": {
         "Prompt": "// A doctor has discovered the secret to cyber implants!\n" +
-            "// Option (1) Waeponize the tech.\n" +
+            "// Option (1) Weaponize the tech.\n" +
             "// Option (2) Open source! Open source! \n\n",
         "Choice": [{
             "Food": 1,
