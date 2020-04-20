@@ -111,7 +111,7 @@ function init(){
 
     // Start adding beginner text
 
-    let introTimer1 = setTimeout(appendText, 5000, commandPrompt, "// (PRESS ECS TO SKIP)\n// Subject has woken up. Lifeform scan in progress...");
+    let introTimer1 = setTimeout(appendText, 5000, commandPrompt, "// (PRESS ESC TO SKIP)\n// Subject has woken up. Lifeform scan in progress...");
     introTimers.push(introTimer1);
     let introTimer2 = setTimeout(appendText, 10000, commandPrompt, "\n// Lifeform scan complete. Operator confirmed to be human.");
     introTimers.push(introTimer2);
