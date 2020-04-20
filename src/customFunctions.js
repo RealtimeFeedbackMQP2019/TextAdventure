@@ -35,25 +35,53 @@ let FunctionManager = (function () {
 
         let _choose = function(val){
             clearInterval(securityTickUpdate);
-            createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
-            changeStats(currPrompt.Choice[val - 1]);
-            DataManager.getInstance().addPromptDataHistory();
+            console.log("WE IN CHOOSE1");
+            // While introducing automation (next prompt is MetalAge1), stop from executing
+            if(currPrompt.NextPrompt === "MetalAge1" && maxAutomation === 0) {
+                introduceAuto = true;
+                maxAutomation += 1;
+                pauseChooseVal = val;
+                introduceAutomation();
+            } else if(!introduceAuto) {
+                createVisualizer(commandPrompt, drawSnapshot(commandPrompt.defaultTextHeight()));
+                changeStats(currPrompt.Choice[val - 1]);
+                DataManager.getInstance().addPromptDataHistory();
 
-            addResult(currPrompt.Choice[val - 1].Result);
+                addResult(currPrompt.Choice[val - 1].Result);
 
-            // Add to choices counter and check for security
-            if(dm.getValue("Security").getValue() < 5) {
-                numChoices += 1;
-            }
+                // Add to choices counter and check for security
+                if(dm.getValue("Security").getValue() < 5) {
+                    numChoices += 1;
+                }
 
-            if(numChoices % 3 === 0) {
-                appendText(commandPrompt, "// You can now upgrade your security another level!\n\n", "color: #478ee6");
-                numTimesCanSecure += 1;
-            }
+                if(numChoices % 3 === 0) {
+                    appendText(commandPrompt, "// You can now upgrade your security another level!\n\n", "color: #478ee6");
+                    numTimesCanSecure += 1;
+                }
 
-            getNextPrompt();
-            if(!introduceAuto) {
-                FunctionManager.getInstance().finishChooseCommand();
+                getNextPrompt();
+                dm = DataManager.getInstance();
+                dm.checkGameStatus();
+                dm.pauseTimer();
+                setTimeout(function () {
+                    addPrompt(currPrompt.Prompt);
+                    updatePreviewVisualizer(commandPrompt);
+                    //reset timer
+                    dm.resetTimer();
+                    // Reset then pause auto timer
+                    dm.resetAutoTimer();
+                    dm.pauseAutoTimer();
+                }, 2000);
+
+                promptCount += 1;
+
+                // Reset start time
+                let d = new Date();
+                startTime = d.getTime();
+
+                // Reset security and main game intervals
+                gameTickUpdate = setInterval('update()', gameTickInterval);
+                securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
             }
         };
 
@@ -75,14 +103,12 @@ let FunctionManager = (function () {
 
         let _automate = function(fun){
             automationFunctions[currAutoIndex] = fun;
+            console.log(automationFunctions[currAutoIndex]);
         };
 
         return{
             getValue(key){
                 return DataManager.getInstance().getValue(key).getValue();
-            },
-            testFunction(){
-                return "TESTING!!!";
             },
             getTime(){
                 return DataManager.getInstance().getTimer.getTime()
@@ -156,30 +182,30 @@ let FunctionManager = (function () {
             setCurrAutoIndex(index){
                 currAutoIndex = index;
             },
-            finishChooseCommand(){
-                dm = DataManager.getInstance();
-                dm.checkGameStatus();
-                dm.pauseTimer();
-                setTimeout(function () {
-                    addPrompt(currPrompt.Prompt);
-                    updatePreviewVisualizer(commandPrompt);
-                    //reset timer
-                    dm.resetTimer();
-                    // Reset then pause auto timer
-                    dm.resetAutoTimer();
-                    dm.pauseAutoTimer();
-                }, 2000);
-
-                promptCount += 1;
-
-                // Reset start time
-                let d = new Date();
-                startTime = d.getTime();
-
-                // Reset security and main game intervals
-                gameTickUpdate = setInterval('update()', gameTickInterval);
-                securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
-            }
+            // finishChooseCommand(){
+            //     dm = DataManager.getInstance();
+            //     dm.checkGameStatus();
+            //     dm.pauseTimer();
+            //     setTimeout(function () {
+            //         addPrompt(currPrompt.Prompt);
+            //         updatePreviewVisualizer(commandPrompt);
+            //         //reset timer
+            //         dm.resetTimer();
+            //         // Reset then pause auto timer
+            //         dm.resetAutoTimer();
+            //         dm.pauseAutoTimer();
+            //     }, 2000);
+            //
+            //     promptCount += 1;
+            //
+            //     // Reset start time
+            //     let d = new Date();
+            //     startTime = d.getTime();
+            //
+            //     // Reset security and main game intervals
+            //     gameTickUpdate = setInterval('update()', gameTickInterval);
+            //     securityTickUpdate = setInterval('securityIssue()', securityTickInterval);
+            // }
         }
     }
 
