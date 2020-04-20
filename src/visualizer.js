@@ -89,7 +89,7 @@ function updatePreviewVisualizer(cm){
 
         cm.addWidget({line:lineNumber - 1, ch:charPos +  2}, previewCanvas, false);
         document.getElementById("previewCanvas").style.position = "fixed";
-        document.getElementById("previewCanvas").style.top = position.top + "px";
+        document.getElementById("previewCanvas").style.top = position.top+ "px";
         document.getElementById("previewCanvas").style.left = position.left + 30 + "px";
         //Get current line number
         //Remove the element

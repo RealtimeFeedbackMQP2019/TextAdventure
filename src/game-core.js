@@ -153,6 +153,9 @@ function init(){
 
 }
 
+let currentPos = 0;
+let prevPos = 0;
+
 function startGame(){
     commandPrompt.on("change", function (cm, event) {
         //Set the content of the line into...
@@ -162,8 +165,14 @@ function startGame(){
         //console.log(manCount);
     });
 
-    window.addEventListener("onscroll", function(){
-        updatePreviewVisualizer(cm);
+
+
+
+    window.addEventListener("scroll", function(){
+        //prevPos = currentPos;
+        updatePreviewVisualizer(commandPrompt);
+        //currentPos = document.body.scrollTop;
+        //console.log(currentPos - prevPos);
     });
 
     EventDispatcher.getInstance().fireEvent(new GameEvent("gameStartEvent", {}));
