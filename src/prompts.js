@@ -311,7 +311,7 @@ const prompts = {
                 "Population": 50,
                 "Military": 5,
                 "Science": 30,
-                "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! He speaks of a land beyond the vast ocean! Wow! \n\n"
+                "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! He speaks of a land beyond the vast ocean! Wow! \n\n\n"
             },{
                 "Food": 1,
                 "Security": 0,
@@ -586,14 +586,14 @@ const prompts = {
                 "Population": 50,
                 "Military": -1,
                 "Science": 40,
-                "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n"
+                "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n\n"
             },{
                 "Food": 1,
                 "Security": 0,
                 "Population": 50,
                 "Military": 1,
                 "Science": -20,
-                "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on repeat in the cosmos. \n\n"
+                "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on repeat in the cosmos. \n\n\n"
             }],
             "NextPrompt": "SpaceAge5"
         },
