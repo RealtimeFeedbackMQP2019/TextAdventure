@@ -152,14 +152,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 30,
                 "Science": 10,
                 "Result" : "// Sharp edge = superior weapon. \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 1,
                 "Science": 30,
                 "Result" : "// Stick + iron = superior shovel. \n\n"
@@ -174,7 +174,7 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": -50,
+                "Population": 5,
                 "Military": 1,
                 "Science": 20,
                 "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's \n" +
@@ -197,14 +197,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 100,
                 "Military": 45,
                 "Science": 20,
                 "Result" : "// Strength in military will lead our kingdom to greatness! \n\n"
             },{
                 "Food": 10,
                 "Security": 0,
-                "Population": 150,
+                "Population": 200,
                 "Military": 1,
                 "Science": 20,
                 "Result" : "// Long live the humble king! \n\n"
@@ -220,14 +220,14 @@ const prompts = {
             "Choice": [{
                 "Food": 5,
                 "Security": -1,
-                "Population": 0,
+                "Population": 50,
                 "Military": 20,
                 "Science": 1,
                 "Result" : "// What a spoilsport, the knights grudgingly agree. \n\n"
             },{
                 "Food": 5,
                 "Security": 0,
-                "Population": 50,
+                "Population": 150,
                 "Military": 20,
                 "Science": 1,
                 "Result" : "// Jousting has become wildly popular, an arena for it is being built. \n\n"
@@ -242,7 +242,7 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": -1,
-                "Population": -5,
+                "Population": 50,
                 "Military": -1,
                 "Science": -15,
                 "Result" : "// The public start distrusting your scientists as this miracle worker does her magic. \n\n"
@@ -265,14 +265,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 10,
                 "Military": -50,
                 "Science": 5,
                 "Result" : "// The battle was legendary, your army took many losses, but prevailed in the end. \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -150,
+                "Population": -50,
                 "Military": 1,
                 "Science": 40,
                 "Result" : "// Turns out dragons think of us humans as entire meals, let alone snacks, and boy did we \n" +
@@ -288,7 +288,7 @@ const prompts = {
             "Choice": [{
                 "Food": 5,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 30,
                 "Science": 35,
                 "Result" : "// Bigger ships => more people on those ships => cross large rivers => exploration! \n\n"
@@ -318,7 +318,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -100,
+                "Population": -50,
                 "Military": -20,
                 "Science": 1,
                 "Result" : "// We receive staggering losses! They even pillaged us! \n\n"
@@ -332,7 +332,7 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": 1,
+                "Population": 50,
                 "Military": 5,
                 "Science": 30,
                 "Result" : "// You wait months for any word on this wacky scientist, when suddenly his ship reappears! \n" +
@@ -340,7 +340,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 1,
+                "Population": 50,
                 "Military": -10,
                 "Science": 1,
                 "Result" : "// He is so distraught at your refusal that he takes out a few of your guards in a fit \n" +
@@ -400,14 +400,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": -100,
+                "Population": -50,
                 "Military": -20,
                 "Science": 1,
                 "Result" : "// The pirates were defeated with help from the local navy, but some lives and goods were lost.\n\n"
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -150,
+                "Population": -50,
                 "Military": -1,
                 "Science": -1,
                 "Result" : "// Unforunately the sailors could not outrun the pirates: no one survived.\n\n"
@@ -429,7 +429,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -150,
+                "Population": -50,
                 "Military": 10,
                 "Science": 30,
                 "Result" : "// Breathing in coal all day kinda sucks, but we\'ve made so many cool things! \n\n"
@@ -443,14 +443,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
-                "Population": -100,
+                "Population": -50,
                 "Military": 5,
                 "Science": -20,
                 "Result" : "// Wow, people these days can cause such a ruckus. They\'ll believe anything! \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 5,
                 "Science": -20,
                 "Result" : "// Wow, people these days will believe anything, even proven science. \n\n"
@@ -510,7 +510,7 @@ const prompts = {
         "Choice": [{
             "Food": 1,
             "Security": 0,
-            "Population": -150,
+            "Population": -50,
             "Military": 40,
             "Science": 20,
             "Result" : "// One step closer to developing Terminators, great job! \n\n"
@@ -531,7 +531,7 @@ const prompts = {
         "Choice": [{
             "Food": 15,
             "Security": 0,
-            "Population": -100,
+            "Population": -50,
             "Military": 1,
             "Science": 20,
             "Result" : "// FEED ME! \n\n"
@@ -574,7 +574,7 @@ const prompts = {
             "Choice": [{
                 "Food": 0,
                 "Security": -1,
-                "Population": -100,
+                "Population": -50,
                 "Military": -10,
                 "Science": 50,
                 "Result" : "// Well it started great, but by the third system update, the robots formed a resistance \n" +
@@ -582,7 +582,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 5,
                 "Science": 1,
                 "Result" : "// Things continue as normal.  \n\n"
@@ -604,7 +604,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -150,
+                "Population": -50,
                 "Military": 1,
                 "Science": 5,
                 "Result" : "// Machinery malfunction, the spewing lava from the scientists\'s drill killed some citizens. \n\n"
@@ -626,7 +626,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 1,
                 "Science": -20,
                 "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on \n" +
@@ -641,14 +641,14 @@ const prompts = {
             "Choice": [{
                 "Food": 1,
                 "Security": -1,
-                "Population": 1,
+                "Population": 50,
                 "Military": 10,
                 "Science": 35,
                 "Result" : "// Hmm fascinating, it say's to expect company shortly! How exciting! \n\n"
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 10,
                 "Military": 25,
                 "Science": -5,
                 "Result" : "// Nervous or something? don\'t want to be diplomatic with other universe-beings? Too bad \n" +
