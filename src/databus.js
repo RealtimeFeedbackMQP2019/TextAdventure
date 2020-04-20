@@ -85,7 +85,7 @@ let DataManager = (function () {
                     //write to firebase - get current age stats even if age isnt over
                     ageList.push(ageChoices);
                     //sleep(14000);
-                    setTimeout(writeResults, 5000);
+                    setTimeout(writeResults, 7000);
                     //document.getElementById("gameOver").style.display = "inline";
                     // Somehow disable commands from being entered
                     //document.getElementById("textEditorBox").style.pointerEvents = "none";
@@ -101,7 +101,7 @@ let DataManager = (function () {
                     //write to firebase - get current age stats even if age isnt over
                     ageList.push(ageChoices);
                     //sleep(14000);
-                    setTimeout(writeResults, 5000);
+                    setTimeout(writeResults, 7000);
                     //document.getElementById("gameOver").style.display = "inline";
                     //write to firebase happens in gamecore
                 }
