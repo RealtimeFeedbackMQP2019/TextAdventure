@@ -182,7 +182,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": 5,
+                "Population": 50,
                 "Military": 10,
                 "Science": 1,
                 "Result" : "// Alchemists are rather discouraged, and withdrew to create a secret society. \n\n"
