@@ -599,7 +599,7 @@ function securityIssue() {
                 randChoiceChance = 0.25;
                 break;
             case 3:
-                randChoiceChance = 0.000000001;
+                randChoiceChance = 0.10;
                 break;
             case 4:
                 randChoiceChance = 0.05;
