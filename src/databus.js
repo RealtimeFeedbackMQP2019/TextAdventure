@@ -15,9 +15,9 @@ let DataManager = (function () {
         // Decrease rates
         let DecreaseRates = {
             "Hunger": 1,
-            "Population": 2,
-            "Military": 3,
-            "Science": 3
+            "Population": 1,
+            "Military": 2,
+            "Science": 2
         };
 
         // Copy of previous decrease rates before pausing
@@ -26,7 +26,7 @@ let DataManager = (function () {
         let PromptDataHistory = [];
 
         // Main timer
-        let timer = new TimerVisualizer(document.getElementById("timer"),45, "#00FF7F");
+        let timer = new TimerVisualizer(document.getElementById("timer"),60, "#00FF7F");
 
         // Automation timer
         let autoTimer = new TimerVisualizer(document.getElementById("autoTimer"),120, "#FFFF00");

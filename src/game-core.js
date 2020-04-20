@@ -4,7 +4,7 @@
 let gameTickUpdate;
 let securityTickUpdate;
 const gameTickInterval = 1000;
-const securityTickInterval = 22500;
+const securityTickInterval = 30000;
 let securityTickRemaining;
 let startTime;
 
@@ -210,13 +210,13 @@ function update(){
     if (datalist.Population.getValue() <= 0) {
         dm.setDecreaseRates(["Hunger"], [2])
     } else if (datalist.Science.getValue() <= 0 && datalist.Military.getValue() > 0) {
-        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 3, 5]);
+        dm.setDecreaseRates(["Hunger", "Population", "Military"], [1, 2, 4]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() > 0) {
-        dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
+        dm.setDecreaseRates(["Hunger", "Population"], [1, 2]);
     } else if (datalist.Military.getValue() <= 0 && datalist.Science.getValue() <= 0) {
-        dm.setDecreaseRates(["Hunger", "Population"], [1, 4]);
+        dm.setDecreaseRates(["Hunger", "Population"], [1, 3]);
     } else {
-        dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 2, 3, 3]);
+        dm.setDecreaseRates(["Hunger", "Population", "Military", "Science"], [1, 1, 2, 2]);
     }
 
     // Constantly subtract current decrease rates (unless game win/lose condition)
@@ -455,27 +455,6 @@ function parseAutomation(inputString, cm) {
         automateLineNums[currNumAutomation].push(a);
     }
 
-    // console.log(automationCode[currNumAutomation]);
-    // console.log(automateLineNums[currNumAutomation]);
-
-    // // Check if changed existing line - if did, replace, otherwise add new one
-    // let addNewLine = true;
-    // for(let i = 0; i < automateLineNums[currNumAutomation].length; i++){
-    //     if(automationCode[currNumAutomation][i] !== cm.getLine(automateLineNums[currNumAutomation][i])){
-    //         automationCode[currNumAutomation][i] = cm.getLine(automateLineNums[currNumAutomation][i]);
-    //         addNewLine = false;
-    //     }
-    // }
-    //
-    // if(addNewLine){
-    //     automationCode[currNumAutomation].push(inputString);
-    // }
-    //
-    // // If line number not already in list, add it
-    // if(!automateLineNums[currNumAutomation].includes(cm.lineCount()-1)) {
-    //     automateLineNums[currNumAutomation].push(cm.lineCount() - 1);
-    // }
-
     // Counters for curly braces
     let beginningBraceCount = 0;
     let endingBraceCount = 0;
@@ -677,19 +656,20 @@ function updateAutomation(){
             let autoLine = commandPrompt.getLine(automateLineNums[key][i]-1).toString();
             currAutoCode += autoLine;
         }
+        console.log(currAutoCode);
 
         // If they're not equal, store as new auto function re-evaluate
         if ((autoFuncString !== currAutoCode.substring(10, currAutoCode.length - 1)) && currAutoCode !== "") {
+            autoError = true;
             try {
                 with (FunctionManager.getInstance()) {
                     FunctionManager.getInstance().setCurrAutoIndex(parseInt(key));
                     eval(currAutoCode.substring(1));
-                    autoError = true;
                 }
             } catch (err) {
                 if(autoError) {
                     //appendText(commandPrompt, "\n" + err, "color: #FFFF00");
-                    autoError = false;
+                    //autoError = false;
                 }
             }
         }
@@ -701,14 +681,13 @@ function updateAutomation(){
         try {
             with(FunctionManager.getInstance()) {
                 autoFunction();
-                autoError = true;
             }
         }
         catch(err) {
             if(autoError) {
-                appendText(commandPrompt, "\n" + err + "\n>", "color: #FFFF00");
-                automationCode[key] = [];
-                automateLineNums[key] = [];
+                //appendText(commandPrompt, "\n" + err + "\n>", "color: #FFFF00");
+                //automationCode[key] = [];
+                //automateLineNums[key] = [];
                 let emptyFunc = function(){};
                 FunctionManager.getInstance().setAutomationFunction(key, emptyFunc);
                 currNumAutomation -= 1;

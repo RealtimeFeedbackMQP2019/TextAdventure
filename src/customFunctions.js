@@ -125,7 +125,14 @@ let FunctionManager = (function () {
             man(funName){
                 manCount +=1;
                 if(!funName) {
-                    appendText(commandPrompt, "\n\n" + JSON.stringify(manual) + "\n\n>");
+                    if(!autoIntroduced){
+                        appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
+                            "\n// choose(): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend + "\n\n>");
+                    } else {
+                        appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
+                            "\n// choose(): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend +
+                            "// automate(): " + "\n\n>");
+                    }
                 } else {
                     let str = funName.name;
                     // Check if automation introduced, and do nothing if not
@@ -159,7 +166,7 @@ let FunctionManager = (function () {
                 commandPrompt.setValue(lines);
             },
             legend(){
-                appendText(commandPrompt, "\n\n// HUNGER: orange\n// FOOD: red\n// SECURITY: blue\n// POPULATION: green\n// MILITARY: pink\n// SCIENCE: purple\n\n>")
+                appendText(commandPrompt, "\n\n// HUNGER: red\n// FOOD: orange\n// SECURITY: blue\n// POPULATION: green\n// MILITARY: pink\n// SCIENCE: purple\n\n>")
             },
             automate(fun){
                 _automate(fun);
