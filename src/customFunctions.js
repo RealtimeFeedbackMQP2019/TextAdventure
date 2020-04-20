@@ -138,10 +138,10 @@ let FunctionManager = (function () {
                 if(!funName) {
                     if(!autoIntroduced){
                         appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
-                            "\n// choose(): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend + "\n\n>");
+                            "\n// choose(id): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend + "\n\n>");
                     } else {
                         appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
-                            "\n// choose(): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend +
+                            "\n// choose(id): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend +
                             "// automate(): " + "\n\n>");
                     }
                 } else {
