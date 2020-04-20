@@ -729,8 +729,8 @@ function introduceAutomation(chooseVal) {
         "// automate(function() {\n" +
         "// if((getValue('Hunger') < 10) && (getValue('Food') > 5)){\n" +
         "// eat();\n" +
-        "// })\n" +
-        "// }\n\n" +
+        "// }\n" +
+        "// })\n\n" +
         "// This function will automatically let you eat food if your hunger is below 10\n" +
         "// and if you have more than 5 pieces of food. Make sense?\n\n" +
         "// Just follow a similar syntax with matching brackets {} and parentheses ()\n" +
