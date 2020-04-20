@@ -57,7 +57,8 @@ let FunctionManager = (function () {
                 }
 
                 if(numChoices % 3 === 0 && !(dm.getValue("Security") === 5)) {
-                    appendText(commandPrompt, "// You can now upgrade your security another level!\n\n", "color: #478ee6");
+                    appendText(commandPrompt, "// You can now upgrade your security another level!\n", "color: #478ee6");
+                    appendText(commandPrompt, "// Keep it high so there's a smaller chance of random decisions made!\n\n", "color: #478ee6");
                     numTimesCanSecure += 1;
                 }
 
