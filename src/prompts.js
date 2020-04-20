@@ -294,7 +294,7 @@ const prompts = {
             },{
                 "Food": 1,
                 "Security": 0,
-                "Population": -50,
+                "Population": -10,
                 "Military": -20,
                 "Science": 1,
                 "Result" : "// We receive staggering losses! They even pillaged us! \n\n\n"
@@ -330,7 +330,7 @@ const prompts = {
                 "Food": 15,
                 "Security": 0,
                 "Population": -50,
-                "Military": -25,
+                "Military": 5,
                 "Science": 25,
                 "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have toad meat.  \n\n\n"
             },{
@@ -351,14 +351,14 @@ const prompts = {
                 "Food": 5,
                 "Security": 0,
                 "Population": 100,
-                "Military": 1,
+                "Military": 5,
                 "Science": 35,
                 "Result" : "// Whale oil catches on quickly and many people enjoy the improvement! \n\n\n"
             },{
                 "Food": 15,
                 "Security": 0,
                 "Population": 150,
-                "Military": 1,
+                "Military": 5,
                 "Science": 10,
                 "Result" : "// Whale meat becomes a delicacy, whale jerky in particular tastes delicious plus an added bonus of long shelf life. \n\n\n"
             }],
@@ -457,14 +457,14 @@ const prompts = {
             "Food": 10,
             "Security": 0,
             "Population": 50,
-            "Military": 0,
+            "Military": 5,
             "Science": 40,
             "Result" : "// Wow these fish are fascinating! We can learn so much from these mysterious fishies \n\n\n"
         },{
             "Food": 1,
             "Security": 0,
             "Population": -50,
-            "Military": 0,
+            "Military": 5,
             "Science": 20,
             "Result" : "// Lots of space down here for cool rich people, gimme the money! \n\n\n"
         }],
@@ -528,7 +528,7 @@ const prompts = {
                 "Food": 0,
                 "Security": -1,
                 "Population": 10,
-                "Military": 5,
+                "Military": 10,
                 "Science": 5,
                 "Result" : "// Doing what humans have always done, staying on Earth! \n\n\n"
             }],
@@ -542,14 +542,14 @@ const prompts = {
                 "Food": 0,
                 "Security": -1,
                 "Population": -50,
-                "Military": -10,
+                "Military": -5,
                 "Science": 50,
                 "Result" : "// Well it started great, but by the third system update, the robots formed a resistance group for robot rights.  \n\n\n"
             },{
                 "Food": 1,
                 "Security": 0,
                 "Population": 50,
-                "Military": 5,
+                "Military": 10,
                 "Science": 1,
                 "Result" : "// Things continue as normal.  \n\n\n"
             }],
@@ -584,14 +584,14 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 50,
-                "Military": -1,
+                "Military": 5,
                 "Science": 40,
                 "Result" : "// I\'m burnin though the skyy, two hundred degrees, that\'s why they call me Mr Fahrenheit, I\'m traveling at the speed of lightttt! I wanna make a supersonic man outta you! Don\'t stop me nooow... \n\n\n"
             },{
                 "Food": 1,
                 "Security": 0,
                 "Population": 50,
-                "Military": 1,
+                "Military": 5,
                 "Science": -20,
                 "Result" : "// The astronauts are disappointed they couldn\'t sing Queen\'s \'Dont Stop Me Now\' on repeat in the cosmos. \n\n\n"
             }],
