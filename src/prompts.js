@@ -386,6 +386,27 @@ const prompts = {
             "NextPrompt": "IndustrialAge1"
         },
         "IndustrialAge1": {
+            "Prompt": "// The age of information is upon us, unfortunately with it comes misinformation.\n" +
+                "// Option (1) Encourage ~the karens~ and conveniently forget what vaccinations do.\n" +
+                "// Option (2) Encourage ~flat earthers~ and provide them with *definitely credible* fudged data.\n\n",
+            "Choice": [{
+                "Food": 1,
+                "Security": 0,
+                "Population": -50,
+                "Military": 5,
+                "Science": -20,
+                "Result" : "// Wow, people these days can cause such a ruckus. They\'ll believe anything! \n\n\n"
+            },{
+                "Food": 1,
+                "Security": 0,
+                "Population": 50,
+                "Military": 5,
+                "Science": -20,
+                "Result" : "// Wow, people these days will believe anything, even proven science. \n\n\n"
+            }],
+            "NextPrompt": "IndustrialAge2"
+        },
+        "IndustrialAge2": {
             "Prompt": "// Industrial Age\n" +
                 "// Nuclear fission has been discovered. \n" +
                 "// Option (1) Endorse nuclear technology development.\n" +
@@ -404,27 +425,6 @@ const prompts = {
                 "Military": 10,
                 "Science": 30,
                 "Result" : "// Breathing in coal all day kinda sucks, but we\'ve made so many cool things! \n\n\n"
-            }],
-            "NextPrompt": "IndustrialAge2"
-        },
-        "IndustrialAge2": {
-            "Prompt": "// The age of information is upon us, unfortunately with it comes misinformation.\n" +
-                "// Option (1) Encourage ~the karens~ and conveniently forget what vaccinations do.\n" +
-                "// Option (2) Encourage ~flat earthers~ and provide them with *definitely credible* fudged data.\n\n",
-            "Choice": [{
-                "Food": 1,
-                "Security": 0,
-                "Population": -50,
-                "Military": 5,
-                "Science": -20,
-                "Result" : "// Wow, people these days can cause such a ruckus. They\'ll believe anything! \n\n\n"
-            },{
-                "Food": 1,
-                "Security": 0,
-                "Population": 50,
-                "Military": 5,
-                "Science": -20,
-                "Result" : "// Wow, people these days will believe anything, even proven science. \n\n\n"
             }],
             "NextPrompt": "IndustrialAge3"
         },
