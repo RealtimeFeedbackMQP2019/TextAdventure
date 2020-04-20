@@ -103,7 +103,7 @@ const prompts = {
                 "Food": 5,
                 "Security": 0,
                 "Population": 5,
-                "Military": 1,
+                "Military": 10,
                 "Science": 20,
                 "Result" : "// Watching from the shadows, you see the bear reach into a beehive! Wow, bears like bee juice! \n\n\n"
             }],
@@ -160,7 +160,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 5,
-                "Military": 1,
+                "Military": 5,
                 "Science": 20,
                 "Result" : "// Some alchemists have discovered the recipe for liquid gold! Unfortunately it's rather poisonous. \n\n\n"
             },{
@@ -189,7 +189,7 @@ const prompts = {
                 "Food": 10,
                 "Security": 0,
                 "Population": 200,
-                "Military": 1,
+                "Military": 10,
                 "Science": 20,
                 "Result" : "// Long live the humble king! \n\n\n"
             }],
@@ -231,7 +231,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 1,
                 "Population": -50,
-                "Military": 5,
+                "Military": 20,
                 "Science": 25,
                 "Result" : "// Threatening the witch worked great! It\'s not magic at all! You\'ve convinced her to provide the formula to a natural remedy to the common sicknesses, as well as a wonderful pain reliever. Unfortunately many people died during the wait. \n\n\n"
             }],
@@ -252,7 +252,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": -50,
-                "Military": 1,
+                "Military": 15,
                 "Science": 40,
                 "Result" : "// Turns out dragons think of us humans as entire meals, let alone snacks, and boy did we learn a lot at great cost. \n\n\n"
             }],
