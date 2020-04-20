@@ -33,6 +33,8 @@ let FunctionManager = (function () {
             }
         };
 
+
+
         let _choose = function(val){
             clearInterval(securityTickUpdate);
             console.log("WE IN CHOOSE1");
@@ -106,6 +108,15 @@ let FunctionManager = (function () {
             console.log(automationFunctions[currAutoIndex]);
         };
 
+
+        let _appendIcon = function(key){
+            let image = document.createElement('img');
+            image.src = DataManager.getInstance().getValue(key).getIcon().src;
+            image.width = commandPrompt.defaultTextHeight() / 11 * 14;
+            image.height = commandPrompt.defaultTextHeight();
+            return image;
+        };
+
         return{
             getValue(key){
                 return DataManager.getInstance().getValue(key).getValue();
@@ -166,7 +177,15 @@ let FunctionManager = (function () {
                 commandPrompt.setValue(lines);
             },
             legend(){
-                appendText(commandPrompt, "\n\n// HUNGER: red\n// FOOD: orange\n// SECURITY: blue\n// POPULATION: green\n// MILITARY: pink\n// SCIENCE: purple\n\n>")
+
+                for(let x of LIST_OF_VALS){
+                    appendText(commandPrompt, "\n//" + x + ": ", "color:" + DataManager.getInstance().getValue(x).getColor());
+                    appendWidget(_appendIcon(x));
+                }
+                appendText(commandPrompt, "\n\n>");
+
+
+                //appendText(commandPrompt, "\n\n// HUNGER: red\n// FOOD: orange\n// SECURITY: blue\n// POPULATION: green\n// MILITARY: pink\n// SCIENCE: purple\n\n>")
             },
             automate(fun){
                 _automate(fun);

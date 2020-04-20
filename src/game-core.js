@@ -437,6 +437,19 @@ function appendText(cm, text, style){
     window.scrollTo(0,document.body.scrollHeight);
 }
 
+function appendWidget(item){
+    const lineNumber = commandPrompt.lineCount() - 1;
+    const lineStr = commandPrompt.getLine( lineNumber );
+    let charPos = lineStr.length;
+
+    commandPrompt.markText(
+
+        { line: lineNumber, ch:charPos - 1},
+        { line:lineNumber, ch:charPos },
+        { replacedWith: item }
+    );
+}
+
 // Function for adding prompt result text
 function addResult(choice) {
     appendText(commandPrompt, choice);
