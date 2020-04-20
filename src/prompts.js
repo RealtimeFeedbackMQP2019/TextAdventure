@@ -6,18 +6,18 @@ const prompts = {
             "Prompt": "// Stone Age \n" +
                 "// On a stormy day, the gods bestowed upon us a flash in the sky. A bright living orange-yellow \n" +
                 "//      substance seems to be consuming nearby trees. It\'s unlike anything you\'ve ever seen\n" +
-                "// 1) Try to reason with to the orange.\n" +
-                "// 2) Sacrifice a rabbit to the orange.\n\n",
+                "// Option (1) Try to reason with to the orange.\n" +
+                "// Option (2) Sacrifice a rabbit to the orange.\n\n",
             "Choice": [{
-                "Food": -3,
+                "Food": 0,
                 "Security": 0,
-                "Population": 1,
+                "Population": 50,
                 "Military": 0,
                 "Science": 0,
                 "Result" : "// As you try to explain the meaning of life to the orange blur, a slight breeze comes in, \n" +
                     "//      and the orange vanishes. You lose 3 pieces of food in the process and are sad boi.\n\n"
             },{
-                "Food": 10,
+                "Food": 15,
                 "Security": 0,
                 "Population": 50,
                 "Military": 0,
@@ -31,10 +31,10 @@ const prompts = {
         "StoneAge2": {
             "Prompt": "// While being bored skipping stones one day, someone discovered that a hard hit to a fish might\n" +
                 "//      stun them long enough to grab and take to the community.\n" +
-                "// 1) Encourage friends to hunt more fish.\n" +
-                "// 2) use this knowledge to hunt other small mammals.\n\n",
+                "// Option (1) Encourage friends to hunt more fish.\n" +
+                "// Option (2) use this knowledge to hunt other small mammals.\n\n",
             "Choice": [{
-                "Food": 5,
+                "Food": 10,
                 "Security": 0,
                 "Population": 100,
                 "Military": 1,
@@ -42,7 +42,7 @@ const prompts = {
                 "Result" : "// You introduce \'fishing\' to your community, and it becomes a sort of sport as well as a \n" +
                     "//      way to get more food. You gain 5 pieces of food and 100 population, yum!\n\n"
             },{
-                "Food": 10,
+                "Food": 12,
                 "Security": 0,
                 "Population": 100,
                 "Military": 1,
@@ -56,10 +56,10 @@ const prompts = {
         "StoneAge3": {
             "Prompt": "// A group of cavemen came to your community to seek shelter. They said that their shelter was\n" +
                 "//      stomped down by a T-rex.\n" +
-                "// 1) Welcome them with food, water and shelter.\n" +
-                "// 2) Cook caveman, yum yum yum.\n\n",
+                "// Option (1) Welcome them with food, water and shelter.\n" +
+                "// Option (2) Cook caveman, yum yum yum.\n\n",
             "Choice": [{
-                "Food": -2,
+                "Food": 0,
                 "Security": 0,
                 "Population": 100,
                 "Military": 30,
@@ -80,8 +80,8 @@ const prompts = {
         },
         "StoneAge4": {
             "Prompt": "// A large Tyrannosaurus stomped into your community and destroyed many dwellings.\n" +
-                "// 1) Fight the T-Rex and try to kill it.\n" +
-                "// 2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
+                "// Option (1) Fight the T-Rex and try to kill it.\n" +
+                "// Option (2) Try to befriend the T-Rex, he looks like a good boy!\n\n",
             "Choice": [{
                 "Food": 10,
                 "Security": 0,
@@ -90,7 +90,7 @@ const prompts = {
                 "Science": 50,
                 "Result" : "// Many of your community members fall in the legendary fight with the T-Rex. \n\n"
             },{
-                "Food": -10,
+                "Food": 1,
                 "Security": 0,
                 "Population": -200,
                 "Military": 50,
@@ -102,10 +102,10 @@ const prompts = {
         },
         "StoneAge5": {
             "Prompt": "// You\'ve spotted a curious creature prowling around, but it seems kinda big.\n" +
-                "// 1) Run up to it and whack it with your club!\n" +
-                "// 2) Maybe best to leave this one alone...\n\n",
+                "// Option (1) Run up to it and whack it with your club!\n" +
+                "// Option (2) Maybe best to leave this one alone...\n\n",
             "Choice": [{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": -50,
                 "Military": -5,
@@ -123,17 +123,17 @@ const prompts = {
         },
         "StoneAge6": {
             "Prompt": "// The temperature drops quickly and the world turns to winter in one night.\n" +
-                "// 1) Stay in the current community for the winter with abundant resources.\n" +
-                "// 2) Abandon the community and move somewhere else warmer.\n\n",
+                "// Option (1) Stay in the current community for the winter with abundant resources.\n" +
+                "// Option (2) Abandon the community and move somewhere else warmer.\n\n",
             "Choice": [{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": 100,
                 "Military": 1,
                 "Science": -1,
                 "Result" : "// Everyone survives, but your food and resources take a heavy hit. \n\n"
             },{
-                "Food": -3,
+                "Food": 1,
                 "Security": 0,
                 "Population": -100,
                 "Military": -1,
@@ -147,8 +147,8 @@ const prompts = {
             "Prompt": "// Metal Age\n" +
                 "// Iron has been discovered! This metal has many different uses, but you should prioritize \n" +
                 "//      one first.\n" +
-                "// 1) Start by making better weapons to defend your community.\n" +
-                "// 2) Start by making farming tools to harvest crops.\n\n",
+                "// Option (1) Start by making better weapons to defend your community.\n" +
+                "// Option (2) Start by making farming tools to harvest crops.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -169,10 +169,10 @@ const prompts = {
         "MetalAge2": {
             "Prompt": "// Some civilization members have discovered the effects of alchemy! Unfortunately, their \n" +
                 "//      experiments are introducing poisonous chemicals into the nearby river.\n" +
-                "//1) Support their studies and let them continue their experiments.\n" +
-                "//2) Put and end to the studies and keep the drinking water clean.\n\n",
+                "// Option (1) Support their studies and let them continue their experiments.\n" +
+                "// Option (2) Put and end to the studies and keep the drinking water clean.\n\n",
             "Choice": [{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": -50,
                 "Military": 1,
@@ -192,8 +192,8 @@ const prompts = {
         "MetalAge3": {
             "Prompt": "// A new king needs to be given control of the throne, but two different people have equal \n" +
                 "//      claim to the throne.\n" +
-                "// 1) Choose the king who will focus on building the strongest nation.\n" +
-                "// 2) Choose the king who will focus on protecting his own people.\n\n",
+                "// Option (1) Choose the king who will focus on building the strongest nation.\n" +
+                "// Option (2) Choose the king who will focus on protecting his own people.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -215,8 +215,8 @@ const prompts = {
             "Prompt": "// Jousting tournaments have started becoming popular and are drawing more people into your \n" +
                 "//      civilization, but all of your good fighting men are focusing on jousting instead of \n" +
                 "//      actual protection!\n" +
-                "// 1) Halt the jousting tournaments until you have enough knights for both.\n" +
-                "// 2) Give full support to jousting and grow your community.\n\n",
+                "// Option (1) Halt the jousting tournaments until you have enough knights for both.\n" +
+                "// Option (2) Give full support to jousting and grow your community.\n\n",
             "Choice": [{
                 "Food": 5,
                 "Security": -1,
@@ -237,8 +237,8 @@ const prompts = {
         "MetalAge5": {
             "Prompt": "// A supposed \'witch\' has revealed herself to your civilization and claims to have the power \n" +
                 "//      to cure any disease.\n" +
-                "// 1) She’s telling the truth - let her cure the sick.\n" +
-                "// 2) She’s full of shit - magic doesn\'t exist.\n\n",
+                "// Option (1) She’s telling the truth - let her cure the sick.\n" +
+                "// Option (2) She’s full of shit - magic doesn\'t exist.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": -1,
@@ -260,8 +260,8 @@ const prompts = {
         },
         "MetalAge6": {
             "Prompt": "// The den of the last dragon alive has been discovered!\n" +
-                "// 1) Send in all of your best knights to kill the dragons before they hurt any more people.\n" +
-                "// 2) Quietly observe the dragons and possibly learn aviation from them.\n\n",
+                "// Option (1) Send in all of your best knights to kill the dragons before they hurt any more people.\n" +
+                "// Option (2) Quietly observe the dragons and possibly learn aviation from them.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -283,8 +283,8 @@ const prompts = {
         "ConqueringAge1": {
             "Prompt": "// Conquering Age\n" +
                 "// A carpenter in our town claims he has the ability to make massive wood structures.\n" +
-                "// 1) Build a ship!\n" +
-                "// 2) Build a wooden statue to praise the goddess of wisdom!\n\n",
+                "// Option (1) Build a ship!\n" +
+                "// Option (2) Build a wooden statue to praise the goddess of wisdom!\n\n",
             "Choice": [{
                 "Food": 5,
                 "Security": 0,
@@ -306,8 +306,8 @@ const prompts = {
         "ConqueringAge2": {
             "Prompt": "// We discovered a kingdom that we never learned about before! Fortunately, they speak the same \n" +
                 "//      language as we do.\n" +
-                "//1) Want to trade?\n" +
-                "//2) To Waarrrrrrr!\n\n",
+                "// Option (1) Want to trade?\n" +
+                "// Option (2) To Waarrrrrrr!\n\n",
             "Choice": [{
                 "Food": 25,
                 "Security": 0,
@@ -316,7 +316,7 @@ const prompts = {
                 "Science": 10,
                 "Result" : "// Wow that went well! We gained new friends and new allies! \n\n"
             },{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
@@ -327,8 +327,8 @@ const prompts = {
         },
         "ConqueringAge3": {
             "Prompt": "// A wacky scientist believes the world is round, how crazy is that?\n" +
-                "// 1) Endorse him just for the heck of it.\n" +
-                "// 2) Kick him out and let another nation deal with him. \n\n",
+                "// Option (1) Endorse him just for the heck of it.\n" +
+                "// Option (2) Kick him out and let another nation deal with him. \n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -350,8 +350,8 @@ const prompts = {
         },
         "ConqueringAge4": {
             "Prompt": "// Our ship is being attacked by a huge toad in the ocean!\n" +
-                "// 1) Finally, a  worthy opponent...\n" +
-                "// 2) Prepare for evacuation!\n\n",
+                "// Option (1) Finally, a  worthy opponent...\n" +
+                "// Option (2) Prepare for evacuation!\n\n",
             "Choice": [{
                 "Food": 15,
                 "Security": 0,
@@ -361,7 +361,7 @@ const prompts = {
                 "Result" : "// The ocean toad smashed a chunk of your city in this legendary battle. Now you have \n" +
                     "//      toad meat.  \n\n"
             },{
-                "Food": -3,
+                "Food": 1,
                 "Security": 0,
                 "Population": -50,
                 "Military": 10,
@@ -373,8 +373,8 @@ const prompts = {
         },
         "ConqueringAge5": {
             "Prompt": "// During an experiment, we found that whale oil is an extremely valuable resource.\n" +
-                "// 1) Start catching more whales, and use whale oil to power the whole city.\n" +
-                "// 2) Nope, we don\'t want whale oil punks here. Eat whales, but throw away the oil.\n\n",
+                "// Option (1) Start catching more whales, and use whale oil to power the whole city.\n" +
+                "// Option (2) Nope, we don\'t want whale oil punks here. Eat whales, but throw away the oil.\n\n",
             "Choice": [{
                 "Food": 5,
                 "Security": 0,
@@ -395,17 +395,17 @@ const prompts = {
         },
         "ConqueringAge6": {
             "Prompt": "// A trade ship was spotted by a nearby pirate ship, and the pirate ship begins to advance! \n" +
-                "// 1) Have the trade ship fire their cannons immediately! Prepare for attack! \n" +
-                "// 2) Have the trade ship attempt to outrun the pirates. Make haste! \n\n",
+                "// Option (1) Have the trade ship fire their cannons immediately! Prepare for attack! \n" +
+                "// Option (2) Have the trade ship attempt to outrun the pirates. Make haste! \n\n",
             "Choice": [{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": -100,
                 "Military": -20,
                 "Science": 1,
                 "Result" : "// The pirates were defeated with help from the local navy, but some lives and goods were lost.\n\n"
             },{
-                "Food": -10,
+                "Food": 1,
                 "Security": 0,
                 "Population": -150,
                 "Military": -1,
@@ -417,8 +417,8 @@ const prompts = {
         "IndustrialAge1": {
             "Prompt": "// Industrial Age\n" +
                 "// Nuclear fission has been discovered. \n" +
-                "// 1) Endorse nuclear technology development.\n" +
-                "// 2) Seems a little risky, keep on using coal and electricity. \n\n",
+                "// Option (1) Endorse nuclear technology development.\n" +
+                "// Option (2) Seems a little risky, keep on using coal and electricity. \n\n",
             "Choice": [{
                 "Food": 5,
                 "Security": 0,
@@ -438,8 +438,8 @@ const prompts = {
         },
         "IndustrialAge2": {
             "Prompt": "// The age of information is upon us, unfortunately with it comes misinformation.\n" +
-                "// 1) Encourage ~the karens~ and conveniently forget what vaccinations do.\n" +
-                "// 2) Encourage ~flat earthers~ and provide them with *definitely credible* fudged data.\n\n",
+                "// Option (1) Encourage ~the karens~ and conveniently forget what vaccinations do.\n" +
+                "// Option (2) Encourage ~flat earthers~ and provide them with *definitely credible* fudged data.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -460,9 +460,9 @@ const prompts = {
         "IndustrialAge3": {
         "Prompt": "// The date is September 20th, 2019. Humanity is eager to learn military secrets, with high \n" +
             "//      hopes to reveal inter-galactic beings to the public. \n" +
-            "// 1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive \n" +
+            "// Option (1) Military secrets should never be revealed. Anonymously tip them that the raid will be aggressive \n" +
             "//      and violent. \n" +
-            "// 2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
+            "// Option (2) This is a democracy! What the people want is what the people get! Encourage the raider\'s \n" +
             "//      influence and get more to join the cause.\n\n",
         "Choice": [{
             "Food": 1,
@@ -484,8 +484,8 @@ const prompts = {
     },
     "IndustrialAge4": {
         "Prompt": "// Submarines unlock a vast oceanic world underneath miles of water.\n" +
-            "// 1) Research alien-like ocean fishies.\n" +
-            "// 2) Research underwater living spaces to sell to the uber rich. \n\n",
+            "// Option (1) Research alien-like ocean fishies.\n" +
+            "// Option (2) Research underwater living spaces to sell to the uber rich. \n\n",
         "Choice": [{
             "Food": 10,
             "Security": 0,
@@ -505,8 +505,8 @@ const prompts = {
     },
     "IndustrialAge5": {
         "Prompt": "// A doctor has discovered the secret to cyber implants!\n" +
-            "// 1) Waeponize the tech.\n" +
-            "// 2) Open source! Open source! \n\n",
+            "// Option (1) Waeponize the tech.\n" +
+            "// Option (2) Open source! Open source! \n\n",
         "Choice": [{
             "Food": 1,
             "Security": 0,
@@ -526,8 +526,8 @@ const prompts = {
     },
     "IndustrialAge6": {
         "Prompt": "// Mass-producing food becomes a potential option to satisfy the ever-increasing demand.\n" +
-            "// 1) Support mass-production of food, we need to feed some hungry mouths!.\n" +
-            "// 2) Support organic food and local farms, none of that GMO crap. \n\n",
+            "// Option (1) Support mass-production of food, we need to feed some hungry mouths!.\n" +
+            "// Option (2) Support organic food and local farms, none of that GMO crap. \n\n",
         "Choice": [{
             "Food": 15,
             "Security": 0,
@@ -548,8 +548,8 @@ const prompts = {
         "SpaceAge1": {
             "Prompt": "// Space Age\n" +
                 "// Scientists have confirmed that humans can survive by living on Mars!\n" +
-                "// 1) Send a group of people over to have them start a new community there.\n" +
-                "// 2) Don\'t risk losing anyone out in space.\n\n",
+                "// Option (1) Send a group of people over to have them start a new community there.\n" +
+                "// Option (2) Don\'t risk losing anyone out in space.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -569,8 +569,8 @@ const prompts = {
         },
         "SpaceAge2": {
             "Prompt": "// Enough research has been done to make fully autonomous robots!\n" +
-                "// 1) Make the robots and start a new \'species.\'\n" +
-                "// 2) Don\'t risk the robots turning against humanity.\n\n",
+                "// Option (1) Make the robots and start a new \'species.\'\n" +
+                "// Option (2) Don\'t risk the robots turning against humanity.\n\n",
             "Choice": [{
                 "Food": 0,
                 "Security": -1,
@@ -591,8 +591,8 @@ const prompts = {
         },
         "SpaceAge3": {
             "Prompt": "// A group of brave scientists want to go down to the Earth\'s core and use it as an energy source.\n" +
-                "// 1) They\'re crazy with power and not acting very smart - don\'t let them go.\n" +
-                "// 2) Support the expedition, I HAVE THE POWERRRRR!\n\n",
+                "// Option (1) They\'re crazy with power and not acting very smart - don\'t let them go.\n" +
+                "// Option (2) Support the expedition, I HAVE THE POWERRRRR!\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -613,8 +613,8 @@ const prompts = {
         },
         "SpaceAge4": {
             "Prompt": "// The first spaceship to travel at light speed has been invented!\n" +
-                "// 1) Get your best astronauts on that ship and let them explore the great beyond!\n" +
-                "// 2) The technology is too dangerous, don\'t launch the expedition without knowing what\'s out there.\n\n",
+                "// Option (1) Get your best astronauts on that ship and let them explore the great beyond!\n" +
+                "// Option (2) The technology is too dangerous, don\'t launch the expedition without knowing what\'s out there.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": 0,
@@ -636,8 +636,8 @@ const prompts = {
         },
         "SpaceAge5": {
             "Prompt": "// You receive a strange alien transmission, and you can\'t understand it. \n" +
-                "// 1) Recruit your top scientists to decode the message.\n" +
-                "// 2) Ignore the message, it\'s nothing important.\n\n",
+                "// Option (1) Recruit your top scientists to decode the message.\n" +
+                "// Option (2) Ignore the message, it\'s nothing important.\n\n",
             "Choice": [{
                 "Food": 1,
                 "Security": -1,
@@ -658,8 +658,8 @@ const prompts = {
         },
         "SpaceAge6": {
             "Prompt": "// Alien UFOs have appeared in the sky! The aliens communicate and offer to help your people.\n" +
-                "// 1) Trust the aliens and accept their peace.\n" +
-                "// 2) Immediately destroy the alien saucers; they pose a major threat.\n\n",
+                "// Option (1) Trust the aliens and accept their peace.\n" +
+                "// Option (2) Immediately destroy the alien saucers; they pose a major threat.\n\n",
             "Choice": [{
                 "Food": 10,
                 "Security": 0,
@@ -668,7 +668,7 @@ const prompts = {
                 "Science": 45,
                 "Result" : "// Woo fancy space tech! We can learn so much! \n\n"
             },{
-                "Food": -5,
+                "Food": 1,
                 "Security": 0,
                 "Population": -900,
                 "Military": -50,
