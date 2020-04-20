@@ -56,7 +56,7 @@ let FunctionManager = (function () {
                     numChoices += 1;
                 }
 
-                if(numChoices % 3 === 0) {
+                if(numChoices % 3 === 0 && !(dm.getValue("Security") === 5)) {
                     appendText(commandPrompt, "// You can now upgrade your security another level!\n\n", "color: #478ee6");
                     numTimesCanSecure += 1;
                 }
