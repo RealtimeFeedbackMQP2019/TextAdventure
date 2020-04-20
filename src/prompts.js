@@ -182,7 +182,7 @@ const prompts = {
                 "Food": 1,
                 "Security": 0,
                 "Population": 100,
-                "Military": 45,
+                "Military": 40,
                 "Science": 20,
                 "Result" : "// Strength in military will lead our kingdom to greatness! \n\n\n"
             },{
