@@ -7,6 +7,15 @@ const manual = {
     "automate": "// Usage: automate(function(){}) Automate an anonymous function to run with each game update, if the conditions are met."
 };
 
+const stats = {
+    "Hunger": "You need to eat to survive. When hunger drops to 0, the game ends.",
+    "Food": "The food for you to eat.",
+    "Security": "Security decreases the chance of an AI making a decision you don't want to make.",
+    "Population": "When population drop to 0, your hunger drops faster.",
+    "Military": "When military drop to 0, your population drops faster.",
+    "Science": "When science drop to 0, your population drop faster."
+};
+
 let FunctionManager = (function () {
     let instance;
 
@@ -210,6 +219,7 @@ let FunctionManager = (function () {
                 for(let x of LIST_OF_VALS){
                     appendText(commandPrompt, "\n//" + x + ": ", "color:" + DataManager.getInstance().getValue(x).getColor());
                     appendWidget(_appendIcon(x));
+                    appendText(commandPrompt, stats[x], "color:" + DataManager.getInstance().getValue(x).getColor());
                 }
                 appendText(commandPrompt, "\n\n>");
 
