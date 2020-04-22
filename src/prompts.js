@@ -285,7 +285,7 @@ const prompts = {
                 "// Option (1) Want to trade?\n" +
                 "// Option (2) To Waarrrrrrr!\n\n",
             "Choice": [{
-                "Food": 25,
+                "Food": 15,
                 "Security": 0,
                 "Population": 200,
                 "Military": 20,
@@ -327,7 +327,7 @@ const prompts = {
                 "// Option (1) Finally, a  worthy opponent...\n" +
                 "// Option (2) Prepare for evacuation!\n\n",
             "Choice": [{
-                "Food": 15,
+                "Food": 10,
                 "Security": 0,
                 "Population": -50,
                 "Military": 5,

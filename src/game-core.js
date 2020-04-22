@@ -120,7 +120,7 @@ function init(){
     introTimers.push(introTimer3);
     let introTimer4 = setTimeout(appendText, 15000, commandPrompt, "\n// Hope you had a nice nap, a lot has happened since you got here.");
     introTimers.push(introTimer4);
-    let introTimer5 = setTimeout(appendText, 17000, commandPrompt, "\n// You must be wondering what's going on. You poor soul, you have no idea, do you?.");
+    let introTimer5 = setTimeout(appendText, 17000, commandPrompt, "\n// You must be wondering what's going on. You poor soul, you have no idea, do you?");
     introTimers.push(introTimer5);
     let introTimer6 = setTimeout(appendText, 20000, commandPrompt, "\n\n// You were messing around with time travel and got us both sent back to the Stone Age!");
     introTimers.push(introTimer6);
