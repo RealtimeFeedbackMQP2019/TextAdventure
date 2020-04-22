@@ -43,6 +43,7 @@ let autoIntroduced;
 let autoStartLineNum;
 let introAutoStartLineNum;
 let pauseChooseVal;
+let validAuto;
 
 let introTimers = [];
 
@@ -198,6 +199,7 @@ function startGame(){
     autoStartLineNum = 0;
     introAutoStartLineNum = 0;
     pauseChooseVal = 0;
+    validAuto = false;
 
     let d = new Date;
     startTime = d.getTime();
@@ -318,7 +320,10 @@ function matchCommand(inputString){
         with (FunctionManager.getInstance()) {
             // Special case for automation - first line
             if (inputString.includes("automate")) {
-                if (currNumAutomation >= maxAutomation) {
+                if(!autoIntroduced) {
+                    appendText(commandPrompt, "\n\n// Haha not breaking the game this way!\n\n", "color: #FFFF00");
+                    appendText(commandPrompt, ">");
+                } else if (currNumAutomation >= maxAutomation) {
                     appendText(commandPrompt, "\n\n// Sorry! You've used up all " + maxAutomation + " of your automated functions!\n\n", "color: #FFFF00");
                     appendText(commandPrompt, ">");
                 } else {
@@ -513,8 +518,6 @@ function parseAutomation(inputString, cm) {
         appendText(commandPrompt, ">");
     } else if(beginningBraceCount === endingBraceCount && beginningParCount === endingParCount) {
 
-        // Switch back to main game
-        switchToMain();
         try{
             with(FunctionManager.getInstance()) {
                 currNumAutomation += 1;
@@ -524,6 +527,7 @@ function parseAutomation(inputString, cm) {
                 console.log(FunctionManager.getInstance().getCurrAutoIndex());
                 // console.log(FunctionManager.getInstance().getAutomationFunctions());
                 eval(codeString.substring(1));
+                //validAuto = true;
             }
         }
         catch(err) {
@@ -534,6 +538,8 @@ function parseAutomation(inputString, cm) {
             FunctionManager.getInstance().setAutomationFunction(currNumAutomation.toString(), emptyFunc);
             currNumAutomation -= 1;
         }
+        // Switch back to main game - if set to true, add congrats text
+        switchToMain();
         appendText(commandPrompt, "\n\n>");
     }  else {
         commandPrompt.replaceSelection("\n", "end");
@@ -707,6 +713,7 @@ function updateAutomation(){
         }
         catch(err) {
             if(autoError) {
+                validAuto = false;
                 //appendText(commandPrompt, "\n" + err + "\n>", "color: #FFFF00");
                 //automationCode[key] = [];
                 //automateLineNums[key] = [];
@@ -716,6 +723,12 @@ function updateAutomation(){
                 autoError = false;
             }
         }
+
+        // // Add text for valid automation
+        // if(validAuto) {
+        //     appendText(commandPrompt, "\n// Congrats! You're automated function is running correctly!\n\n>");
+        //     validAuto = false;
+        // }
     }
 }
 
