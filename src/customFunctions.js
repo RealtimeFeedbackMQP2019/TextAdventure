@@ -142,13 +142,24 @@ let FunctionManager = (function () {
             man(funName){
                 manCount +=1;
                 if(!funName) {
-                    if(!autoIntroduced){
-                        appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
-                            "\n// choose(id): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend + "\n\n>");
-                    } else {
-                        appendText(commandPrompt, "\n\n// secure(): " + manual.secure + "\n// eat(): " + manual.eat +
-                            "\n// choose(id): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend +
-                            "// automate(): " + "\n\n>");
+                    appendText(commandPrompt, "\n\n// secure(): Increase ");
+                    appendText(commandPrompt, "security ", "color:" + DataManager.getInstance().getValue("Security").getColor());
+                    appendWidget(_appendIcon("Security"));
+                    appendText(commandPrompt, " by a level. The max security is level 5.");
+
+                    appendText(commandPrompt, "\n\n// eat(): Decrease ");
+                    appendText(commandPrompt, "food ", "color:" + DataManager.getInstance().getValue("Food").getColor());
+                    appendWidget(_appendIcon("Food"));
+                    appendText(commandPrompt, " by 1, but also increase ");
+                    appendText(commandPrompt, "hunger ", "color:" + DataManager.getInstance().getValue("Hunger").getColor());
+                    appendWidget(_appendIcon("Hunger"));
+                    appendText(commandPrompt, " by a small amount.");
+                    appendText(commandPrompt, "\n\n// choose(id): " + manual.choose + "\n// man(): " + manual.man + "\n// legend(): " + manual.legend);
+                    if(autoIntroduced){
+                        appendText(commandPrompt, "\n\n// automate(): " + manual.automate + "\n\n>");
+                    }
+                    else{
+                        appendText(commandPrompt, "\n\n>");
                     }
                 } else {
                     let str = funName.name;
