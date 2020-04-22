@@ -139,6 +139,12 @@ let FunctionManager = (function () {
             choose(val){
                 _choose(val);
             },
+            chose(val){
+                _choose(val);
+            },
+            option(val){
+                _choose(val);
+            },
             man(funName){
                 manCount +=1;
                 if(!funName) {
@@ -156,7 +162,13 @@ let FunctionManager = (function () {
                     if(!autoIntroduced && str.includes("automate")){
                         appendText(commandPrompt, "\n>");
                     } else {
-                        appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
+                        if(str == "option"){
+                            appendText(commandPrompt, "\n\n" + manual.choose + "\n\n>");
+                        }
+                        else {
+                            appendText(commandPrompt, "\n\n" + manual[str] + "\n\n>");
+                        }
+                        
                     }
                 }
             },
