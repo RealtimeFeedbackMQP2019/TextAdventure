@@ -10,7 +10,9 @@ class dbWriter{
     }
     redirect(){
         //redirect to form
-        let url = "https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+"test"+this.id;
+        //let url = "https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+"test"+this.id;
+        //redirect to play again
+        let url = "https://realtimefeedbackmqp2019.github.io/TextAdventure/";
         return url;
     }
 
