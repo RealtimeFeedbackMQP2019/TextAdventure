@@ -29,7 +29,7 @@ class dbWriter{
         var updates = {};
 
         console.log("firebase store info confirmed");
-        updates["/playSession/"+this.generateUUID()] = data;
+        updates["/playSession/"+"SHOWCASE"+this.generateUUID()] = data;
 
         //redirect to form
         //window.location.replace("https://docs.google.com/forms/d/e/1FAIpQLSf5Vij35ngAQEB9v515EUfsZcnttgj8xXISTXHjMze_svkwmQ/viewform?usp=pp_url&entry.1984585336="+this.id);

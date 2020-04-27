@@ -575,7 +575,7 @@ function writeResults(){
     thingToWrite.writePerSession(ageList,manCount,aiCount);
     
     //redirect to survey
-    window.location.href = thingToWrite.redirect();
+    //window.location.href = thingToWrite.redirect();
 
 }
 
